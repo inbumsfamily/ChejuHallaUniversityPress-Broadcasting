@@ -26,7 +26,7 @@ async function loadLatestArticles() {
     if (response.data.articles && response.data.articles.length > 0) {
       // Create video player for the first position (spans 2 columns)
       const videoPlayerHtml = `
-        <div class="col-span-2 bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+        <div class="col-span-2 bg-black border border-gray-800 overflow-hidden hover:border-white transition-all duration-300">
           <div class="relative" style="padding-bottom: 56.25%;">
             <iframe 
               class="absolute inset-0 w-full h-full"
@@ -38,15 +38,15 @@ async function loadLatestArticles() {
             </iframe>
           </div>
           <div class="p-4">
-            <span class="text-xs text-blue-600 font-semibold uppercase tracking-wide">한라인터뷰</span>
-            <h3 class="text-lg font-bold mt-2 mb-2 text-gray-800">
-              제주한라대학교 신문방송사 인터뷰 영상
+            <span class="text-xs text-white font-bold uppercase tracking-widest opacity-60">INTERVIEW</span>
+            <h3 class="text-2xl font-black mt-2 mb-2 text-white uppercase">
+              CHU MEDIA EXCLUSIVE
             </h3>
-            <p class="text-gray-600 mt-2">
-              제주한라대학교 구성원들과 함께하는 특별한 인터뷰를 만나보세요. 학생, 교수, 직원들의 생생한 이야기를 전달합니다.
+            <p class="text-gray-400 mt-2 text-sm leading-relaxed">
+              Discover exclusive interviews with Cheju Halla University members. Real stories from students, professors, and staff.
             </p>
-            <button class="text-blue-600 hover:text-blue-700 mt-3 inline-block font-semibold transition-colors" onclick="window.location.href='/halla-interview'">
-              더 많은 인터뷰 보기 →
+            <button class="text-white hover:text-blue-400 mt-4 inline-block font-bold uppercase text-sm tracking-wider transition-colors border-b-2 border-transparent hover:border-blue-400 pb-1" onclick="window.location.href='/halla-interview'">
+              VIEW MORE
             </button>
           </div>
         </div>
@@ -54,29 +54,25 @@ async function loadLatestArticles() {
       
       // Create regular article cards for the rest (starting from first article)
       const articleCards = response.data.articles.map((article, index) => `
-        <article class="bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer transform hover:-translate-y-1" onclick="window.location.href='/article/${article.slug}'">
-          ${article.featured_image_url ? `
-            <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-48 object-cover">
-          ` : `
-            <div class="w-full h-48 bg-gray-100 flex items-center justify-center relative overflow-hidden">
-              <img src="https://picsum.photos/400/300?random=${index + Date.now()}" alt="${article.title}" class="w-full h-full object-cover">
-            </div>
-          `}
-          <div class="p-4">
-            <span class="text-xs text-blue-600 font-semibold uppercase tracking-wide">${article.category_name || '일반'}</span>
-            <h3 class="text-lg font-bold mt-2 mb-2 line-clamp-2 text-gray-800 hover:text-blue-600 transition-colors">
+        <article class="bg-black border border-gray-800 overflow-hidden hover:border-white transition-all duration-300 cursor-pointer group" onclick="window.location.href='/article/${article.slug}'">
+          <div class="relative overflow-hidden h-48">
+            ${article.featured_image_url ? `
+              <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500">
+            ` : `
+              <img src="https://picsum.photos/400/300?random=${index + Date.now()}" alt="${article.title}" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500">
+            `}
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
+          </div>
+          <div class="p-6">
+            <span class="text-xs text-white font-bold uppercase tracking-widest opacity-60">${article.category_name || 'GENERAL'}</span>
+            <h3 class="text-xl font-bold mt-3 mb-2 line-clamp-2 text-white group-hover:text-blue-400 transition-colors">
               ${article.title}
             </h3>
-            <div class="flex items-center text-sm text-gray-500">
-              <i class="fas fa-user mr-1 text-gray-400"></i>
-              <span class="mr-3">${article.author_name}</span>
-              <i class="fas fa-eye mr-1 text-gray-400"></i>
-              <span>${article.view_count}</span>
+            <div class="flex items-center text-xs text-gray-500 uppercase tracking-wider">
+              <span class="mr-4">${article.author_name}</span>
+              <span>${article.view_count} VIEWS</span>
             </div>
-            <p class="text-gray-600 mt-2 line-clamp-3">${stripHtml(article.content)}</p>
-            <button class="text-blue-600 hover:text-blue-700 mt-3 inline-block font-semibold transition-colors" onclick="event.stopPropagation(); window.location.href='/article/${article.slug}'">
-              자세히 보기 →
-            </button>
+            <p class="text-gray-400 mt-3 line-clamp-3 text-sm leading-relaxed">${stripHtml(article.content)}</p>
           </div>
         </article>
       `).join('');
@@ -104,29 +100,25 @@ async function loadNewspaperArticles() {
     
     if (response.data.articles && response.data.articles.length > 0) {
       newspaperSection.innerHTML = response.data.articles.map((article, index) => `
-        <article class="bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer transform hover:-translate-y-1" onclick="window.location.href='/article/${article.slug}'">
-          ${article.featured_image_url ? `
-            <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-48 object-cover">
-          ` : `
-            <div class="w-full h-48 bg-gray-100 flex items-center justify-center relative overflow-hidden">
-              <img src="https://picsum.photos/400/300?random=${index + 100 + Date.now()}" alt="${article.title}" class="w-full h-full object-cover">
-            </div>
-          `}
-          <div class="p-4">
-            <span class="text-xs text-blue-600 font-semibold uppercase tracking-wide">${article.category_name || '신문사'}</span>
-            <h3 class="text-lg font-bold mt-2 mb-2 line-clamp-2 text-gray-800 hover:text-blue-600 transition-colors">
+        <article class="bg-black border border-gray-800 overflow-hidden hover:border-white transition-all duration-300 cursor-pointer group" onclick="window.location.href='/article/${article.slug}'">
+          <div class="relative overflow-hidden h-48">
+            ${article.featured_image_url ? `
+              <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500">
+            ` : `
+              <img src="https://picsum.photos/400/300?random=${index + 100 + Date.now()}" alt="${article.title}" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500">
+            `}
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
+          </div>
+          <div class="p-6">
+            <span class="text-xs text-white font-bold uppercase tracking-widest opacity-60">${article.category_name || 'NEWS'}</span>
+            <h3 class="text-xl font-bold mt-3 mb-2 line-clamp-2 text-white group-hover:text-blue-400 transition-colors">
               ${article.title}
             </h3>
-            <div class="flex items-center text-sm text-gray-500">
-              <i class="fas fa-user mr-1 text-gray-400"></i>
-              <span class="mr-3">${article.author_name}</span>
-              <i class="fas fa-eye mr-1 text-gray-400"></i>
-              <span>${article.view_count}</span>
+            <div class="flex items-center text-xs text-gray-500 uppercase tracking-wider">
+              <span class="mr-4">${article.author_name}</span>
+              <span>${article.view_count} VIEWS</span>
             </div>
-            <p class="text-gray-600 mt-2 line-clamp-3">${stripHtml(article.content)}</p>
-            <button class="text-blue-600 hover:text-blue-700 mt-3 inline-block font-semibold transition-colors" onclick="event.stopPropagation(); window.location.href='/article/${article.slug}'">
-              자세히 보기 →
-            </button>
+            <p class="text-gray-400 mt-3 line-clamp-3 text-sm leading-relaxed">${stripHtml(article.content)}</p>
           </div>
         </article>
       `).join('');

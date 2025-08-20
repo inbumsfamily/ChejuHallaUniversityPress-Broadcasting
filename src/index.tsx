@@ -52,14 +52,14 @@ app.get('/', (c) => {
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
         <link href="/static/styles.css" rel="stylesheet">
     </head>
-    <body class="min-h-screen relative">
+    <body class="min-h-screen bg-black text-white">
         <div id="app">
             ${HeaderComponent()}
 
-            <!-- Hero Section with Image Slider -->
-            <section class="relative bg-gray-900 overflow-hidden">
+            <!-- Hero Section - Bold Modern Style -->
+            <section class="relative bg-black overflow-hidden border-b border-gray-900">
                 <!-- Slider Container -->
-                <div id="heroSlider" class="relative h-[500px] lg:h-[600px]">
+                <div id="heroSlider" class="relative h-[70vh] lg:h-[80vh]">
                     <!-- Slides Container -->
                     <div id="slidesContainer" class="relative h-full">
                         <!-- Slides will be dynamically loaded here -->
@@ -308,7 +308,7 @@ app.get('/', (c) => {
                 <!-- 방송국 섹션 -->
                 <section id="broadcast" class="mb-16 p-6 bg-white rounded-lg border border-gray-200 shadow-sm">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-3xl font-bold text-gray-800">
+                        <h3 class="text-5xl font-black text-white uppercase tracking-tight">
                             <i class="fas fa-video mr-2 text-red-600"></i>
                             방송국
                         </h3>
@@ -326,7 +326,7 @@ app.get('/', (c) => {
                 <!-- 신문사 섹션 -->
                 <section id="newspaper" class="mb-16 p-6 bg-white rounded-lg border border-gray-200 shadow-sm">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-3xl font-bold text-gray-800">
+                        <h3 class="text-5xl font-black text-white uppercase tracking-tight">
                             <i class="fas fa-newspaper mr-2 text-blue-600"></i>
                             신문사
                         </h3>
@@ -340,7 +340,7 @@ app.get('/', (c) => {
                 <!-- 기획보도 섹션 -->
                 <section id="special" class="mb-16">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-3xl font-bold text-gray-800">
+                        <h3 class="text-5xl font-black text-white uppercase tracking-tight">
                             <i class="fas fa-star mr-2 text-yellow-500"></i>
                             기획보도
                         </h3>
@@ -472,7 +472,7 @@ app.get('/', (c) => {
                 <!-- 캠퍼스 라이프 섹션 -->
                 <section id="campus" class="mb-16">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-3xl font-bold text-gray-800">
+                        <h3 class="text-5xl font-black text-white uppercase tracking-tight">
                             <i class="fas fa-graduation-cap mr-2 text-green-600"></i>
                             캠퍼스 라이프
                         </h3>
