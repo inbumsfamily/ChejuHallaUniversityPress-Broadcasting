@@ -17,11 +17,12 @@
 
 /* Global Background */
 body {
-  background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 50%, #1a1a1a 100%);
+  background: #1a1a1a;
   min-height: 100vh;
   position: relative;
 }
 
+/* School background image with overlay */
 body::before {
   content: '';
   position: fixed;
@@ -29,16 +30,31 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 10px,
-      rgba(255, 255, 255, 0.01) 10px,
-      rgba(255, 255, 255, 0.01) 20px
-    );
+  background-image: url('/static/images/school-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  opacity: 0.2; /* 80% transparent, 20% visible */
+  z-index: -1;
   pointer-events: none;
-  z-index: 0;
+}
+
+/* Dark gradient overlay for better readability */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(26, 26, 26, 0.95) 0%, 
+    rgba(31, 31, 31, 0.9) 50%, 
+    rgba(26, 26, 26, 0.95) 100%
+  );
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* Utility classes */

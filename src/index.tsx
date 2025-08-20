@@ -52,7 +52,7 @@ app.get('/', (c) => {
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
         <link href="/static/styles.css" rel="stylesheet">
     </head>
-    <body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen">
+    <body class="min-h-screen relative">
         <div id="app">
             ${HeaderComponent()}
 
@@ -280,7 +280,7 @@ app.get('/', (c) => {
             </script>
 
             <!-- Main Content -->
-            <main class="container mx-auto px-4 py-12">
+            <main class="container mx-auto px-4 py-12 relative z-10">
                 <!-- 최신 기사 섹션 -->
                 <section id="latest" class="mb-16">
                     <div class="flex justify-between items-center mb-6">
