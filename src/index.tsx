@@ -280,13 +280,13 @@ app.get('/', (c) => {
             </script>
 
             <!-- Main Content -->
-            <main class="container mx-auto px-4 py-12 relative z-10">
-                <!-- 최신 기사 섹션 -->
-                <section id="latest" class="mb-16 p-6 bg-white rounded-lg border border-gray-200 shadow-sm relative overflow-hidden">
-                    <!-- Background image with 10% opacity -->
+            <main class="relative z-10">
+                <!-- 최신 기사 섹션 - Full Width Background -->
+                <section id="latest" class="relative overflow-hidden bg-white mb-16">
+                    <!-- Background image with 10% opacity - Full Width -->
                     <div class="absolute inset-0 pointer-events-none" style="background-image: url('https://page.gensparksite.com/v1/base64_upload/195e3f7647f93363aacf21e386f5feea'); background-size: cover; background-position: center; opacity: 0.1; z-index: 0;"></div>
                     
-                    <div class="relative z-10">
+                    <div class="relative z-10 container mx-auto px-4 py-12">
                         <div class="flex justify-between items-center mb-6">
                             <h3 class="text-3xl font-bold text-gray-800">
                                 <i class="fas fa-fire mr-2 text-red-500"></i>
@@ -303,6 +303,9 @@ app.get('/', (c) => {
                         </div>
                     </div>
                 </section>
+                
+                <!-- Container for other sections -->
+                <div class="container mx-auto px-4">
                 <!-- 방송국 섹션 -->
                 <section id="broadcast" class="mb-16 p-6 bg-white rounded-lg border border-gray-200 shadow-sm">
                     <div class="flex justify-between items-center mb-6">
@@ -470,7 +473,7 @@ app.get('/', (c) => {
                 <!-- 캠퍼스 라이프 섹션 -->
                 <section id="campus" class="mb-16">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-3xl font-bold text-white drop-shadow-lg">
+                        <h3 class="text-3xl font-bold text-gray-800">
                             <i class="fas fa-graduation-cap mr-2 text-green-600"></i>
                             캠퍼스 라이프
                         </h3>
@@ -545,6 +548,7 @@ app.get('/', (c) => {
                         </div>
                     </div>
                 </section>
+                </div><!-- End container for other sections -->
             </main>
 
             <!-- Footer -->
