@@ -1,5 +1,46 @@
 /* Custom styles for Jeju Halla News */
 
+/* Color Scheme Variables */
+:root {
+  --primary-red: #c41230;
+  --primary-dark: #1a1a1a;
+  --primary-gold: #d4af37;
+  --bg-gradient-start: #2a2a2a;
+  --bg-gradient-end: #1a1a1a;
+  --card-bg: rgba(30, 30, 30, 0.95);
+  --text-light: #e8e8e8;
+  --text-muted: #b0b0b0;
+  --border-dark: #3a3a3a;
+  --accent-green: #2ecc71;
+  --accent-blue: #3498db;
+}
+
+/* Global Background */
+body {
+  background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 50%, #1a1a1a 100%);
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(255, 255, 255, 0.01) 10px,
+      rgba(255, 255, 255, 0.01) 20px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* Utility classes */
 .line-clamp-2 {
   display: -webkit-box;

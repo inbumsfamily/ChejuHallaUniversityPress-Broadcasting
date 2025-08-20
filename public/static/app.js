@@ -24,28 +24,29 @@ async function loadLatestArticles() {
     if (!articlesSection) return;
     
     if (response.data.articles && response.data.articles.length > 0) {
-      articlesSection.innerHTML = response.data.articles.map(article => `
-        <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer" onclick="window.location.href='/article/${article.slug}'">
+      articlesSection.innerHTML = response.data.articles.map((article, index) => `
+        <article class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer border border-gray-700 hover:border-red-600 transform hover:-translate-y-1" onclick="window.location.href='/article/${article.slug}'">
           ${article.featured_image_url ? `
             <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-48 object-cover">
           ` : `
-            <div class="w-full h-48 bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center">
-              <i class="fas fa-newspaper text-white text-4xl"></i>
+            <div class="w-full h-48 bg-gradient-to-r from-gray-700 to-gray-800 flex items-center justify-center relative overflow-hidden">
+              <img src="https://picsum.photos/400/300?random=${index + Date.now()}" alt="${article.title}" class="w-full h-full object-cover opacity-80">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
             </div>
           `}
           <div class="p-4">
-            <span class="text-xs text-blue-600 font-semibold">${article.category_name || '일반'}</span>
-            <h3 class="text-lg font-bold mt-2 mb-2 line-clamp-2 text-gray-800 hover:text-blue-600">
+            <span class="text-xs text-red-400 font-semibold uppercase tracking-wide">${article.category_name || '일반'}</span>
+            <h3 class="text-lg font-bold mt-2 mb-2 line-clamp-2 text-gray-100 hover:text-red-400 transition-colors">
               ${article.title}
             </h3>
-            <div class="flex items-center text-sm text-gray-500">
-              <i class="fas fa-user mr-1"></i>
+            <div class="flex items-center text-sm text-gray-400">
+              <i class="fas fa-user mr-1 text-red-500"></i>
               <span class="mr-3">${article.author_name}</span>
-              <i class="fas fa-eye mr-1"></i>
+              <i class="fas fa-eye mr-1 text-red-500"></i>
               <span>${article.view_count}</span>
             </div>
-            <p class="text-gray-600 mt-2 line-clamp-3">${stripHtml(article.content)}</p>
-            <button class="text-blue-600 hover:text-blue-800 mt-3 inline-block font-semibold" onclick="event.stopPropagation(); window.location.href='/article/${article.slug}'">
+            <p class="text-gray-300 mt-2 line-clamp-3">${stripHtml(article.content)}</p>
+            <button class="text-red-400 hover:text-red-500 mt-3 inline-block font-semibold transition-colors" onclick="event.stopPropagation(); window.location.href='/article/${article.slug}'">
               자세히 보기 →
             </button>
           </div>
@@ -71,28 +72,29 @@ async function loadNewspaperArticles() {
     const newspaperSection = document.getElementById('newspaperArticles');
     
     if (response.data.articles && response.data.articles.length > 0) {
-      newspaperSection.innerHTML = response.data.articles.map(article => `
-        <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer" onclick="window.location.href='/article/${article.slug}'">
+      newspaperSection.innerHTML = response.data.articles.map((article, index) => `
+        <article class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer border border-gray-700 hover:border-red-600 transform hover:-translate-y-1" onclick="window.location.href='/article/${article.slug}'">
           ${article.featured_image_url ? `
             <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-48 object-cover">
           ` : `
-            <div class="w-full h-48 bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center">
-              <i class="fas fa-newspaper text-white text-4xl"></i>
+            <div class="w-full h-48 bg-gradient-to-r from-gray-700 to-gray-800 flex items-center justify-center relative overflow-hidden">
+              <img src="https://picsum.photos/400/300?random=${index + 100 + Date.now()}" alt="${article.title}" class="w-full h-full object-cover opacity-80">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
             </div>
           `}
           <div class="p-4">
-            <span class="text-xs text-blue-600 font-semibold">${article.category_name || '신문사'}</span>
-            <h3 class="text-lg font-bold mt-2 mb-2 line-clamp-2 text-gray-800 hover:text-blue-600">
+            <span class="text-xs text-red-400 font-semibold uppercase tracking-wide">${article.category_name || '신문사'}</span>
+            <h3 class="text-lg font-bold mt-2 mb-2 line-clamp-2 text-gray-100 hover:text-red-400 transition-colors">
               ${article.title}
             </h3>
-            <div class="flex items-center text-sm text-gray-500">
-              <i class="fas fa-user mr-1"></i>
+            <div class="flex items-center text-sm text-gray-400">
+              <i class="fas fa-user mr-1 text-red-500"></i>
               <span class="mr-3">${article.author_name}</span>
-              <i class="fas fa-eye mr-1"></i>
+              <i class="fas fa-eye mr-1 text-red-500"></i>
               <span>${article.view_count}</span>
             </div>
-            <p class="text-gray-600 mt-2 line-clamp-3">${stripHtml(article.content)}</p>
-            <button class="text-blue-600 hover:text-blue-800 mt-3 inline-block font-semibold" onclick="event.stopPropagation(); window.location.href='/article/${article.slug}'">
+            <p class="text-gray-300 mt-2 line-clamp-3">${stripHtml(article.content)}</p>
+            <button class="text-red-400 hover:text-red-500 mt-3 inline-block font-semibold transition-colors" onclick="event.stopPropagation(); window.location.href='/article/${article.slug}'">
               자세히 보기 →
             </button>
           </div>
