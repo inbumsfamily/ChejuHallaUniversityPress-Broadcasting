@@ -15,12 +15,12 @@ export const HeaderComponent = () => {
                 <nav class="hidden lg:flex items-center space-x-1">
                     <!-- 방송국 드롭다운 -->
                     <div class="relative group">
-                        <button class="px-3 py-2 text-gray-700 hover:text-blue-600 font-medium flex items-center text-sm">
+                        <a href="/broadcast" class="px-3 py-2 text-gray-700 hover:text-blue-600 font-medium flex items-center text-sm">
                             방송국
                             <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
-                        </button>
+                        </a>
                         <div class="absolute top-full left-0 w-48 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-1">
                             <a href="/broadcast-intro" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">방송국소개</a>
                             <a href="/halla-news" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">한라뉴스</a>
@@ -35,12 +35,12 @@ export const HeaderComponent = () => {
                     
                     <!-- 신문사 드롭다운 -->
                     <div class="relative group">
-                        <button class="px-3 py-2 text-gray-700 hover:text-blue-600 font-medium flex items-center text-sm">
+                        <a href="/newspaper" class="px-3 py-2 text-gray-700 hover:text-blue-600 font-medium flex items-center text-sm">
                             신문사
                             <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
-                        </button>
+                        </a>
                         <div class="absolute top-full left-0 w-48 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-1">
                             <a href="/newspaper-intro" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">신문사소개</a>
                             <a href="/field-coverage" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">현장취재</a>
@@ -51,12 +51,12 @@ export const HeaderComponent = () => {
                     
                     <!-- 캠퍼스 드롭다운 -->
                     <div class="relative group">
-                        <button class="px-3 py-2 text-gray-700 hover:text-blue-600 font-medium flex items-center text-sm">
+                        <a href="/campus" class="px-3 py-2 text-gray-700 hover:text-blue-600 font-medium flex items-center text-sm">
                             캠퍼스
                             <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
-                        </button>
+                        </a>
                         <div class="absolute top-full left-0 w-48 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-1">
                             <a href="/campus-life" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">캠퍼스 라이프</a>
                             <a href="/student-council-general" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">총학생회</a>
@@ -74,12 +74,12 @@ export const HeaderComponent = () => {
                     
                     <!-- 제주소식 드롭다운 -->
                     <div class="relative group">
-                        <button class="px-3 py-2 text-gray-700 hover:text-blue-600 font-medium flex items-center text-sm">
+                        <a href="/jeju-news" class="px-3 py-2 text-gray-700 hover:text-blue-600 font-medium flex items-center text-sm">
                             제주소식
                             <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
-                        </button>
+                        </a>
                         <div class="absolute top-full left-0 w-48 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-1">
                             <a href="/jeju-news-main" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">제주소식</a>
                             <a href="/jeju-culture-art" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">제주 문화·예술</a>
@@ -89,12 +89,12 @@ export const HeaderComponent = () => {
                     
                     <!-- 오피니언 드롭다운 -->
                     <div class="relative group">
-                        <button class="px-3 py-2 text-gray-700 hover:text-blue-600 font-medium flex items-center text-sm">
+                        <a href="/opinion" class="px-3 py-2 text-gray-700 hover:text-blue-600 font-medium flex items-center text-sm">
                             오피니언
                             <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
-                        </button>
+                        </a>
                         <div class="absolute top-full left-0 w-48 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-1">
                             <a href="/editorial-column" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">사설·칼럼</a>
                             <a href="/contribution" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">기고</a>
@@ -147,6 +147,29 @@ export const HeaderComponent = () => {
             </div>
         </div>
     </header>
+    
+    <!-- Add JavaScript for menu functions -->
+    <script>
+        function toggleSearch() {
+            const searchBar = document.getElementById('searchBar');
+            if (searchBar) {
+                searchBar.classList.toggle('hidden');
+            }
+        }
+        
+        function toggleLoginModal() {
+            // Login modal functionality will be handled by app.js
+            const event = new CustomEvent('openLoginModal');
+            window.dispatchEvent(event);
+        }
+        
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu) {
+                mobileMenu.classList.toggle('hidden');
+            }
+        }
+    </script>
     
     <!-- Mobile Menu (Hidden by default) -->
     <div id="mobileMenu" class="hidden fixed inset-0 z-50 lg:hidden">

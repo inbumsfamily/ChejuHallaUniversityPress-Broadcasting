@@ -493,6 +493,18 @@ document.addEventListener('DOMContentLoaded', () => {
   loadShorts();
   loadCampusLife();
   
+  // Listen for custom login modal event
+  window.addEventListener('openLoginModal', () => {
+    if (currentUser) {
+      // If already logged in, show logout option
+      if (confirm('로그아웃 하시겠습니까?')) {
+        logout();
+      }
+    } else {
+      showLoginModal();
+    }
+  });
+  
   // Set up login button
   const loginBtn = document.getElementById('loginBtn');
   if (loginBtn) {
