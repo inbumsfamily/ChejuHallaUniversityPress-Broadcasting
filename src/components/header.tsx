@@ -19,14 +19,14 @@ export const HeaderComponent = () => {
                             방송국
                         </a>
                         <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(30, 30, 30, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8); border-radius: 12px;">
-                            <a href="/broadcast-intro" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">방송국소개</a>
-                            <a href="/halla-news" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">한라뉴스</a>
-                            <a href="/halla-interview" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">한라인터뷰</a>
-                            <a href="/major-special" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">전공특집</a>
-                            <a href="/campus-tour" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">캠퍼스투어</a>
-                            <a href="/culture-art-broadcast" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">문화·예술(방송)</a>
-                            <a href="/radio-podcast" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">라디오·팟캐스트</a>
-                            <a href="/broadcast-activities" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">방송국 활동기</a>
+                            <a href="/broadcast-intro" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">방송국소개</a>
+                            <a href="/halla-news" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">한라뉴스</a>
+                            <a href="/halla-interview" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">한라인터뷰</a>
+                            <a href="/major-special" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">전공특집</a>
+                            <a href="/campus-tour" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">캠퍼스투어</a>
+                            <a href="/culture-art-broadcast" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">문화·예술(방송)</a>
+                            <a href="/radio-podcast" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">라디오·팟캐스트</a>
+                            <a href="/broadcast-activities" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">방송국 활동기</a>
                         </div>
                     </div>
                     
@@ -36,10 +36,10 @@ export const HeaderComponent = () => {
                             신문사
                         </a>
                         <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(30, 30, 30, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8); border-radius: 12px;">
-                            <a href="/newspaper-intro" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">신문사소개</a>
-                            <a href="/field-coverage" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">현장취재</a>
-                            <a href="/campus-report" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">캠퍼스 리포트</a>
-                            <a href="/newspaper-activities" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">신문사 활동기</a>
+                            <a href="/newspaper-intro" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">신문사소개</a>
+                            <a href="/field-coverage" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">현장취재</a>
+                            <a href="/campus-report" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">캠퍼스 리포트</a>
+                            <a href="/newspaper-activities" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">신문사 활동기</a>
                         </div>
                     </div>
                     
@@ -49,11 +49,11 @@ export const HeaderComponent = () => {
                             캠퍼스
                         </a>
                         <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(30, 30, 30, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8); border-radius: 12px;">
-                            <a href="/campus-life" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">캠퍼스 라이프</a>
-                            <a href="/student-council-general" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">총학생회</a>
-                            <a href="/department-council" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">학과학생회</a>
-                            <a href="/club-circle" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">동아리·서클</a>
-                            <a href="/academic-schedule" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">학사일정</a>
+                            <a href="/campus-life" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">캠퍼스 라이프</a>
+                            <a href="/student-council-general" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">총학생회</a>
+                            <a href="/department-council" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">학과학생회</a>
+                            <a href="/club-circle" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">동아리·서클</a>
+                            <a href="/academic-schedule" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">학사일정</a>
                         </div>
                     </div>
                     

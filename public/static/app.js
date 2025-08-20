@@ -24,7 +24,36 @@ async function loadLatestArticles() {
     if (!articlesSection) return;
     
     if (response.data.articles && response.data.articles.length > 0) {
-      articlesSection.innerHTML = response.data.articles.map((article, index) => `
+      // Create video player for the first position (spans 2 columns)
+      const videoPlayerHtml = `
+        <div class="col-span-2 glass-card rounded-2xl overflow-hidden" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);">
+          <div class="relative" style="padding-bottom: 56.25%;">
+            <iframe 
+              class="absolute inset-0 w-full h-full"
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+              title="한라인터뷰 - 최신 인터뷰 영상"
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="p-4">
+            <span class="text-xs text-yellow-300 font-semibold uppercase tracking-wide drop-shadow">한라인터뷰</span>
+            <h3 class="text-lg font-bold mt-2 mb-2 text-white drop-shadow-lg">
+              제주한라대학교 신문방송사 인터뷰 영상
+            </h3>
+            <p class="text-white/80 mt-2">
+              제주한라대학교 구성원들과 함께하는 특별한 인터뷰를 만나보세요. 학생, 교수, 직원들의 생생한 이야기를 전달합니다.
+            </p>
+            <button class="text-yellow-300 hover:text-yellow-400 mt-3 inline-block font-semibold transition-all hover:drop-shadow-lg" onclick="window.location.href='/halla-interview'">
+              더 많은 인터뷰 보기 →
+            </button>
+          </div>
+        </div>
+      `;
+      
+      // Create regular article cards for the rest (starting from first article)
+      const articleCards = response.data.articles.map((article, index) => `
         <article class="glass-card rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);" onclick="window.location.href='/article/${article.slug}'">
           ${article.featured_image_url ? `
             <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-48 object-cover">
@@ -52,6 +81,9 @@ async function loadLatestArticles() {
           </div>
         </article>
       `).join('');
+      
+      // Combine video player and article cards
+      articlesSection.innerHTML = videoPlayerHtml + articleCards;
     } else {
       articlesSection.innerHTML = `
         <div class="col-span-3 text-center py-12">
