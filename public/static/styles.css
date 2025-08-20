@@ -1,25 +1,26 @@
 /* Custom styles for Jeju Halla News */
 
-/* Color Scheme Variables - Glassmorphism */
+/* Color Scheme Variables - Glassmorphism Deep Blue */
 :root {
-  --primary-red: #ff4757;
-  --primary-blue: #5f27cd;
-  --primary-purple: #8e44ad;
-  --glass-bg: rgba(255, 255, 255, 0.1);
-  --glass-bg-hover: rgba(255, 255, 255, 0.15);
-  --glass-border: rgba(255, 255, 255, 0.2);
+  --primary-blue: #0e1b5c;
+  --primary-light-blue: #1e3a8a;
+  --primary-accent: #3b82f6;
+  --primary-gold: #fbbf24;
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-bg-hover: rgba(255, 255, 255, 0.12);
+  --glass-border: rgba(255, 255, 255, 0.18);
   --text-light: #ffffff;
-  --text-muted: rgba(255, 255, 255, 0.7);
-  --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  --backdrop-blur: blur(10px);
-  --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --text-muted: rgba(255, 255, 255, 0.8);
+  --shadow-glass: 0 8px 32px 0 rgba(14, 27, 92, 0.4);
+  --backdrop-blur: blur(12px);
+  --accent-gradient: linear-gradient(135deg, #0e1b5c 0%, #1e3a8a 100%);
 }
 
-/* Global Background - Glassmorphism */
+/* Global Background - Glassmorphism with Deep Blue */
 body {
   min-height: 100vh;
   position: relative;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #0e1b5c; /* Deep blue base color */
 }
 
 /* School background image with overlay */
@@ -35,12 +36,12 @@ body::before {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  opacity: 0.3;
+  opacity: 0.5; /* 50% opacity */
   z-index: -2;
   pointer-events: none;
 }
 
-/* Gradient overlay for glassmorphism effect */
+/* Gradient overlay for glassmorphism effect - Deep Blue Theme */
 body::after {
   content: '';
   position: fixed;
@@ -50,29 +51,29 @@ body::after {
   bottom: 0;
   background: linear-gradient(
     135deg,
-    rgba(102, 126, 234, 0.8) 0%,
-    rgba(118, 75, 162, 0.8) 50%,
-    rgba(142, 68, 173, 0.8) 100%
+    rgba(14, 27, 92, 0.9) 0%,
+    rgba(18, 35, 120, 0.85) 50%,
+    rgba(14, 27, 92, 0.9) 100%
   );
   z-index: -1;
   pointer-events: none;
 }
 
-/* Glassmorphism utilities */
+/* Glassmorphism utilities - Deep Blue Theme */
 .glass {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(14, 27, 92, 0.4);
 }
 
 .glass-dark {
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  background: rgba(14, 27, 92, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(14, 27, 92, 0.5);
 }
 
 /* Utility classes */
