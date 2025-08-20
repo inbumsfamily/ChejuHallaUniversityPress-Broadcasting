@@ -282,23 +282,22 @@ app.get('/', (c) => {
             <!-- Main Content -->
             <main class="relative z-10">
                 <!-- 최신 기사 섹션 - Full Width Background -->
-                <section id="latest" class="relative overflow-hidden bg-white mb-16">
-                    <!-- Background image with 30% opacity - Full Width -->
-                    <div class="absolute inset-0 pointer-events-none" style="background-image: url('https://page.gensparksite.com/v1/base64_upload/195e3f7647f93363aacf21e386f5feea'); background-size: cover; background-position: center; opacity: 0.3; z-index: 0;"></div>
+                <section id="latest" class="relative overflow-hidden mb-16" style="background-color: #FF0000;">
+                    <!-- YouTube Red Background -->
                     
                     <div class="relative z-10 container mx-auto px-4 py-12">
                         <div class="flex justify-between items-center mb-6">
-                            <h3 class="text-3xl font-bold text-gray-800">
-                                <i class="fas fa-fire mr-2 text-red-500"></i>
+                            <h3 class="text-3xl font-bold text-white">
+                                <i class="fas fa-fire mr-2 text-white"></i>
                                 최신 기사
                             </h3>
-                            <a href="/" class="text-blue-600 hover:text-blue-700 transition-colors font-semibold">전체보기 →</a>
+                            <a href="/" class="text-white hover:text-gray-200 transition-colors font-semibold">전체보기 →</a>
                         </div>
                         <div id="latestArticles" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                             <!-- Latest articles will be loaded here -->
                             <div class="col-span-full text-center py-12">
-                                <i class="fas fa-spinner fa-spin text-gray-400 text-4xl"></i>
-                                <p class="text-gray-500 mt-4">최신 기사를 불러오는 중...</p>
+                                <i class="fas fa-spinner fa-spin text-white text-4xl"></i>
+                                <p class="text-white mt-4">최신 기사를 불러오는 중...</p>
                             </div>
                         </div>
                     </div>
