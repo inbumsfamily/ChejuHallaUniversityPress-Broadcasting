@@ -299,13 +299,13 @@ app.get('/', (c) => {
                     </div>
                 </section>
                 <!-- 방송국 섹션 -->
-                <section id="broadcast" class="mb-16 p-6 rounded-3xl" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.1);">
+                <section id="broadcast" class="mb-16 p-6 bg-white rounded-lg border border-gray-200 shadow-sm">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-3xl font-bold text-white drop-shadow-lg">
+                        <h3 class="text-3xl font-bold text-gray-800">
                             <i class="fas fa-video mr-2 text-red-600"></i>
                             방송국
                         </h3>
-                        <a href="/broadcast" class="text-blue-600 hover:underline">더보기 →</a>
+                        <a href="/broadcast" class="text-blue-600 hover:text-blue-700 transition-colors font-semibold">더보기 →</a>
                     </div>
                     <div id="broadcastArticles" class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <!-- 방송 콘텐츠가 여기에 로드됩니다 -->
@@ -317,13 +317,13 @@ app.get('/', (c) => {
                 </section>
 
                 <!-- 신문사 섹션 -->
-                <section id="newspaper" class="mb-16 p-6 rounded-3xl" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.1);">
+                <section id="newspaper" class="mb-16 p-6 bg-white rounded-lg border border-gray-200 shadow-sm">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-3xl font-bold text-white drop-shadow-lg">
+                        <h3 class="text-3xl font-bold text-gray-800">
                             <i class="fas fa-newspaper mr-2 text-blue-600"></i>
                             신문사
                         </h3>
-                        <a href="/newspaper" class="text-yellow-300 hover:text-yellow-400 transition-all hover:drop-shadow-lg font-semibold">더보기 →</a>
+                        <a href="/newspaper" class="text-blue-600 hover:text-blue-700 transition-colors font-semibold">더보기 →</a>
                     </div>
                     <div id="newspaperArticles" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <!-- 신문 기사가 여기에 로드됩니다 -->
@@ -333,11 +333,11 @@ app.get('/', (c) => {
                 <!-- 기획보도 섹션 -->
                 <section id="special" class="mb-16">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-3xl font-bold text-white drop-shadow-lg">
+                        <h3 class="text-3xl font-bold text-gray-800">
                             <i class="fas fa-star mr-2 text-yellow-500"></i>
                             기획보도
                         </h3>
-                        <a href="/special-report" class="text-blue-600 hover:underline">더보기 →</a>
+                        <a href="/special-report" class="text-blue-600 hover:text-blue-700 transition-colors font-semibold">더보기 →</a>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <!-- 기획보도 대형 카드 -->

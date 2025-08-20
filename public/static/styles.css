@@ -1,79 +1,49 @@
 /* Custom styles for Jeju Halla News */
 
-/* Color Scheme Variables - Glassmorphism Deep Blue */
+/* Color Scheme Variables - Clean Modern Theme */
 :root {
-  --primary-blue: #0e1b5c;
-  --primary-light-blue: #1e3a8a;
-  --primary-accent: #3b82f6;
-  --primary-gold: #fbbf24;
-  --glass-bg: rgba(255, 255, 255, 0.08);
-  --glass-bg-hover: rgba(255, 255, 255, 0.12);
-  --glass-border: rgba(255, 255, 255, 0.18);
-  --text-light: #ffffff;
-  --text-muted: rgba(255, 255, 255, 0.8);
-  --shadow-glass: 0 8px 32px 0 rgba(14, 27, 92, 0.4);
-  --backdrop-blur: blur(12px);
-  --accent-gradient: linear-gradient(135deg, #0e1b5c 0%, #1e3a8a 100%);
+  --bg-primary: #f0f0f0;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #e5e5e5;
+  --text-primary: #212121;
+  --text-secondary: #616161;
+  --text-muted: #9e9e9e;
+  --accent-primary: #1976d2;
+  --accent-secondary: #ffc107;
+  --border-color: #e0e0e0;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 20px rgba(0,0,0,0.15);
 }
 
-/* Global Background - Black Theme */
+/* Global Background - Light Gray Theme */
 body {
   min-height: 100vh;
-  position: relative;
-  background: #000000; /* Pure black background */
+  background: #f0f0f0;
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-/* School background image with overlay */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('/static/images/school-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  opacity: 0.5; /* 50% opacity */
-  z-index: -2;
-  pointer-events: none;
+/* Clean card design - no glassmorphism */
+.card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.3s ease;
 }
 
-/* Gradient overlay for glassmorphism effect - Deep Blue Theme */
-body::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(14, 27, 92, 0.9) 0%,
-    rgba(18, 35, 120, 0.85) 50%,
-    rgba(14, 27, 92, 0.9) 100%
-  );
-  z-index: -1;
-  pointer-events: none;
+.card:hover {
+  box-shadow: var(--shadow-md);
 }
 
-/* Glassmorphism utilities - Deep Blue Theme */
-.glass {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 8px 32px 0 rgba(14, 27, 92, 0.4);
-}
-
-.glass-dark {
-  background: rgba(14, 27, 92, 0.3);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 32px 0 rgba(14, 27, 92, 0.5);
+/* Remove all glassmorphism effects */
+.glass, .glass-card, .glass-dark {
+  background: var(--bg-secondary) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-sm) !important;
 }
 
 /* Utility classes */
@@ -115,31 +85,39 @@ body::after {
 .dropdown-menu {
   display: none;
   position: absolute;
-  background-color: white;
+  background-color: var(--bg-secondary);
   min-width: 200px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  z-index: 1000;
 }
 
 .dropdown-menu a {
-  color: #374151;
+  color: var(--text-primary);
   padding: 12px 16px;
   text-decoration: none;
   display: block;
+  transition: background-color 0.2s ease;
 }
 
 .dropdown-menu a:hover {
-  background-color: #f3f4f6;
+  background-color: var(--bg-tertiary);
+  color: var(--accent-primary);
 }
 
 /* Article cards */
 .article-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
 }
 
 .article-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-lg);
 }
 
 /* Loading skeleton */
@@ -165,16 +143,16 @@ body::after {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--bg-tertiary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #bdbdbd;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #9e9e9e;
 }
 
 /* Hero carousel */
@@ -204,14 +182,14 @@ body::after {
 
 /* Comments section */
 .comment-item {
-  border-left: 3px solid #e5e7eb;
+  border-left: 3px solid var(--border-color);
   padding-left: 1rem;
   margin-left: 0.5rem;
 }
 
 .comment-item.reply {
   margin-left: 2rem;
-  border-left-color: #dbeafe;
+  border-left-color: var(--accent-primary);
 }
 
 /* Shorts section - vertical scroll */
@@ -232,6 +210,8 @@ body::after {
 /* Admin dashboard */
 .admin-sidebar {
   transition: width 0.3s ease;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
 }
 
 .admin-sidebar.collapsed {
@@ -263,8 +243,8 @@ body::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: white;
-    z-index: 50;
+    background-color: var(--bg-secondary);
+    z-index: 9999;
   }
   
   .mobile-menu.active {
@@ -276,17 +256,12 @@ body::after {
   }
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .dark-mode-support {
-    background-color: #1f2937;
-    color: #f9fafb;
-  }
-}
-
 /* Hero Slider Styles */
 #heroSlider {
   position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
 }
 
 .slide {
@@ -313,10 +288,21 @@ body::after {
 /* Smooth indicator transition */
 .indicator {
   transition: all 0.3s ease;
+  background: rgba(255,255,255,0.5);
+}
+
+.indicator.bg-white {
+  background: white !important;
 }
 
 /* Navigation arrow hover effect */
+#prevSlide, #nextSlide {
+  background: rgba(0,0,0,0.5);
+  transition: all 0.3s ease;
+}
+
 #prevSlide:hover, #nextSlide:hover {
+  background: rgba(0,0,0,0.7);
   transform: translateY(-50%) scale(1.1);
 }
 
@@ -338,4 +324,73 @@ body::after {
     width: 2.5rem;
     height: 2.5rem;
   }
+}
+
+/* Clean modern button styles */
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background: var(--accent-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #1565c0;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.btn-secondary:hover {
+  background: #d5d5d5;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Clean form inputs */
+input, textarea, select {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  transition: border-color 0.2s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+}
+
+/* Table styles */
+table {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th {
+  background: var(--bg-tertiary);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75rem;
+}
+
+td {
+  padding: 0.75rem;
+  border-top: 1px solid var(--border-color);
+}
+
+tr:hover {
+  background: #fafafa;
 }
