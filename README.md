@@ -92,8 +92,8 @@
 5. **모바일 앱**: Progressive Web App (PWA) 변환 고려
 
 ## URLs
-- **개발 서버**: https://3000-ie5ntpnfzx6f6arr0j54v-6532622b.e2b.dev
-- **프로덕션**: https://963ecb7f.jeju-halla-media.pages.dev
+- **개발 서버**: https://3000-iplxodv5a27kcnt9garvb-6532622b.e2b.dev
+- **프로덕션**: https://jeju-halla-media.pages.dev
 - **GitHub**: https://github.com/inbumsfamily/webapp (비공개 저장소)
 
 ## 데이터 아키텍처
@@ -194,7 +194,9 @@ Cloudflare Dashboard에서 수동으로 D1 바인딩을 추가해야 합니다:
 - **상태**: ✅ 프로덕션 배포 완료
 - **프로젝트명**: jeju-halla-media
 - **D1 데이터베이스**: jeju-halla-media-production (설정 완료)
-- **최종 업데이트**: 2025-08-20
+- **최종 업데이트**: 2025-08-20 22:00 KST
+- **최신 배포**: https://23698fd0.jeju-halla-media.pages.dev (브랜치 배포)
+- **메인 URL**: https://jeju-halla-media.pages.dev
 - **배포 방법**: Wrangler CLI 직접 배포 (GitHub 저장소 비공개 유지)
 
 ## 주요 업데이트 내역
