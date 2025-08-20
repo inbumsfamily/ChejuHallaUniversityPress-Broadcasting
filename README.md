@@ -193,11 +193,12 @@ Cloudflare Dashboard에서 수동으로 D1 바인딩을 추가해야 합니다:
 - **플랫폼**: Cloudflare Pages
 - **상태**: ✅ 프로덕션 배포 완료
 - **프로젝트명**: jeju-halla-media
-- **D1 데이터베이스**: jeju-halla-media-production (설정 완료)
+- **D1 데이터베이스**: jeju-halla-media-production (설정 완료, 264개 기사 데이터 포함)
 - **최종 업데이트**: 2025-08-20 22:00 KST
-- **최신 배포**: https://23698fd0.jeju-halla-media.pages.dev (브랜치 배포)
+- **최신 배포**: https://23698fd0.jeju-halla-media.pages.dev
 - **메인 URL**: https://jeju-halla-media.pages.dev
-- **배포 방법**: Wrangler CLI 직접 배포 (GitHub 저장소 비공개 유지)
+- **배포 ID**: 23698fd0-9ddc-472a-bf44-b36257b20a81
+- **배포 방법**: Wrangler CLI 직접 배포
 
 ## 주요 업데이트 내역
 - 2025-08-20: 44개 카테고리별 6개씩 총 264개 샘플 기사 추가
