@@ -142,7 +142,7 @@ app.get('/', (c) => {
                             return \`
                                 <div class="slide absolute inset-0 transition-opacity duration-700 \${index === 0 ? 'opacity-100' : 'opacity-0'}" data-index="\${index}">
                                     <div class="relative h-full">
-                                        <img src="\${banner.thumbnail}" alt="\${banner.title}" class="w-full h-full object-cover">
+                                        <img src="\${banner.thumbnail}" alt="\${banner.title}" class="w-full h-full object-cover" style="filter: grayscale(100%);">
                                         <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
                                             <button onclick="playYouTubeVideo('\${banner.videoId}')" class="bg-red-600 hover:bg-red-700 text-white rounded-full w-20 h-20 flex items-center justify-center transition-all transform hover:scale-110">
                                                 <i class="fas fa-play text-3xl ml-1"></i>
@@ -159,7 +159,7 @@ app.get('/', (c) => {
                             return \`
                                 <div class="slide absolute inset-0 transition-opacity duration-700 \${index === 0 ? 'opacity-100' : 'opacity-0'}" data-index="\${index}">
                                     <a href="\${banner.link || '#'}" class="block relative h-full">
-                                        <img src="\${banner.src}" alt="\${banner.title}" class="w-full h-full object-cover">
+                                        <img src="\${banner.src}" alt="\${banner.title}" class="w-full h-full object-cover" style="filter: grayscale(100%);">
                                         <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-8">
                                             <h2 class="text-3xl lg:text-4xl font-bold text-white mb-2">\${banner.title}</h2>
                                             <p class="text-lg text-gray-200">\${banner.subtitle}</p>
