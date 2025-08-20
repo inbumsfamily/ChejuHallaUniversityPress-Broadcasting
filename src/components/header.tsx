@@ -18,7 +18,7 @@ export const HeaderComponent = () => {
                         <a href="/broadcast" class="px-3 py-2 text-white hover:text-yellow-300 font-bold text-base transition-all hover:drop-shadow-lg">
                             방송국
                         </a>
-                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); border-radius: 12px;">
+                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(30, 30, 30, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8); border-radius: 12px;">
                             <a href="/broadcast-intro" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">방송국소개</a>
                             <a href="/halla-news" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">한라뉴스</a>
                             <a href="/halla-interview" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">한라인터뷰</a>
@@ -35,7 +35,7 @@ export const HeaderComponent = () => {
                         <a href="/newspaper" class="px-3 py-2 text-white hover:text-yellow-300 font-bold text-base transition-all hover:drop-shadow-lg">
                             신문사
                         </a>
-                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); border-radius: 12px;">
+                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(30, 30, 30, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8); border-radius: 12px;">
                             <a href="/newspaper-intro" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">신문사소개</a>
                             <a href="/field-coverage" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">현장취재</a>
                             <a href="/campus-report" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">캠퍼스 리포트</a>
@@ -48,7 +48,7 @@ export const HeaderComponent = () => {
                         <a href="/campus" class="px-3 py-2 text-white hover:text-yellow-300 font-bold text-base transition-all hover:drop-shadow-lg">
                             캠퍼스
                         </a>
-                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); border-radius: 12px;">
+                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(30, 30, 30, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8); border-radius: 12px;">
                             <a href="/campus-life" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">캠퍼스 라이프</a>
                             <a href="/student-council-general" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">총학생회</a>
                             <a href="/department-council" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">학과학생회</a>
@@ -62,11 +62,11 @@ export const HeaderComponent = () => {
                         <a href="/shorts" class="px-3 py-2 text-white hover:text-yellow-300 font-bold text-base transition-all hover:drop-shadow-lg">
                             쇼츠
                         </a>
-                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); border-radius: 12px;">
-                            <a href="/one-cut-news" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">한컷 뉴스</a>
-                            <a href="/issue-briefing" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">이슈 브리핑</a>
-                            <a href="/anonymous-news" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">익명소식</a>
-                            <a href="/student-tips" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">재학생 꿀팁</a>
+                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(30, 30, 30, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8); border-radius: 12px;">
+                            <a href="/one-cut-news" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">한컷 뉴스</a>
+                            <a href="/issue-briefing" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">이슈 브리핑</a>
+                            <a href="/anonymous-news" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">익명소식</a>
+                            <a href="/student-tips" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">재학생 꿀팁</a>
                         </div>
                     </div>
                     
@@ -75,11 +75,11 @@ export const HeaderComponent = () => {
                         <a href="/special-report" class="px-3 py-2 text-white hover:text-yellow-300 font-bold text-base transition-all hover:drop-shadow-lg">
                             기획보도
                         </a>
-                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); border-radius: 12px;">
-                            <a href="/career-employment" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">진로·취업</a>
-                            <a href="/youth-region" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">청년·지역</a>
-                            <a href="/welfare-rights" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">복지·권익</a>
-                            <a href="/academic-research" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">학술·연구</a>
+                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(30, 30, 30, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8); border-radius: 12px;">
+                            <a href="/career-employment" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">진로·취업</a>
+                            <a href="/youth-region" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">청년·지역</a>
+                            <a href="/welfare-rights" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">복지·권익</a>
+                            <a href="/academic-research" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">학술·연구</a>
                         </div>
                     </div>
                     
@@ -88,10 +88,10 @@ export const HeaderComponent = () => {
                         <a href="/jeju-news" class="px-3 py-2 text-white hover:text-yellow-300 font-bold text-base transition-all hover:drop-shadow-lg">
                             제주소식
                         </a>
-                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); border-radius: 12px;">
-                            <a href="/jeju-news-main" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">제주소식</a>
-                            <a href="/jeju-culture-art" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">제주 문화·예술</a>
-                            <a href="/jeju-tour-food" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">관광·맛집</a>
+                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(30, 30, 30, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8); border-radius: 12px;">
+                            <a href="/jeju-news-main" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">제주소식</a>
+                            <a href="/jeju-culture-art" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">제주 문화·예술</a>
+                            <a href="/jeju-tour-food" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">관광·맛집</a>
                         </div>
                     </div>
                     
@@ -100,10 +100,10 @@ export const HeaderComponent = () => {
                         <a href="/opinion" class="px-3 py-2 text-white hover:text-yellow-300 font-bold text-base transition-all hover:drop-shadow-lg">
                             오피니언
                         </a>
-                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); border-radius: 12px;">
-                            <a href="/editorial-column" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">사설·칼럼</a>
-                            <a href="/contribution" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">기고</a>
-                            <a href="/student-perspective" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">학생의 시선</a>
+                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(30, 30, 30, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8); border-radius: 12px;">
+                            <a href="/editorial-column" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">사설·칼럼</a>
+                            <a href="/contribution" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">기고</a>
+                            <a href="/student-perspective" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">학생의 시선</a>
                         </div>
                     </div>
                     
@@ -112,13 +112,13 @@ export const HeaderComponent = () => {
                         <a href="/essay" class="px-3 py-2 text-white hover:text-yellow-300 font-bold text-base transition-all hover:drop-shadow-lg">
                             에세이
                         </a>
-                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); border-radius: 12px;">
-                            <a href="/time-in-jeju" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">제주에서 보내는 시간</a>
-                            <a href="/dreams-hopes" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">꿈과 희망</a>
-                            <a href="/travel-exploration" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">여행과 탐방</a>
-                            <a href="/literature-art" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">문학과 예술</a>
-                            <a href="/monthly-theme-essay" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">이달의 테마 에세이</a>
-                            <a href="/my-thoughts" class="block px-4 py-2.5 text-sm text-white/90 hover:bg-white/20 hover:text-white">나만의 생각 정리</a>
+                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(30, 30, 30, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8); border-radius: 12px;">
+                            <a href="/time-in-jeju" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">제주에서 보내는 시간</a>
+                            <a href="/dreams-hopes" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">꿈과 희망</a>
+                            <a href="/travel-exploration" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">여행과 탐방</a>
+                            <a href="/literature-art" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">문학과 예술</a>
+                            <a href="/monthly-theme-essay" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">이달의 테마 에세이</a>
+                            <a href="/my-thoughts" class="block px-4 py-2.5 text-sm text-white hover:bg-white/20 hover:text-yellow-300 font-medium">나만의 생각 정리</a>
                         </div>
                     </div>
                 </nav>
