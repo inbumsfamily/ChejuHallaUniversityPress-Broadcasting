@@ -282,19 +282,24 @@ app.get('/', (c) => {
             <!-- Main Content -->
             <main class="container mx-auto px-4 py-12 relative z-10">
                 <!-- 최신 기사 섹션 -->
-                <section id="latest" class="mb-16 p-6 rounded-3xl" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.1);">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-3xl font-bold text-white drop-shadow-lg">
-                            <i class="fas fa-fire mr-2 text-yellow-300"></i>
-                            최신 기사
-                        </h3>
-                        <a href="/" class="text-yellow-300 hover:text-yellow-400 transition-all hover:drop-shadow-lg font-semibold">전체보기 →</a>
-                    </div>
-                    <div id="latestArticles" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        <!-- Latest articles will be loaded here -->
-                        <div class="col-span-full text-center py-12">
-                            <i class="fas fa-spinner fa-spin text-gray-400 text-4xl"></i>
-                            <p class="text-gray-500 mt-4">최신 기사를 불러오는 중...</p>
+                <section id="latest" class="mb-16 p-6 bg-white rounded-lg border border-gray-200 shadow-sm relative overflow-hidden">
+                    <!-- Background image with 10% opacity -->
+                    <div class="absolute inset-0 pointer-events-none" style="background-image: url('https://page.gensparksite.com/v1/base64_upload/195e3f7647f93363aacf21e386f5feea'); background-size: cover; background-position: center; opacity: 0.1; z-index: 0;"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-3xl font-bold text-gray-800">
+                                <i class="fas fa-fire mr-2 text-red-500"></i>
+                                최신 기사
+                            </h3>
+                            <a href="/" class="text-blue-600 hover:text-blue-700 transition-colors font-semibold">전체보기 →</a>
+                        </div>
+                        <div id="latestArticles" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                            <!-- Latest articles will be loaded here -->
+                            <div class="col-span-full text-center py-12">
+                                <i class="fas fa-spinner fa-spin text-gray-400 text-4xl"></i>
+                                <p class="text-gray-500 mt-4">최신 기사를 불러오는 중...</p>
+                            </div>
                         </div>
                     </div>
                 </section>
