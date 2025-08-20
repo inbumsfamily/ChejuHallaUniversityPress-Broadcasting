@@ -25,7 +25,7 @@ async function loadLatestArticles() {
     
     if (response.data.articles && response.data.articles.length > 0) {
       articlesSection.innerHTML = response.data.articles.map((article, index) => `
-        <article class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer border border-gray-700 hover:border-red-600 transform hover:-translate-y-1" onclick="window.location.href='/article/${article.slug}'">
+        <article class="glass-card rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);" onclick="window.location.href='/article/${article.slug}'">
           ${article.featured_image_url ? `
             <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-48 object-cover">
           ` : `
@@ -35,18 +35,18 @@ async function loadLatestArticles() {
             </div>
           `}
           <div class="p-4">
-            <span class="text-xs text-red-400 font-semibold uppercase tracking-wide">${article.category_name || '일반'}</span>
-            <h3 class="text-lg font-bold mt-2 mb-2 line-clamp-2 text-gray-100 hover:text-red-400 transition-colors">
+            <span class="text-xs text-yellow-300 font-semibold uppercase tracking-wide drop-shadow">${article.category_name || '일반'}</span>
+            <h3 class="text-lg font-bold mt-2 mb-2 line-clamp-2 text-white hover:text-yellow-300 transition-colors drop-shadow-lg">
               ${article.title}
             </h3>
-            <div class="flex items-center text-sm text-gray-400">
-              <i class="fas fa-user mr-1 text-red-500"></i>
+            <div class="flex items-center text-sm text-white/70">
+              <i class="fas fa-user mr-1 text-yellow-300"></i>
               <span class="mr-3">${article.author_name}</span>
-              <i class="fas fa-eye mr-1 text-red-500"></i>
+              <i class="fas fa-eye mr-1 text-yellow-300"></i>
               <span>${article.view_count}</span>
             </div>
-            <p class="text-gray-300 mt-2 line-clamp-3">${stripHtml(article.content)}</p>
-            <button class="text-red-400 hover:text-red-500 mt-3 inline-block font-semibold transition-colors" onclick="event.stopPropagation(); window.location.href='/article/${article.slug}'">
+            <p class="text-white/80 mt-2 line-clamp-3">${stripHtml(article.content)}</p>
+            <button class="text-yellow-300 hover:text-yellow-400 mt-3 inline-block font-semibold transition-all hover:drop-shadow-lg" onclick="event.stopPropagation(); window.location.href='/article/${article.slug}'">
               자세히 보기 →
             </button>
           </div>
@@ -73,7 +73,7 @@ async function loadNewspaperArticles() {
     
     if (response.data.articles && response.data.articles.length > 0) {
       newspaperSection.innerHTML = response.data.articles.map((article, index) => `
-        <article class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer border border-gray-700 hover:border-red-600 transform hover:-translate-y-1" onclick="window.location.href='/article/${article.slug}'">
+        <article class="glass-card rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);" onclick="window.location.href='/article/${article.slug}'">
           ${article.featured_image_url ? `
             <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-48 object-cover">
           ` : `
@@ -83,18 +83,18 @@ async function loadNewspaperArticles() {
             </div>
           `}
           <div class="p-4">
-            <span class="text-xs text-red-400 font-semibold uppercase tracking-wide">${article.category_name || '신문사'}</span>
-            <h3 class="text-lg font-bold mt-2 mb-2 line-clamp-2 text-gray-100 hover:text-red-400 transition-colors">
+            <span class="text-xs text-yellow-300 font-semibold uppercase tracking-wide drop-shadow">${article.category_name || '신문사'}</span>
+            <h3 class="text-lg font-bold mt-2 mb-2 line-clamp-2 text-white hover:text-yellow-300 transition-colors drop-shadow-lg">
               ${article.title}
             </h3>
-            <div class="flex items-center text-sm text-gray-400">
-              <i class="fas fa-user mr-1 text-red-500"></i>
+            <div class="flex items-center text-sm text-white/70">
+              <i class="fas fa-user mr-1 text-yellow-300"></i>
               <span class="mr-3">${article.author_name}</span>
-              <i class="fas fa-eye mr-1 text-red-500"></i>
+              <i class="fas fa-eye mr-1 text-yellow-300"></i>
               <span>${article.view_count}</span>
             </div>
-            <p class="text-gray-300 mt-2 line-clamp-3">${stripHtml(article.content)}</p>
-            <button class="text-red-400 hover:text-red-500 mt-3 inline-block font-semibold transition-colors" onclick="event.stopPropagation(); window.location.href='/article/${article.slug}'">
+            <p class="text-white/80 mt-2 line-clamp-3">${stripHtml(article.content)}</p>
+            <button class="text-yellow-300 hover:text-yellow-400 mt-3 inline-block font-semibold transition-all hover:drop-shadow-lg" onclick="event.stopPropagation(); window.location.href='/article/${article.slug}'">
               자세히 보기 →
             </button>
           </div>

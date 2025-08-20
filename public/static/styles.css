@@ -1,25 +1,25 @@
 /* Custom styles for Jeju Halla News */
 
-/* Color Scheme Variables */
+/* Color Scheme Variables - Glassmorphism */
 :root {
-  --primary-red: #c41230;
-  --primary-dark: #1a1a1a;
-  --primary-gold: #d4af37;
-  --bg-gradient-start: #2a2a2a;
-  --bg-gradient-end: #1a1a1a;
-  --card-bg: rgba(30, 30, 30, 0.95);
-  --text-light: #e8e8e8;
-  --text-muted: #b0b0b0;
-  --border-dark: #3a3a3a;
-  --accent-green: #2ecc71;
-  --accent-blue: #3498db;
+  --primary-red: #ff4757;
+  --primary-blue: #5f27cd;
+  --primary-purple: #8e44ad;
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-bg-hover: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --text-light: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.7);
+  --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  --backdrop-blur: blur(10px);
+  --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-/* Global Background */
+/* Global Background - Glassmorphism */
 body {
-  background: #1a1a1a;
   min-height: 100vh;
   position: relative;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 /* School background image with overlay */
@@ -35,12 +35,12 @@ body::before {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  opacity: 0.2; /* 80% transparent, 20% visible */
-  z-index: -1;
+  opacity: 0.3;
+  z-index: -2;
   pointer-events: none;
 }
 
-/* Dark gradient overlay for better readability */
+/* Gradient overlay for glassmorphism effect */
 body::after {
   content: '';
   position: fixed;
@@ -48,13 +48,31 @@ body::after {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, 
-    rgba(26, 26, 26, 0.95) 0%, 
-    rgba(31, 31, 31, 0.9) 50%, 
-    rgba(26, 26, 26, 0.95) 100%
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 0.8) 0%,
+    rgba(118, 75, 162, 0.8) 50%,
+    rgba(142, 68, 173, 0.8) 100%
   );
   z-index: -1;
   pointer-events: none;
+}
+
+/* Glassmorphism utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
 
 /* Utility classes */

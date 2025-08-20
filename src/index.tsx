@@ -282,13 +282,13 @@ app.get('/', (c) => {
             <!-- Main Content -->
             <main class="container mx-auto px-4 py-12 relative z-10">
                 <!-- 최신 기사 섹션 -->
-                <section id="latest" class="mb-16">
+                <section id="latest" class="mb-16 p-6 rounded-3xl" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.1);">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-3xl font-bold bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">
-                            <i class="fas fa-fire mr-2 text-red-500"></i>
+                        <h3 class="text-3xl font-bold text-white drop-shadow-lg">
+                            <i class="fas fa-fire mr-2 text-yellow-300"></i>
                             최신 기사
                         </h3>
-                        <a href="/" class="text-red-400 hover:text-red-500 transition-colors">전체보기 →</a>
+                        <a href="/" class="text-yellow-300 hover:text-yellow-400 transition-all hover:drop-shadow-lg font-semibold">전체보기 →</a>
                     </div>
                     <div id="latestArticles" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         <!-- Latest articles will be loaded here -->
@@ -299,9 +299,9 @@ app.get('/', (c) => {
                     </div>
                 </section>
                 <!-- 방송국 섹션 -->
-                <section id="broadcast" class="mb-16">
+                <section id="broadcast" class="mb-16 p-6 rounded-3xl" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.1);">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-3xl font-bold bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">
+                        <h3 class="text-3xl font-bold text-white drop-shadow-lg">
                             <i class="fas fa-video mr-2 text-red-600"></i>
                             방송국
                         </h3>
@@ -317,13 +317,13 @@ app.get('/', (c) => {
                 </section>
 
                 <!-- 신문사 섹션 -->
-                <section id="newspaper" class="mb-16">
+                <section id="newspaper" class="mb-16 p-6 rounded-3xl" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.1);">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-3xl font-bold bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">
+                        <h3 class="text-3xl font-bold text-white drop-shadow-lg">
                             <i class="fas fa-newspaper mr-2 text-blue-600"></i>
                             신문사
                         </h3>
-                        <a href="/newspaper" class="text-red-400 hover:text-red-500 transition-colors">더보기 →</a>
+                        <a href="/newspaper" class="text-yellow-300 hover:text-yellow-400 transition-all hover:drop-shadow-lg font-semibold">더보기 →</a>
                     </div>
                     <div id="newspaperArticles" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <!-- 신문 기사가 여기에 로드됩니다 -->
@@ -333,7 +333,7 @@ app.get('/', (c) => {
                 <!-- 기획보도 섹션 -->
                 <section id="special" class="mb-16">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-3xl font-bold bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">
+                        <h3 class="text-3xl font-bold text-white drop-shadow-lg">
                             <i class="fas fa-star mr-2 text-yellow-500"></i>
                             기획보도
                         </h3>
@@ -385,7 +385,7 @@ app.get('/', (c) => {
                 <!-- 쇼츠 섹션 -->
                 <section id="shorts" class="mb-16">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-3xl font-bold bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">
+                        <h3 class="text-3xl font-bold text-white drop-shadow-lg">
                             <i class="fas fa-bolt mr-2 text-yellow-400"></i>
                             쇼츠
                         </h3>
@@ -465,7 +465,7 @@ app.get('/', (c) => {
                 <!-- 캠퍼스 라이프 섹션 -->
                 <section id="campus" class="mb-16">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-3xl font-bold bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">
+                        <h3 class="text-3xl font-bold text-white drop-shadow-lg">
                             <i class="fas fa-graduation-cap mr-2 text-green-600"></i>
                             캠퍼스 라이프
                         </h3>
