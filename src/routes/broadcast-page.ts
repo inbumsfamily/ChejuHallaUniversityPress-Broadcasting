@@ -1,4 +1,5 @@
 import { Hono } from 'hono';
+import { HeaderComponent } from '../components/header';
 import type { CloudflareBindings } from '../types';
 
 const broadcastRouter = new Hono<{ Bindings: CloudflareBindings }>();
@@ -21,30 +22,7 @@ broadcastRouter.get('/broadcast', (c) => {
     </style>
 </head>
 <body class="bg-gray-50">
-    <!-- Header -->
-    <header class="bg-white shadow-sm border-b sticky top-0 z-50">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <a href="/" class="text-xl font-bold text-blue-900">
-                        <i class="fas fa-newspaper mr-2"></i>
-                        제주한라대 신문방송사
-                    </a>
-                </div>
-                <nav class="hidden md:flex items-center space-x-4">
-                    <a href="/" class="text-gray-700 hover:text-blue-600">홈</a>
-                    <a href="/broadcast" class="text-blue-600 font-semibold">방송국</a>
-                    <a href="/newspaper" class="text-gray-700 hover:text-blue-600">신문사</a>
-                    <a href="/campus" class="text-gray-700 hover:text-blue-600">캠퍼스</a>
-                    <a href="/shorts" class="text-gray-700 hover:text-blue-600">쇼츠</a>
-                    <a href="/special-report" class="text-gray-700 hover:text-blue-600">기획보도</a>
-                    <a href="/jeju-news" class="text-gray-700 hover:text-blue-600">제주소식</a>
-                    <a href="/opinion" class="text-gray-700 hover:text-blue-600">오피니언</a>
-                    <a href="/essay" class="text-gray-700 hover:text-blue-600">에세이</a>
-                </nav>
-            </div>
-        </div>
-    </header>
+    ${HeaderComponent()}
 
     <div class="container mx-auto px-4 py-8">
         <!-- Broadcast Header with Video Background Effect -->
