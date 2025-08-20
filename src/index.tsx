@@ -283,8 +283,8 @@ app.get('/', (c) => {
             <main class="relative z-10">
                 <!-- 최신 기사 섹션 - Full Width Background -->
                 <section id="latest" class="relative overflow-hidden bg-white mb-16">
-                    <!-- Background image with 10% opacity - Full Width -->
-                    <div class="absolute inset-0 pointer-events-none" style="background-image: url('https://page.gensparksite.com/v1/base64_upload/195e3f7647f93363aacf21e386f5feea'); background-size: cover; background-position: center; opacity: 0.1; z-index: 0;"></div>
+                    <!-- Background image with 30% opacity - Full Width -->
+                    <div class="absolute inset-0 pointer-events-none" style="background-image: url('https://page.gensparksite.com/v1/base64_upload/195e3f7647f93363aacf21e386f5feea'); background-size: cover; background-position: center; opacity: 0.3; z-index: 0;"></div>
                     
                     <div class="relative z-10 container mx-auto px-4 py-12">
                         <div class="flex justify-between items-center mb-6">
