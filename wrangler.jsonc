@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "jeju-halla-media",
+  "compatibility_date": "2025-08-19",
+  "pages_build_output_dir": "./dist",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "jeju-halla-media-production",
+      "database_id": "15f434a8-d0db-4588-a3a6-763406954fb6"
+    }
+  ]
+}
