@@ -281,23 +281,21 @@ app.get('/', (c) => {
 
             <!-- Main Content -->
             <main class="relative z-10">
-                <!-- 최신 기사 섹션 - Full Width Background -->
-                <section id="latest" class="relative overflow-hidden mb-16" style="background-color: #FF0000;">
-                    <!-- YouTube Red Background -->
-                    
-                    <div class="relative z-10 container mx-auto px-4 py-12">
-                        <div class="flex justify-between items-center mb-6">
-                            <h3 class="text-3xl font-bold text-white">
-                                <i class="fas fa-fire mr-2 text-white"></i>
-                                최신 기사
-                            </h3>
-                            <a href="/" class="text-white hover:text-gray-200 transition-colors font-semibold">전체보기 →</a>
+                <!-- 최신 기사 섹션 -->
+                <section id="latest" class="py-24 bg-black">
+                    <div class="container mx-auto px-4">
+                        <div class="section-header mb-12">
+                            <span class="section-number text-gray-500">01</span>
+                            <h2 class="text-6xl lg:text-8xl font-black text-white uppercase leading-none">
+                                LATEST<br>
+                                <span class="text-outline" style="color: transparent; -webkit-text-stroke: 2px white;">ARTICLES</span>
+                            </h2>
                         </div>
-                        <div id="latestArticles" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        <div id="latestArticles" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2">
                             <!-- Latest articles will be loaded here -->
                             <div class="col-span-full text-center py-12">
-                                <i class="fas fa-spinner fa-spin text-white text-4xl"></i>
-                                <p class="text-white mt-4">최신 기사를 불러오는 중...</p>
+                                <i class="fas fa-spinner fa-spin text-gray-600 text-4xl"></i>
+                                <p class="text-gray-600 mt-4">Loading articles...</p>
                             </div>
                         </div>
                     </div>
@@ -338,36 +336,37 @@ app.get('/', (c) => {
                 </section>
 
                 <!-- 기획보도 섹션 -->
-                <section id="special" class="mb-16">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-5xl font-black text-white uppercase tracking-tight">
-                            <i class="fas fa-star mr-2 text-yellow-500"></i>
-                            기획보도
-                        </h3>
-                        <a href="/special-report" class="text-blue-600 hover:text-blue-700 transition-colors font-semibold">더보기 →</a>
+                <section id="special" class="py-24 bg-black">
+                    <div class="section-header mb-12">
+                        <span class="section-number text-gray-500">04</span>
+                        <h2 class="text-6xl lg:text-8xl font-black text-white uppercase leading-none">
+                            SPECIAL<br>
+                            <span class="text-outline" style="color: transparent; -webkit-text-stroke: 2px white;">REPORT</span>
+                        </h2>
                     </div>
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
                         <!-- 기획보도 대형 카드 -->
-                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow">
-                            <div class="h-64 bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
-                                <div class="text-white text-center">
-                                    <i class="fas fa-chart-line text-6xl mb-4"></i>
-                                    <h4 class="text-2xl font-bold">2025 대학생 취업 현황 분석</h4>
+                        <div class="bg-black border border-gray-800 overflow-hidden hover:border-white transition-all duration-300">
+                            <div class="h-64 bg-black flex items-center justify-center relative overflow-hidden group">
+                                <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20"></div>
+                                <div class="text-white text-center relative z-10">
+                                    <i class="fas fa-chart-line text-5xl mb-4 opacity-60 group-hover:opacity-100 transition-opacity"></i>
+                                    <h4 class="text-xl font-bold uppercase tracking-wider">EMPLOYMENT ANALYSIS 2025</h4>
                                 </div>
                             </div>
                             <div class="p-6">
-                                <p class="text-gray-600 mb-4">제주한라대학교 졸업생들의 취업 현황과 주요 취업처를 심층 분석했습니다. IT, 관광, 의료 분야에서의 성과와 전망을 다룹니다.</p>
+                                <p class="text-gray-400 text-sm leading-relaxed mb-4">Comprehensive analysis of graduate employment trends in IT, tourism, and healthcare sectors at Cheju Halla University.</p>
                                 <div class="flex justify-between items-center">
-                                    <span class="text-sm text-gray-500">
-                                        <i class="fas fa-user mr-1"></i> 편집부
+                                    <span class="text-xs text-gray-500 uppercase tracking-wider">
+                                        EDITORIAL
                                     </span>
-                                    <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                                        자세히 보기
+                                    <button class="text-white hover:text-blue-400 font-bold text-xs uppercase tracking-wider transition-colors border-b border-transparent hover:border-blue-400 pb-1">
+                                        READ MORE
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow">
+                        <div class="bg-black border border-gray-800 overflow-hidden hover:border-white transition-all duration-300">
                             <div class="h-64 bg-gradient-to-br from-green-600 to-teal-600 flex items-center justify-center">
                                 <div class="text-white text-center">
                                     <i class="fas fa-seedling text-6xl mb-4"></i>
@@ -390,15 +389,15 @@ app.get('/', (c) => {
                 </section>
 
                 <!-- 쇼츠 섹션 -->
-                <section id="shorts" class="mb-16">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-3xl font-bold text-white drop-shadow-lg">
-                            <i class="fas fa-bolt mr-2 text-yellow-400"></i>
-                            쇼츠
-                        </h3>
-                        <a href="#" class="text-blue-600 hover:underline">더보기 →</a>
+                <section id="shorts" class="py-24 bg-black">
+                    <div class="section-header mb-12">
+                        <span class="section-number text-gray-500">05</span>
+                        <h2 class="text-6xl lg:text-8xl font-black text-white uppercase leading-none">
+                            QUICK<br>
+                            <span class="text-outline" style="color: transparent; -webkit-text-stroke: 2px white;">SHORTS</span>
+                        </h2>
                     </div>
-                    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
                         <!-- 쇼츠 비디오 카드 (세로형) -->
                         <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow cursor-pointer">
                             <div class="aspect-[9/16] bg-gradient-to-b from-pink-400 to-purple-600 relative">
@@ -470,16 +469,16 @@ app.get('/', (c) => {
                 </section>
 
                 <!-- 캠퍼스 라이프 섹션 -->
-                <section id="campus" class="mb-16">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-5xl font-black text-white uppercase tracking-tight">
-                            <i class="fas fa-graduation-cap mr-2 text-green-600"></i>
-                            캠퍼스 라이프
-                        </h3>
-                        <a href="#" class="text-blue-600 hover:underline">더보기 →</a>
+                <section id="campus" class="py-24 bg-black">
+                    <div class="section-header mb-12">
+                        <span class="section-number text-gray-500">06</span>
+                        <h2 class="text-6xl lg:text-8xl font-black text-white uppercase leading-none">
+                            CAMPUS<br>
+                            <span class="text-outline" style="color: transparent; -webkit-text-stroke: 2px white;">LIFE</span>
+                        </h2>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                        <div class="bg-black border border-gray-800 p-6 hover:border-white transition-all duration-300">
                             <div class="flex items-center mb-4">
                                 <div class="bg-blue-100 p-3 rounded-full mr-4">
                                     <i class="fas fa-calendar-alt text-blue-600 text-2xl"></i>
