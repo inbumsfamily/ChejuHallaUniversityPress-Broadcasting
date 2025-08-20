@@ -15,11 +15,8 @@ export const HeaderComponent = () => {
                 <nav class="hidden lg:flex items-center space-x-1">
                     <!-- 방송국 드롭다운 -->
                     <div class="relative group">
-                        <a href="/broadcast" class="px-3 py-2 text-gray-700 hover:text-blue-600 font-medium flex items-center text-sm">
+                        <a href="/broadcast" class="px-3 py-2 text-black hover:text-blue-600 font-bold text-base">
                             방송국
-                            <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
                         </a>
                         <div class="absolute top-full left-0 w-48 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-1">
                             <a href="/broadcast-intro" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">방송국소개</a>
@@ -35,11 +32,8 @@ export const HeaderComponent = () => {
                     
                     <!-- 신문사 드롭다운 -->
                     <div class="relative group">
-                        <a href="/newspaper" class="px-3 py-2 text-gray-700 hover:text-blue-600 font-medium flex items-center text-sm">
+                        <a href="/newspaper" class="px-3 py-2 text-black hover:text-blue-600 font-bold text-base">
                             신문사
-                            <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
                         </a>
                         <div class="absolute top-full left-0 w-48 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-1">
                             <a href="/newspaper-intro" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">신문사소개</a>
@@ -51,11 +45,8 @@ export const HeaderComponent = () => {
                     
                     <!-- 캠퍼스 드롭다운 -->
                     <div class="relative group">
-                        <a href="/campus" class="px-3 py-2 text-gray-700 hover:text-blue-600 font-medium flex items-center text-sm">
+                        <a href="/campus" class="px-3 py-2 text-black hover:text-blue-600 font-bold text-base">
                             캠퍼스
-                            <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
                         </a>
                         <div class="absolute top-full left-0 w-48 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-1">
                             <a href="/campus-life" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">캠퍼스 라이프</a>
@@ -66,19 +57,36 @@ export const HeaderComponent = () => {
                         </div>
                     </div>
                     
-                    <!-- 쇼츠 -->
-                    <a href="/shorts" class="px-3 py-2 text-gray-700 hover:text-blue-600 font-medium text-sm">쇼츠</a>
+                    <!-- 쇼츠 드롭다운 -->
+                    <div class="relative group">
+                        <a href="/shorts" class="px-3 py-2 text-black hover:text-blue-600 font-bold text-base">
+                            쇼츠
+                        </a>
+                        <div class="absolute top-full left-0 w-48 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-1">
+                            <a href="/one-cut-news" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">한컷 뉴스</a>
+                            <a href="/issue-briefing" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">이슈 브리핑</a>
+                            <a href="/anonymous-news" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">익명소식</a>
+                            <a href="/student-tips" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">재학생 꿀팁</a>
+                        </div>
+                    </div>
                     
-                    <!-- 기획보도 -->
-                    <a href="/special-report" class="px-3 py-2 text-gray-700 hover:text-blue-600 font-medium text-sm">기획보도</a>
+                    <!-- 기획보도 드롭다운 -->
+                    <div class="relative group">
+                        <a href="/special-report" class="px-3 py-2 text-black hover:text-blue-600 font-bold text-base">
+                            기획보도
+                        </a>
+                        <div class="absolute top-full left-0 w-48 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-1">
+                            <a href="/career-employment" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">진로·취업</a>
+                            <a href="/youth-region" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">청년·지역</a>
+                            <a href="/welfare-rights" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">복지·권익</a>
+                            <a href="/academic-research" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">학술·연구</a>
+                        </div>
+                    </div>
                     
                     <!-- 제주소식 드롭다운 -->
                     <div class="relative group">
-                        <a href="/jeju-news" class="px-3 py-2 text-gray-700 hover:text-blue-600 font-medium flex items-center text-sm">
+                        <a href="/jeju-news" class="px-3 py-2 text-black hover:text-blue-600 font-bold text-base">
                             제주소식
-                            <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
                         </a>
                         <div class="absolute top-full left-0 w-48 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-1">
                             <a href="/jeju-news-main" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">제주소식</a>
@@ -89,11 +97,8 @@ export const HeaderComponent = () => {
                     
                     <!-- 오피니언 드롭다운 -->
                     <div class="relative group">
-                        <a href="/opinion" class="px-3 py-2 text-gray-700 hover:text-blue-600 font-medium flex items-center text-sm">
+                        <a href="/opinion" class="px-3 py-2 text-black hover:text-blue-600 font-bold text-base">
                             오피니언
-                            <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
                         </a>
                         <div class="absolute top-full left-0 w-48 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-1">
                             <a href="/editorial-column" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">사설·칼럼</a>
@@ -102,8 +107,20 @@ export const HeaderComponent = () => {
                         </div>
                     </div>
                     
-                    <!-- 에세이 -->
-                    <a href="/essay" class="px-3 py-2 text-gray-700 hover:text-blue-600 font-medium text-sm">에세이</a>
+                    <!-- 에세이 드롭다운 -->
+                    <div class="relative group">
+                        <a href="/essay" class="px-3 py-2 text-black hover:text-blue-600 font-bold text-base">
+                            에세이
+                        </a>
+                        <div class="absolute top-full left-0 w-48 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-1">
+                            <a href="/time-in-jeju" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">제주에서 보내는 시간</a>
+                            <a href="/dreams-hopes" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">꿈과 희망</a>
+                            <a href="/travel-exploration" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">여행과 탐방</a>
+                            <a href="/literature-art" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">문학과 예술</a>
+                            <a href="/monthly-theme-essay" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">이달의 테마 에세이</a>
+                            <a href="/my-thoughts" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">나만의 생각 정리</a>
+                        </div>
+                    </div>
                 </nav>
                 
                 <!-- Right side icons -->
@@ -219,8 +236,24 @@ export const HeaderComponent = () => {
                             <a href="/academic-schedule" class="block py-1 text-gray-600">학사일정</a>
                         </div>
                     </div>
-                    <a href="/shorts" class="block font-semibold text-gray-700 py-2">쇼츠</a>
-                    <a href="/special-report" class="block font-semibold text-gray-700 py-2">기획보도</a>
+                    <div>
+                        <div class="font-semibold text-gray-700 py-2">쇼츠</div>
+                        <div class="pl-4 space-y-1">
+                            <a href="/one-cut-news" class="block py-1 text-gray-600">한컷 뉴스</a>
+                            <a href="/issue-briefing" class="block py-1 text-gray-600">이슈 브리핑</a>
+                            <a href="/anonymous-news" class="block py-1 text-gray-600">익명소식</a>
+                            <a href="/student-tips" class="block py-1 text-gray-600">재학생 꿀팁</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-gray-700 py-2">기획보도</div>
+                        <div class="pl-4 space-y-1">
+                            <a href="/career-employment" class="block py-1 text-gray-600">진로·취업</a>
+                            <a href="/youth-region" class="block py-1 text-gray-600">청년·지역</a>
+                            <a href="/welfare-rights" class="block py-1 text-gray-600">복지·권익</a>
+                            <a href="/academic-research" class="block py-1 text-gray-600">학술·연구</a>
+                        </div>
+                    </div>
                     <div>
                         <div class="font-semibold text-gray-700 py-2">제주소식</div>
                         <div class="pl-4 space-y-1">
@@ -237,7 +270,17 @@ export const HeaderComponent = () => {
                             <a href="/student-perspective" class="block py-1 text-gray-600">학생의 시선</a>
                         </div>
                     </div>
-                    <a href="/essay" class="block font-semibold text-gray-700 py-2">에세이</a>
+                    <div>
+                        <div class="font-semibold text-gray-700 py-2">에세이</div>
+                        <div class="pl-4 space-y-1">
+                            <a href="/time-in-jeju" class="block py-1 text-gray-600">제주에서 보내는 시간</a>
+                            <a href="/dreams-hopes" class="block py-1 text-gray-600">꿈과 희망</a>
+                            <a href="/travel-exploration" class="block py-1 text-gray-600">여행과 탐방</a>
+                            <a href="/literature-art" class="block py-1 text-gray-600">문학과 예술</a>
+                            <a href="/monthly-theme-essay" class="block py-1 text-gray-600">이달의 테마 에세이</a>
+                            <a href="/my-thoughts" class="block py-1 text-gray-600">나만의 생각 정리</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
