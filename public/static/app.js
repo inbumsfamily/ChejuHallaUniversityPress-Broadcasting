@@ -26,7 +26,7 @@ async function loadNewspaperArticles() {
     
     if (response.data.articles && response.data.articles.length > 0) {
       newspaperSection.innerHTML = response.data.articles.map((article, index) => `
-        <article class="bg-white border border-gray-200 overflow-hidden hover:border-gray-400 transition-all duration-300 cursor-pointer group shadow-md hover:shadow-xl rounded-lg" onclick="window.location.href='/article/${article.slug}'">
+        <article class="bg-white/10 border border-white/20 overflow-hidden hover:border-white/40 transition-all duration-300 cursor-pointer group backdrop-blur-sm hover:bg-white/20 rounded-lg" onclick="window.location.href='/article/${article.slug}'">
           <div class="relative overflow-hidden h-48">
             ${article.featured_image_url ? `
               <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
@@ -36,22 +36,22 @@ async function loadNewspaperArticles() {
             <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
           </div>
           <div class="p-6">
-            <span class="text-xs font-bold uppercase tracking-widest" style="color: #1e40af;">${article.category_name || 'NEWS'}</span>
-            <h3 class="text-xl font-bold mt-3 mb-2 line-clamp-2 text-gray-800 transition-colors" style="--hover-color: #1e40af;">
+            <span class="text-xs font-bold uppercase tracking-widest text-blue-200">${article.category_name || 'NEWS'}</span>
+            <h3 class="text-xl font-bold mt-3 mb-2 line-clamp-2 text-white transition-colors hover:text-blue-200">
               ${article.title}
             </h3>
-            <div class="flex items-center text-xs text-gray-500 uppercase tracking-wider">
+            <div class="flex items-center text-xs text-white/70 uppercase tracking-wider">
               <span class="mr-4">${article.author_name}</span>
               <span>${article.view_count} VIEWS</span>
             </div>
-            <p class="text-gray-600 mt-3 line-clamp-3 text-sm leading-relaxed">${stripHtml(article.content)}</p>
+            <p class="text-white/80 mt-3 line-clamp-3 text-sm leading-relaxed">${stripHtml(article.content)}</p>
           </div>
         </article>
       `).join('');
     } else {
       newspaperSection.innerHTML = `
         <div class="col-span-3 text-center py-12">
-          <p class="text-white/70 text-lg">아직 등록된 기사가 없습니다.</p>
+          <p class="text-white text-lg">아직 등록된 기사가 없습니다.</p>
         </div>
       `;
     }
@@ -353,7 +353,7 @@ async function loadBroadcastContent() {
     
     if (response.data.articles && response.data.articles.length > 0) {
       broadcastSection.innerHTML = response.data.articles.map(article => `
-        <article class="bg-white/95 backdrop-blur rounded-lg shadow-md overflow-hidden hover:shadow-xl hover:bg-white transition-all cursor-pointer border border-white/20" onclick="window.location.href='/article/${article.slug}'">
+        <article class="bg-white/10 backdrop-blur rounded-lg overflow-hidden hover:bg-white/20 transition-all cursor-pointer border border-white/20" onclick="window.location.href='/article/${article.slug}'">
           ${article.youtube_embed_id ? `
             <div class="aspect-video bg-black relative" onclick="event.stopPropagation()">
               <iframe 
@@ -375,18 +375,18 @@ async function loadBroadcastContent() {
             </div>
           `}
           <div class="p-4">
-            <span class="text-xs text-red-600 font-semibold">${article.category_name || '방송국'}</span>
-            <h3 class="text-lg font-bold mt-2 mb-2 line-clamp-2 text-gray-800 hover:text-blue-600">
+            <span class="text-xs text-blue-200 font-semibold">${article.category_name || '방송국'}</span>
+            <h3 class="text-lg font-bold mt-2 mb-2 line-clamp-2 text-white hover:text-blue-200">
               ${article.title}
             </h3>
-            <div class="flex items-center text-sm text-gray-500">
+            <div class="flex items-center text-sm text-white/70">
               <i class="fas fa-user mr-1"></i>
               <span class="mr-3">${article.author_name}</span>
               <i class="fas fa-eye mr-1"></i>
               <span>${article.view_count}</span>
             </div>
-            <p class="text-gray-600 mt-2 line-clamp-3">${stripHtml(article.content)}</p>
-            <button class="text-blue-600 hover:text-blue-800 mt-3 inline-block font-semibold" onclick="event.stopPropagation(); window.location.href='/article/${article.slug}'">
+            <p class="text-white/80 mt-2 line-clamp-3">${stripHtml(article.content)}</p>
+            <button class="text-blue-200 hover:text-white mt-3 inline-block font-semibold" onclick="event.stopPropagation(); window.location.href='/article/${article.slug}'">
               자세히 보기 →
             </button>
           </div>
@@ -395,7 +395,7 @@ async function loadBroadcastContent() {
     } else {
       broadcastSection.innerHTML = `
         <div class="col-span-3 text-center py-12">
-          <p class="text-white/70 text-lg">아직 등록된 방송 콘텐츠가 없습니다.</p>
+          <p class="text-white text-lg">아직 등록된 방송 콘텐츠가 없습니다.</p>
         </div>
       `;
     }

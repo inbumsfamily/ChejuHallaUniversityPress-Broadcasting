@@ -433,12 +433,12 @@ app.get('/', (c) => {
                 <!-- Container for sections -->
                 <div class="container mx-auto px-4">
                 <!-- 신문사 섹션 -->
-                <section id="newspaper" class="mt-16 mb-16 p-6 border border-gray-300 bg-white shadow-sm">
+                <section id="newspaper" class="mt-16 mb-16 p-6 rounded-lg" style="background: #1e40af; border: 1px solid #1e3a8a;">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-5xl font-black text-gray-900 uppercase tracking-tight">
+                        <h3 class="text-5xl font-black text-white uppercase tracking-tight">
                             신문사
                         </h3>
-                        <a href="/newspaper" class="text-gray-700 hover:text-blue-600 transition-colors font-semibold">더보기 →</a>
+                        <a href="/newspaper" class="text-white hover:text-blue-200 transition-colors font-semibold">더보기 →</a>
                     </div>
                     <div id="newspaperArticles" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <!-- 신문 기사가 여기에 로드됩니다 -->
@@ -446,17 +446,17 @@ app.get('/', (c) => {
                 </section>
 
                 <!-- 방송국 섹션 -->
-                <section id="broadcast" class="mb-16 p-6 border border-gray-300 bg-white shadow-sm">
+                <section id="broadcast" class="mb-16 p-6 rounded-lg" style="background: #1e40af; border: 1px solid #1e3a8a;">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-5xl font-black text-gray-900 uppercase tracking-tight">
+                        <h3 class="text-5xl font-black text-white uppercase tracking-tight">
                             방송국
                         </h3>
-                        <a href="/broadcast" class="text-gray-700 hover:text-blue-600 transition-colors font-semibold">더보기 →</a>
+                        <a href="/broadcast" class="text-white hover:text-blue-200 transition-colors font-semibold">더보기 →</a>
                     </div>
                     <div id="broadcastArticles" class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <!-- 방송 콘텐츠가 여기에 로드됩니다 -->
                         <div class="col-span-3 text-center py-12">
-                            <p class="text-gray-600 text-lg">방송 콘텐츠를 불러오는 중...</p>
+                            <p class="text-white text-lg">방송 콘텐츠를 불러오는 중...</p>
                         </div>
                     </div>
                 </section>
