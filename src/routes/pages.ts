@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import { HeaderComponent } from '../components/header';
+import { Footer } from '../components/footer';
 import type { CloudflareBindings } from '../types';
 
 const pagesRouter = new Hono<{ Bindings: CloudflareBindings }>();
@@ -14,17 +15,19 @@ const categoryPageTemplate = (categoryName: string, categorySlug: string, subCat
     <title>${categoryName} - 제주한라대학교 신문방송사</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/styles.css" rel="stylesheet">
 </head>
-<body class="bg-gray-50">
-    ${HeaderComponent()}
+<body class="min-h-screen bg-white text-gray-900">
+    <div id="app">
+        ${HeaderComponent()}
 
     <div class="container mx-auto px-4 py-8">
         <!-- Category Header -->
-        <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg p-8 mb-8">
-            <h1 class="text-4xl font-bold mb-2">
+        <div class="rounded-lg p-8 mb-8 border border-gray-200" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);">
+            <h1 class="text-4xl font-bold mb-2 text-white">
                 ${categoryName}
             </h1>
-            <p class="text-lg opacity-90">${categoryName} 소식을 전해드립니다</p>
+            <p class="text-lg text-white/90">${categoryName} 소식을 전해드립니다</p>
         </div>
         
         ${subCategories.length > 0 ? `
@@ -33,15 +36,15 @@ const categoryPageTemplate = (categoryName: string, categorySlug: string, subCat
             <h2 class="text-2xl font-bold mb-6 text-gray-800">${categoryName} 메뉴</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 ${subCategories.map(sub => `
-                    <a href="/${sub.slug}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1 p-6 border border-gray-100">
+                    <a href="/${sub.slug}" class="bg-white border border-gray-300 rounded-lg hover:border-gray-500 transition-all p-6 block shadow-sm hover:shadow-md">
                         <div class="flex items-center justify-between mb-3">
-                            <div class="bg-blue-100 p-3 rounded-full">
-                                <i class="fas fa-folder text-blue-600 text-xl"></i>
+                            <div class="p-3 rounded-full" style="background-color: #1e40af;">
+                                <i class="fas fa-folder text-gray-700 text-xl">
                             </div>
-                            <i class="fas fa-arrow-right text-gray-400"></i>
+                            <i class="fas fa-arrow-right text-gray-500"></i>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">${sub.name}</h3>
-                        <p class="text-sm text-gray-600">클릭하여 기사를 확인하세요</p>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">${sub.name}</h3>
+                        <p class="text-sm text-gray-400">클릭하여 기사를 확인하세요</p>
                     </a>
                 `).join('')}
             </div>
@@ -49,10 +52,10 @@ const categoryPageTemplate = (categoryName: string, categorySlug: string, subCat
         ` : ''}
             
             <div class="mt-8">
-                <h2 class="text-xl font-semibold mb-4">최신 기사</h2>
+                <h2 class="text-xl font-semibold mb-4 text-gray-900">최신 기사</h2>
                 <div id="articlesList" class="space-y-4">
                     <!-- Articles will be loaded here -->
-                    <div class="text-center py-8 text-gray-500">
+                    <div class="text-center py-8 text-gray-400">
                         <i class="fas fa-spinner fa-spin text-3xl mb-4"></i>
                         <p>기사를 불러오는 중...</p>
                     </div>
@@ -60,15 +63,19 @@ const categoryPageTemplate = (categoryName: string, categorySlug: string, subCat
             </div>
             
             <div class="mt-8">
-                <a href="/" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                <a href="/" class="inline-block text-white px-6 py-2 rounded-lg transition-colors" style="background-color: #1e40af;" onmouseover="this.style.backgroundColor='#1e3a8a'" onmouseout="this.style.backgroundColor='#1e40af'">
                     <i class="fas fa-home mr-2"></i>
                     메인으로 돌아가기
                 </a>
             </div>
         </div>
+        
+        ${Footer()}
+    </div>
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
+    <script src="/static/app.js"></script>
     <script>
         // Load articles for this category
         async function loadCategoryArticles() {
@@ -78,11 +85,11 @@ const categoryPageTemplate = (categoryName: string, categorySlug: string, subCat
                 
                 if (response.data.articles && response.data.articles.length > 0) {
                     articlesList.innerHTML = response.data.articles.map(article => \`
-                        <article class="border-b pb-4 cursor-pointer hover:bg-gray-50 p-4 -m-4 rounded" onclick="window.location.href='/article/\${article.slug}'">
-                            <h3 class="text-lg font-semibold mb-2 text-gray-800 hover:text-blue-600">
+                        <article class="border-b border-gray-200 pb-4 cursor-pointer hover:bg-gray-50 p-4 -m-4 rounded transition-colors" onclick="window.location.href='/article/\${article.slug}'">
+                            <h3 class="text-lg font-semibold mb-2 text-gray-900 hover:text-blue-600 transition-colors">
                                 \${article.title}
                             </h3>
-                            <p class="text-gray-600 text-sm mb-2">\${article.content.substring(0, 150)}...</p>
+                            <p class="text-gray-400 text-sm mb-2">\${article.content.substring(0, 150)}...</p>
                             <div class="text-xs text-gray-500">
                                 <span class="mr-4">
                                     <i class="fas fa-user mr-1"></i> \${article.author_name}
@@ -97,11 +104,11 @@ const categoryPageTemplate = (categoryName: string, categorySlug: string, subCat
                         </article>
                     \`).join('');
                 } else {
-                    articlesList.innerHTML = '<p class="text-center text-gray-500 py-8">등록된 기사가 없습니다.</p>';
+                    articlesList.innerHTML = '<p class="text-center text-gray-400 py-8">등록된 기사가 없습니다.</p>';
                 }
             } catch (error) {
                 console.error('Failed to load articles:', error);
-                document.getElementById('articlesList').innerHTML = '<p class="text-center text-red-500 py-8">기사를 불러오는 중 오류가 발생했습니다.</p>';
+                document.getElementById('articlesList').innerHTML = '<p class="text-center text-red-400 py-8">기사를 불러오는 중 오류가 발생했습니다.</p>';
             }
         }
         
@@ -213,20 +220,23 @@ const subCategoryPageTemplate = (categoryName: string, categorySlug: string) => 
     <title>${categoryName} - 제주한라대학교 신문방송사</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/styles.css" rel="stylesheet">
 </head>
-<body class="bg-gray-50">
-    <div class="container mx-auto px-4 py-8">
-        <div class="bg-white rounded-lg shadow-md p-6">
-            <h1 class="text-3xl font-bold text-gray-800 mb-4">
-                <i class="fas fa-folder-open mr-2"></i>
-                ${categoryName}
-            </h1>
+<body class="min-h-screen bg-white text-gray-900">
+    <div id="app">
+        ${HeaderComponent()}
+        <div class="container mx-auto px-4 py-8">
+            <div class="bg-white border border-gray-300 rounded-lg p-6 shadow-sm">
+                <h1 class="text-3xl font-bold text-gray-900 mb-4">
+                    <i class="fas fa-folder-open mr-2" style="color: #1e40af;"></i>
+                    ${categoryName}
+                </h1>
             
             <div class="mt-8">
-                <h2 class="text-xl font-semibold mb-4">최신 기사</h2>
+                <h2 class="text-xl font-semibold mb-4 text-gray-900">최신 기사</h2>
                 <div id="articlesList" class="space-y-4">
                     <!-- Articles will be loaded here -->
-                    <div class="text-center py-8 text-gray-500">
+                    <div class="text-center py-8 text-gray-400">
                         <i class="fas fa-spinner fa-spin text-3xl mb-4"></i>
                         <p>기사를 불러오는 중...</p>
                     </div>
@@ -234,15 +244,19 @@ const subCategoryPageTemplate = (categoryName: string, categorySlug: string) => 
             </div>
             
             <div class="mt-8">
-                <a href="/" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                <a href="/" class="inline-block text-white px-6 py-2 rounded-lg transition-colors" style="background-color: #1e40af;" onmouseover="this.style.backgroundColor='#1e3a8a'" onmouseout="this.style.backgroundColor='#1e40af'">
                     <i class="fas fa-home mr-2"></i>
                     메인으로 돌아가기
                 </a>
             </div>
         </div>
+        
+        ${Footer()}
+    </div>
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
+    <script src="/static/app.js"></script>
     <script>
         // Load articles for this category
         async function loadCategoryArticles() {
@@ -252,11 +266,11 @@ const subCategoryPageTemplate = (categoryName: string, categorySlug: string) => 
                 
                 if (response.data.articles && response.data.articles.length > 0) {
                     articlesList.innerHTML = response.data.articles.map(article => \`
-                        <article class="border-b pb-4 cursor-pointer hover:bg-gray-50 p-4 -m-4 rounded" onclick="window.location.href='/article/\${article.slug}'">
-                            <h3 class="text-lg font-semibold mb-2 text-gray-800 hover:text-blue-600">
+                        <article class="border-b border-gray-200 pb-4 cursor-pointer hover:bg-gray-50 p-4 -m-4 rounded transition-colors" onclick="window.location.href='/article/\${article.slug}'">
+                            <h3 class="text-lg font-semibold mb-2 text-gray-900 hover:text-blue-600 transition-colors">
                                 \${article.title}
                             </h3>
-                            <p class="text-gray-600 text-sm mb-2">\${article.content.substring(0, 150)}...</p>
+                            <p class="text-gray-400 text-sm mb-2">\${article.content.substring(0, 150)}...</p>
                             <div class="text-xs text-gray-500">
                                 <span class="mr-4">
                                     <i class="fas fa-user mr-1"></i> \${article.author_name}
@@ -271,11 +285,11 @@ const subCategoryPageTemplate = (categoryName: string, categorySlug: string) => 
                         </article>
                     \`).join('');
                 } else {
-                    articlesList.innerHTML = '<p class="text-center text-gray-500 py-8">등록된 기사가 없습니다.</p>';
+                    articlesList.innerHTML = '<p class="text-center text-gray-400 py-8">등록된 기사가 없습니다.</p>';
                 }
             } catch (error) {
                 console.error('Failed to load articles:', error);
-                document.getElementById('articlesList').innerHTML = '<p class="text-center text-red-500 py-8">기사를 불러오는 중 오류가 발생했습니다.</p>';
+                document.getElementById('articlesList').innerHTML = '<p class="text-center text-red-400 py-8">기사를 불러오는 중 오류가 발생했습니다.</p>';
             }
         }
         
@@ -375,17 +389,22 @@ pagesRouter.get('/article/:slug', async (c) => {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>기사를 찾을 수 없습니다</title>
             <script src="https://cdn.tailwindcss.com"></script>
+            <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+            <link href="/static/styles.css" rel="stylesheet">
         </head>
-        <body class="bg-gray-50">
-            ${HeaderComponent()}
-            <div class="container mx-auto px-4 py-8">
-                <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                    <h1 class="text-2xl font-bold text-red-600 mb-4">기사를 찾을 수 없습니다</h1>
-                    <p class="text-gray-600 mb-4">요청하신 기사가 존재하지 않거나 삭제되었습니다.</p>
-                    <a href="/" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
-                        메인으로 돌아가기
-                    </a>
+        <body class="min-h-screen bg-white text-gray-900">
+            <div id="app">
+                ${HeaderComponent()}
+                <div class="container mx-auto px-4 py-8">
+                    <div class="bg-black border border-gray-800 rounded-lg p-6 text-center">
+                        <h1 class="text-2xl font-bold text-red-500 mb-4">기사를 찾을 수 없습니다</h1>
+                        <p class="text-gray-400 mb-4">요청하신 기사가 존재하지 않거나 삭제되었습니다.</p>
+                        <a href="/" class="inline-block text-white px-6 py-2 rounded-lg transition-colors" style="background-color: #1e40af;" onmouseover="this.style.backgroundColor='#1e3a8a'" onmouseout="this.style.backgroundColor='#1e40af'">
+                            메인으로 돌아가기
+                        </a>
+                    </div>
                 </div>
+                ${Footer()}
             </div>
         </body>
         </html>
@@ -406,20 +425,22 @@ pagesRouter.get('/article/:slug', async (c) => {
           <title>${article.title} - 제주한라대학교 신문방송사</title>
           <script src="https://cdn.tailwindcss.com"></script>
           <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+          <link href="/static/styles.css" rel="stylesheet">
       </head>
-      <body class="bg-gray-50">
-          ${HeaderComponent()}
-          <div class="container mx-auto px-4 py-8 max-w-4xl">
-              <article class="bg-white rounded-lg shadow-md p-6">
+      <body class="min-h-screen bg-white text-gray-900">
+          <div id="app">
+              ${HeaderComponent()}
+              <div class="container mx-auto px-4 py-8 max-w-4xl">
+                  <article class="bg-black border border-gray-800 rounded-lg p-6">
                   <div class="mb-4">
-                      <span class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
+                      <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold text-white" style="background-color: #1e40af;">
                           ${article.category_name}
                       </span>
                   </div>
                   
-                  <h1 class="text-3xl font-bold text-gray-800 mb-4">${article.title}</h1>
+                  <h1 class="text-3xl font-bold text-gray-900 mb-4">${article.title}</h1>
                   
-                  <div class="flex items-center text-sm text-gray-600 mb-6">
+                  <div class="flex items-center text-sm text-gray-400 mb-6">
                       <span class="mr-4">
                           <i class="fas fa-user mr-1"></i> ${article.author_name}
                       </span>
@@ -449,22 +470,25 @@ pagesRouter.get('/article/:slug', async (c) => {
                   </div>
                   ` : ''}
                   
-                  <div class="prose prose-lg max-w-none mb-8">
+                  <div class="prose prose-lg prose-invert max-w-none mb-8 text-gray-300">
                       ${article.content.replace(/\n/g, '<br>')}
                   </div>
                   
-                  <div class="border-t pt-4 mt-8">
-                      <a href="/${article.category_slug}" class="inline-block bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 mr-2">
+                  <div class="border-t border-gray-800 pt-4 mt-8">
+                      <a href="/${article.category_slug}" class="inline-block bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 mr-2 transition-colors">
                           <i class="fas fa-list mr-2"></i>
                           목록으로
                       </a>
-                      <a href="/" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                      <a href="/" class="inline-block text-white px-4 py-2 rounded-lg transition-colors" style="background-color: #1e40af;" onmouseover="this.style.backgroundColor='#1e3a8a'" onmouseout="this.style.backgroundColor='#1e40af'">
                           <i class="fas fa-home mr-2"></i>
                           메인으로
                       </a>
                   </div>
               </article>
           </div>
+          
+          ${Footer()}
+      </div>
       </body>
       </html>
     `);

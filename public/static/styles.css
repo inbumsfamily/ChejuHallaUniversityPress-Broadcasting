@@ -1,23 +1,26 @@
 /* Jeju Halla University Media - Bold Modern Design */
 
-/* Color Scheme - Black & White with Bold Accents */
+/* Color Scheme - White & Light Gray with Deep Blue Accents */
 :root {
-  --bg-primary: #000000;
-  --bg-secondary: #0a0a0a;
-  --bg-tertiary: #111111;
-  --text-primary: #ffffff;
-  --text-secondary: #cccccc;
-  --text-muted: #888888;
-  --accent-primary: #0000ff;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-tertiary: #f3f4f6;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #9ca3af;
+  --accent-primary: #1e40af; /* Deep Blue - Primary */
+  --accent-blue: #1e40af; /* Deep Blue */
+  --accent-blue-dark: #1e3a8a; /* Darker Blue */
+  --accent-blue-light: #2563eb; /* Lighter Blue for hover */
   --accent-red: #ff0000;
   --accent-yellow: #ffff00;
-  --border-color: #222222;
-  --shadow-sm: 0 2px 4px rgba(0,0,0,0.5);
-  --shadow-md: 0 4px 8px rgba(0,0,0,0.7);
-  --shadow-lg: 0 10px 25px rgba(0,0,0,0.9);
+  --border-color: #e5e7eb;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
 }
 
-/* Global Styles - Dark Theme */
+/* Global Styles - Light Theme */
 * {
   margin: 0;
   padding: 0;
@@ -42,6 +45,35 @@ h1 {
   letter-spacing: -0.03em;
   line-height: 0.9;
   margin-bottom: 2rem;
+}
+
+/* Hero Banner Full Color Display */
+.hover-color-image {
+  filter: none;
+  transition: transform 0.5s ease-in-out, filter 0.5s ease-in-out;
+}
+
+.hover-color-image:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+/* For parent container hover */
+.slide:hover .hover-color-image {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+/* Subtle gradient overlay for text readability */
+.slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, 
+    transparent 0%, 
+    rgba(0, 0, 0, 0.3) 70%, 
+    rgba(0, 0, 0, 0.8) 100%);
+  pointer-events: none;
 }
 
 h2 {
@@ -111,18 +143,20 @@ a:hover {
   color: var(--accent-primary);
 }
 
-/* Cards - Dark Theme */
+/* Cards - Light Theme */
 .card {
-  background: var(--bg-secondary);
+  background: var(--bg-primary);
   border: 1px solid var(--border-color);
-  border-radius: 0;
+  border-radius: 8px;
   transition: all 0.3s ease;
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .card:hover {
-  border-color: var(--text-primary);
+  border-color: var(--text-secondary);
   transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
 }
 
 /* Section Headers */
@@ -145,10 +179,16 @@ a:hover {
 
 .section-number {
   font-size: 0.875rem;
-  color: var(--text-muted);
+  color: var(--accent-primary);
   margin-bottom: 1rem;
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 0.2em;
+  text-shadow: 0 0 20px rgba(30, 64, 175, 0.5);
+}
+
+/* Hover color for article titles */
+.group:hover h3[style*="--hover-color"] {
+  color: #1e40af !important;
 }
 
 /* Grid Layouts */
@@ -221,7 +261,7 @@ a:hover {
 /* Navigation Styles */
 .nav-modern {
   border-bottom: 1px solid var(--border-color);
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
 }
 
@@ -241,7 +281,7 @@ a:hover {
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--text-primary);
+  background: var(--accent-primary);
   transition: width 0.3s ease;
 }
 
@@ -249,11 +289,11 @@ a:hover {
   width: 100%;
 }
 
-/* Dropdown Menu - Dark */
+/* Dropdown Menu - Light */
 .dropdown-menu {
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
 }
 
 .dropdown-menu a {

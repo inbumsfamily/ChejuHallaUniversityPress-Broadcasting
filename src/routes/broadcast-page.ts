@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import { HeaderComponent } from '../components/header';
+import { Footer } from '../components/footer';
 import type { CloudflareBindings } from '../types';
 
 const broadcastRouter = new Hono<{ Bindings: CloudflareBindings }>();
@@ -15,36 +16,38 @@ broadcastRouter.get('/broadcast', (c) => {
     <title>방송국 - 제주한라대학교 신문방송사</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/styles.css" rel="stylesheet">
     <style>
         .video-card:hover .play-button {
             transform: scale(1.1);
         }
     </style>
 </head>
-<body class="bg-gray-50">
-    ${HeaderComponent()}
+<body class="min-h-screen bg-white text-gray-900">
+    <div id="app">
+        ${HeaderComponent()}
 
     <div class="container mx-auto px-4 py-8">
         <!-- Broadcast Header with Video Background Effect -->
-        <div class="relative bg-gradient-to-r from-red-600 to-red-800 text-white rounded-lg p-8 mb-8 overflow-hidden">
+        <div class="relative rounded-lg p-8 mb-8 overflow-hidden border border-gray-200" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);">
             <div class="absolute inset-0 opacity-20">
                 <div class="absolute inset-0 bg-black"></div>
                 <i class="fas fa-broadcast-tower text-white text-[200px] absolute -right-10 -top-10 opacity-20"></i>
             </div>
             <div class="relative z-10">
-                <h1 class="text-4xl font-bold mb-2 flex items-center">
+                <h1 class="text-4xl font-bold mb-2 flex items-center text-white">
                     <i class="fas fa-video mr-3"></i>
                     방송국
                 </h1>
-                <p class="text-lg opacity-90">제주한라대학교의 생생한 영상 뉴스와 프로그램</p>
+                <p class="text-lg text-white/90">제주한라대학교의 생생한 영상 뉴스와 프로그램</p>
             </div>
         </div>
         
         <!-- Main Video Player -->
         <div class="mb-8">
-            <div class="bg-black rounded-lg overflow-hidden aspect-video relative group">
+            <div class="bg-gray-100 rounded-lg overflow-hidden aspect-video relative group shadow-sm">
                 <div class="absolute inset-0 flex items-center justify-center">
-                    <button class="play-button bg-red-600 hover:bg-red-700 text-white rounded-full p-6 transition-all">
+                    <button class="play-button text-white rounded-full p-6 transition-all" style="background-color: #1e40af;" onmouseover="this.style.backgroundColor='#1e3a8a'" onmouseout="this.style.backgroundColor='#1e40af'">
                         <i class="fas fa-play text-3xl ml-1"></i>
                     </button>
                 </div>
@@ -57,109 +60,109 @@ broadcastRouter.get('/broadcast', (c) => {
         
         <!-- Broadcasting Categories Grid -->
         <div class="mb-8">
-            <h2 class="text-2xl font-bold mb-6 text-gray-800">방송국 프로그램</h2>
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">방송국 프로그램</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 <!-- 방송국소개 -->
-                <a href="/broadcast-intro" class="video-card bg-white rounded-lg shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1 overflow-hidden group">
+                <a href="/broadcast-intro" class="video-card bg-white border border-gray-300 rounded-lg hover:border-gray-500 transition-all overflow-hidden group shadow-sm hover:shadow-md">
                     <div class="aspect-video bg-gradient-to-br from-red-500 to-pink-600 relative">
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <i class="fas fa-info-circle text-white text-4xl group-hover:scale-110 transition-transform"></i>
+                            <i class="fas fa-info-circle text-gray-700 text-4xl group-hover:scale-110 transition-transform">
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">방송국소개</h3>
-                        <p class="text-sm text-gray-600">우리 방송국을 소개합니다</p>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">방송국소개</h3>
+                        <p class="text-sm text-gray-400">우리 방송국을 소개합니다</p>
                     </div>
                 </a>
                 
                 <!-- 한라뉴스 -->
-                <a href="/halla-news" class="video-card bg-white rounded-lg shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1 overflow-hidden group">
+                <a href="/halla-news" class="video-card bg-white border border-gray-300 rounded-lg hover:border-gray-500 transition-all overflow-hidden group shadow-sm hover:shadow-md">
                     <div class="aspect-video bg-gradient-to-br from-blue-500 to-cyan-600 relative">
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <i class="fas fa-newspaper text-white text-4xl group-hover:scale-110 transition-transform"></i>
+                            <i class="fas fa-newspaper text-gray-700 text-4xl group-hover:scale-110 transition-transform"></i>
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">한라뉴스</h3>
-                        <p class="text-sm text-gray-600">캠퍼스 주요 뉴스</p>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">한라뉴스</h3>
+                        <p class="text-sm text-gray-400">캠퍼스 주요 뉴스</p>
                     </div>
                 </a>
                 
                 <!-- 한라인터뷰 -->
-                <a href="/halla-interview" class="video-card bg-white rounded-lg shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1 overflow-hidden group">
+                <a href="/halla-interview" class="video-card bg-white border border-gray-300 rounded-lg hover:border-gray-500 transition-all overflow-hidden group">
                     <div class="aspect-video bg-gradient-to-br from-purple-500 to-indigo-600 relative">
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <i class="fas fa-microphone text-white text-4xl group-hover:scale-110 transition-transform"></i>
+                            <i class="fas fa-microphone text-gray-700 text-4xl group-hover:scale-110 transition-transform"></i>
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">한라인터뷰</h3>
-                        <p class="text-sm text-gray-600">인물과의 만남</p>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">한라인터뷰</h3>
+                        <p class="text-sm text-gray-400">인물과의 만남</p>
                     </div>
                 </a>
                 
                 <!-- 전공특집 -->
-                <a href="/major-special" class="video-card bg-white rounded-lg shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1 overflow-hidden group">
+                <a href="/major-special" class="video-card bg-white border border-gray-300 rounded-lg hover:border-gray-500 transition-all overflow-hidden group">
                     <div class="aspect-video bg-gradient-to-br from-green-500 to-teal-600 relative">
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <i class="fas fa-graduation-cap text-white text-4xl group-hover:scale-110 transition-transform"></i>
+                            <i class="fas fa-graduation-cap text-gray-700 text-4xl group-hover:scale-110 transition-transform"></i>
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">전공특집</h3>
-                        <p class="text-sm text-gray-600">학과별 특별 프로그램</p>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">전공특집</h3>
+                        <p class="text-sm text-gray-400">학과별 특별 프로그램</p>
                     </div>
                 </a>
                 
                 <!-- 캠퍼스투어 -->
-                <a href="/campus-tour" class="video-card bg-white rounded-lg shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1 overflow-hidden group">
+                <a href="/campus-tour" class="video-card bg-white border border-gray-300 rounded-lg hover:border-gray-500 transition-all overflow-hidden group">
                     <div class="aspect-video bg-gradient-to-br from-yellow-500 to-orange-600 relative">
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <i class="fas fa-walking text-white text-4xl group-hover:scale-110 transition-transform"></i>
+                            <i class="fas fa-walking text-gray-700 text-4xl group-hover:scale-110 transition-transform"></i>
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">캠퍼스투어</h3>
-                        <p class="text-sm text-gray-600">캠퍼스 곳곳을 소개</p>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">캠퍼스투어</h3>
+                        <p class="text-sm text-gray-400">캠퍼스 곳곳을 소개</p>
                     </div>
                 </a>
                 
                 <!-- 문화·예술(방송) -->
-                <a href="/culture-art-broadcast" class="video-card bg-white rounded-lg shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1 overflow-hidden group">
+                <a href="/culture-art-broadcast" class="video-card bg-white border border-gray-300 rounded-lg hover:border-gray-500 transition-all overflow-hidden group">
                     <div class="aspect-video bg-gradient-to-br from-pink-500 to-rose-600 relative">
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <i class="fas fa-palette text-white text-4xl group-hover:scale-110 transition-transform"></i>
+                            <i class="fas fa-palette text-gray-700 text-4xl group-hover:scale-110 transition-transform"></i>
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">문화·예술(방송)</h3>
-                        <p class="text-sm text-gray-600">문화예술 프로그램</p>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">문화·예술(방송)</h3>
+                        <p class="text-sm text-gray-400">문화예술 프로그램</p>
                     </div>
                 </a>
                 
                 <!-- 라디오·팟캐스트 -->
-                <a href="/radio-podcast" class="video-card bg-white rounded-lg shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1 overflow-hidden group">
+                <a href="/radio-podcast" class="video-card bg-white border border-gray-300 rounded-lg hover:border-gray-500 transition-all overflow-hidden group">
                     <div class="aspect-video bg-gradient-to-br from-indigo-500 to-blue-600 relative">
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <i class="fas fa-podcast text-white text-4xl group-hover:scale-110 transition-transform"></i>
+                            <i class="fas fa-podcast text-gray-700 text-4xl group-hover:scale-110 transition-transform"></i>
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">라디오·팟캐스트</h3>
-                        <p class="text-sm text-gray-600">오디오 콘텐츠</p>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">라디오·팟캐스트</h3>
+                        <p class="text-sm text-gray-400">오디오 콘텐츠</p>
                     </div>
                 </a>
                 
                 <!-- 방송국 활동기 -->
-                <a href="/broadcast-activities" class="video-card bg-white rounded-lg shadow-md hover:shadow-xl transition-all transform hover:-translate-y-1 overflow-hidden group">
+                <a href="/broadcast-activities" class="video-card bg-white border border-gray-300 rounded-lg hover:border-gray-500 transition-all overflow-hidden group">
                     <div class="aspect-video bg-gradient-to-br from-gray-600 to-gray-800 relative">
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <i class="fas fa-users text-white text-4xl group-hover:scale-110 transition-transform"></i>
+                            <i class="fas fa-users text-gray-700 text-4xl group-hover:scale-110 transition-transform"></i>
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">방송국 활동기</h3>
-                        <p class="text-sm text-gray-600">방송국 활동 소식</p>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">방송국 활동기</h3>
+                        <p class="text-sm text-gray-400">방송국 활동 소식</p>
                     </div>
                 </a>
             </div>
@@ -167,15 +170,18 @@ broadcastRouter.get('/broadcast', (c) => {
         
         <!-- Latest Videos Section -->
         <div class="mt-8">
-            <h2 class="text-2xl font-bold mb-6 text-gray-800">최신 방송 콘텐츠</h2>
+            <h2 class="text-2xl font-bold mb-6 text-white">최신 방송 콘텐츠</h2>
             <div id="broadcastArticles" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Videos will be loaded here dynamically -->
                 <div class="col-span-3 text-center py-12">
                     <i class="fas fa-spinner fa-spin text-gray-400 text-4xl"></i>
-                    <p class="text-gray-500 mt-4">방송 콘텐츠를 불러오는 중...</p>
+                    <p class="text-gray-400 mt-4">방송 콘텐츠를 불러오는 중...</p>
                 </div>
             </div>
         </div>
+        
+        ${Footer()}
+    </div>
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>

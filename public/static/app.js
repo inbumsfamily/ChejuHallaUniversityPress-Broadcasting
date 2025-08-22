@@ -16,81 +16,7 @@ axios.interceptors.request.use(
   error => Promise.reject(error)
 );
 
-// Load latest articles for main page
-async function loadLatestArticles() {
-  try {
-    const response = await axios.get(`${API_BASE}/articles?limit=12`);
-    const articlesSection = document.getElementById('latestArticles');
-    if (!articlesSection) return;
-    
-    if (response.data.articles && response.data.articles.length > 0) {
-      // Create video player for the first position (spans 2 columns)
-      const videoPlayerHtml = `
-        <div class="col-span-2 bg-black border border-gray-800 overflow-hidden hover:border-white transition-all duration-300">
-          <div class="relative" style="padding-bottom: 56.25%;">
-            <iframe 
-              class="absolute inset-0 w-full h-full"
-              src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-              title="한라인터뷰 - 최신 인터뷰 영상"
-              frameborder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowfullscreen>
-            </iframe>
-          </div>
-          <div class="p-4">
-            <span class="text-xs text-white font-bold uppercase tracking-widest opacity-60">INTERVIEW</span>
-            <h3 class="text-2xl font-black mt-2 mb-2 text-white uppercase">
-              CHU MEDIA EXCLUSIVE
-            </h3>
-            <p class="text-gray-400 mt-2 text-sm leading-relaxed">
-              Discover exclusive interviews with Cheju Halla University members. Real stories from students, professors, and staff.
-            </p>
-            <button class="text-white hover:text-blue-400 mt-4 inline-block font-bold uppercase text-sm tracking-wider transition-colors border-b-2 border-transparent hover:border-blue-400 pb-1" onclick="window.location.href='/halla-interview'">
-              VIEW MORE
-            </button>
-          </div>
-        </div>
-      `;
-      
-      // Create regular article cards for the rest (starting from first article)
-      const articleCards = response.data.articles.map((article, index) => `
-        <article class="bg-black border border-gray-800 overflow-hidden hover:border-white transition-all duration-300 cursor-pointer group" onclick="window.location.href='/article/${article.slug}'">
-          <div class="relative overflow-hidden h-48">
-            ${article.featured_image_url ? `
-              <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500">
-            ` : `
-              <img src="https://picsum.photos/400/300?random=${index + Date.now()}" alt="${article.title}" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500">
-            `}
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
-          </div>
-          <div class="p-6">
-            <span class="text-xs text-white font-bold uppercase tracking-widest opacity-60">${article.category_name || 'GENERAL'}</span>
-            <h3 class="text-xl font-bold mt-3 mb-2 line-clamp-2 text-white group-hover:text-blue-400 transition-colors">
-              ${article.title}
-            </h3>
-            <div class="flex items-center text-xs text-gray-500 uppercase tracking-wider">
-              <span class="mr-4">${article.author_name}</span>
-              <span>${article.view_count} VIEWS</span>
-            </div>
-            <p class="text-gray-400 mt-3 line-clamp-3 text-sm leading-relaxed">${stripHtml(article.content)}</p>
-          </div>
-        </article>
-      `).join('');
-      
-      // Combine video player and article cards
-      articlesSection.innerHTML = videoPlayerHtml + articleCards;
-    } else {
-      articlesSection.innerHTML = `
-        <div class="col-span-3 text-center py-12">
-          <i class="fas fa-newspaper text-gray-300 text-6xl mb-4"></i>
-          <p class="text-gray-500">아직 등록된 기사가 없습니다.</p>
-        </div>
-      `;
-    }
-  } catch (error) {
-    console.error('Failed to load latest articles:', error);
-  }
-}
+// Removed loadLatestArticles function - LATEST ARTICLES section has been deleted
 
 // Load newspaper articles
 async function loadNewspaperArticles() {
@@ -100,33 +26,32 @@ async function loadNewspaperArticles() {
     
     if (response.data.articles && response.data.articles.length > 0) {
       newspaperSection.innerHTML = response.data.articles.map((article, index) => `
-        <article class="bg-black border border-gray-800 overflow-hidden hover:border-white transition-all duration-300 cursor-pointer group" onclick="window.location.href='/article/${article.slug}'">
+        <article class="bg-white border border-gray-200 overflow-hidden hover:border-gray-400 transition-all duration-300 cursor-pointer group shadow-md hover:shadow-xl rounded-lg" onclick="window.location.href='/article/${article.slug}'">
           <div class="relative overflow-hidden h-48">
             ${article.featured_image_url ? `
-              <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500">
+              <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
             ` : `
-              <img src="https://picsum.photos/400/300?random=${index + 100 + Date.now()}" alt="${article.title}" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500">
+              <img src="https://picsum.photos/400/300?random=${index + 100 + Date.now()}" alt="${article.title}" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
             `}
             <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
           </div>
           <div class="p-6">
-            <span class="text-xs text-white font-bold uppercase tracking-widest opacity-60">${article.category_name || 'NEWS'}</span>
-            <h3 class="text-xl font-bold mt-3 mb-2 line-clamp-2 text-white group-hover:text-blue-400 transition-colors">
+            <span class="text-xs font-bold uppercase tracking-widest" style="color: #1e40af;">${article.category_name || 'NEWS'}</span>
+            <h3 class="text-xl font-bold mt-3 mb-2 line-clamp-2 text-gray-800 transition-colors" style="--hover-color: #1e40af;">
               ${article.title}
             </h3>
             <div class="flex items-center text-xs text-gray-500 uppercase tracking-wider">
               <span class="mr-4">${article.author_name}</span>
               <span>${article.view_count} VIEWS</span>
             </div>
-            <p class="text-gray-400 mt-3 line-clamp-3 text-sm leading-relaxed">${stripHtml(article.content)}</p>
+            <p class="text-gray-600 mt-3 line-clamp-3 text-sm leading-relaxed">${stripHtml(article.content)}</p>
           </div>
         </article>
       `).join('');
     } else {
       newspaperSection.innerHTML = `
         <div class="col-span-3 text-center py-12">
-          <i class="fas fa-newspaper text-gray-300 text-6xl mb-4"></i>
-          <p class="text-gray-500">아직 등록된 기사가 없습니다.</p>
+          <p class="text-white/70 text-lg">아직 등록된 기사가 없습니다.</p>
         </div>
       `;
     }
@@ -428,7 +353,7 @@ async function loadBroadcastContent() {
     
     if (response.data.articles && response.data.articles.length > 0) {
       broadcastSection.innerHTML = response.data.articles.map(article => `
-        <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer" onclick="window.location.href='/article/${article.slug}'">
+        <article class="bg-white/95 backdrop-blur rounded-lg shadow-md overflow-hidden hover:shadow-xl hover:bg-white transition-all cursor-pointer border border-white/20" onclick="window.location.href='/article/${article.slug}'">
           ${article.youtube_embed_id ? `
             <div class="aspect-video bg-black relative" onclick="event.stopPropagation()">
               <iframe 
@@ -470,8 +395,7 @@ async function loadBroadcastContent() {
     } else {
       broadcastSection.innerHTML = `
         <div class="col-span-3 text-center py-12">
-          <i class="fas fa-video text-gray-300 text-6xl mb-4"></i>
-          <p class="text-gray-500">아직 등록된 방송 콘텐츠가 없습니다.</p>
+          <p class="text-white/70 text-lg">아직 등록된 방송 콘텐츠가 없습니다.</p>
         </div>
       `;
     }
@@ -510,7 +434,7 @@ async function loadCampusLife() {
 // Initialize application
 document.addEventListener('DOMContentLoaded', () => {
   checkAuth();
-  loadLatestArticles();
+  // loadLatestArticles() removed - LATEST ARTICLES section deleted
   loadNewspaperArticles();
   loadBroadcastContent();
   loadSpecialReports();
