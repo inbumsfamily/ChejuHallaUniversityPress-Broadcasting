@@ -348,7 +348,7 @@ app.get('/', (c) => {
                         <div class="mb-12">
                             <h2 class="text-6xl lg:text-8xl font-black uppercase leading-none mb-2">
                                 <span class="text-gray-900">CAMPUS</span>
-                                <span class="text-outline ml-4" style="color: transparent; -webkit-text-stroke: 2px #1e40af;">LIFE</span>
+                                <span class="text-blue-600 ml-4">LIFE</span>
                             </h2>
                             <p class="text-gray-600 text-lg">Student activities, campus events, and university life at Cheju Halla University</p>
                         </div>
@@ -469,7 +469,7 @@ app.get('/', (c) => {
                     <div class="mb-12">
                         <h2 class="text-6xl lg:text-8xl font-black uppercase leading-none mb-2">
                             <span class="text-gray-900">SPECIAL</span>
-                            <span class="text-outline ml-4" style="color: transparent; -webkit-text-stroke: 2px #1e40af;">REPORT</span>
+                            <span class="text-blue-600 ml-4">REPORT</span>
                         </h2>
                         <p class="text-gray-600 text-lg">In-depth coverage and investigative journalism on campus issues and social topics</p>
                     </div>
@@ -524,7 +524,7 @@ app.get('/', (c) => {
                     <div class="mb-12">
                         <h2 class="text-6xl lg:text-8xl font-black uppercase leading-none mb-2">
                             <span class="text-gray-900">QUICK</span>
-                            <span class="text-outline ml-4" style="color: transparent; -webkit-text-stroke: 2px #1e40af;">SHORTS</span>
+                            <span class="text-blue-600 ml-4">SHORTS</span>
                         </h2>
                         <p class="text-gray-600 text-lg">Short-form video content featuring campus life, student tips, and trending topics</p>
                     </div>

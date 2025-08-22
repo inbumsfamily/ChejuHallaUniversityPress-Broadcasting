@@ -6,8 +6,9 @@ export const HeaderComponent = () => {
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <a href="/" class="flex items-center">
-                        <span class="text-2xl font-black text-white uppercase tracking-wider">CHU MEDIA</span>
+                    <a href="/" class="flex flex-col items-start">
+                        <span class="text-2xl font-black text-white uppercase tracking-wider">CHEPBS</span>
+                        <span class="text-xs text-blue-200 tracking-wide">Cheju Halla Educational Press & Broadcasting Station</span>
                     </a>
                 </div>
                 
@@ -113,7 +114,7 @@ export const HeaderComponent = () => {
                             ESSAY
                         </a>
                         <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #1e40af; margin-top: -1px;">
-                            <a href="/time-in-jeju" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">제주에서 보내는 시간</a>
+                            <a href="/time-in-jeju" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">제주에서보내는시간</a>
                             <a href="/dreams-hopes" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">꿈과 희망</a>
                             <a href="/travel-exploration" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">여행과 탐방</a>
                             <a href="/literature-art" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">문학과 예술</a>
@@ -126,7 +127,7 @@ export const HeaderComponent = () => {
                 <!-- Right side icons -->
                 <div class="flex items-center space-x-3">
                     <!-- Search Icon -->
-                    <button onclick="toggleSearch()" class="p-2 text-gray-600 hover:text-blue-600">
+                    <button onclick="toggleSearch()" class="p-2 text-white hover:text-blue-200">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>

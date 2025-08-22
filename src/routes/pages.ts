@@ -16,35 +16,49 @@ const categoryPageTemplate = (categoryName: string, categorySlug: string, subCat
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
     <link href="/static/styles.css" rel="stylesheet">
+    <style>
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
-<body class="min-h-screen bg-white text-gray-900">
+<body class="min-h-screen bg-gray-50 text-gray-900">
     <div id="app">
         ${HeaderComponent()}
 
-    <div class="container mx-auto px-4 py-8">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
         <!-- Category Header -->
-        <div class="rounded-lg p-8 mb-8 border border-gray-200" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);">
-            <h1 class="text-4xl font-bold mb-2 text-white">
+        <div class="rounded-xl p-10 mb-10 shadow-lg" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);">
+            <h1 class="text-5xl font-black mb-3 text-white">
                 ${categoryName}
             </h1>
-            <p class="text-lg text-white/90">${categoryName} 소식을 전해드립니다</p>
+            <p class="text-xl text-white/90">${categoryName} 관련 콘텐츠를 확인하세요</p>
         </div>
         
         ${subCategories.length > 0 ? `
         <!-- Sub-categories Grid -->
-        <div class="mb-8">
-            <h2 class="text-2xl font-bold mb-6 text-gray-800">${categoryName} 메뉴</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                ${subCategories.map(sub => `
-                    <a href="/${sub.slug}" class="bg-white border border-gray-300 rounded-lg hover:border-gray-500 transition-all p-6 block shadow-sm hover:shadow-md">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="p-3 rounded-full" style="background-color: #1e40af;">
-                                <i class="fas fa-folder text-gray-700 text-xl">
+        <div class="mb-10">
+            <h2 class="text-2xl font-bold mb-8 text-gray-800 flex items-center">
+                <span class="w-1 h-8 bg-blue-600 mr-3"></span>
+                ${categoryName} 메뉴
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 ${subCategories.length <= 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-5'} gap-4">
+                ${subCategories.map((sub, index) => `
+                    <a href="/${sub.slug}" class="card-hover bg-white rounded-lg p-5 block shadow-sm border border-gray-100">
+                        <div class="flex items-center justify-center mb-4">
+                            <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-600 shadow">
+                                <i class="fas fa-newspaper text-white text-lg"></i>
                             </div>
-                            <i class="fas fa-arrow-right text-gray-500"></i>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-900 mb-2">${sub.name}</h3>
-                        <p class="text-sm text-gray-400">클릭하여 기사를 확인하세요</p>
+                        <h3 class="text-base font-bold text-gray-900 mb-2 text-center">${sub.name}</h3>
+                        <div class="flex items-center justify-center text-blue-600">
+                            <span class="text-xs">콘텐츠 보기</span>
+                            <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </div>
                     </a>
                 `).join('')}
             </div>
@@ -53,9 +67,9 @@ const categoryPageTemplate = (categoryName: string, categorySlug: string, subCat
             
             <div class="mt-8">
                 <h2 class="text-xl font-semibold mb-4 text-gray-900">최신 기사</h2>
-                <div id="articlesList" class="space-y-4">
+                <div id="articlesList" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <!-- Articles will be loaded here -->
-                    <div class="text-center py-8 text-gray-400">
+                    <div class="col-span-full text-center py-8 text-gray-400">
                         <i class="fas fa-spinner fa-spin text-3xl mb-4"></i>
                         <p>기사를 불러오는 중...</p>
                     </div>
@@ -85,16 +99,16 @@ const categoryPageTemplate = (categoryName: string, categorySlug: string, subCat
                 
                 if (response.data.articles && response.data.articles.length > 0) {
                     articlesList.innerHTML = response.data.articles.map(article => \`
-                        <article class="border-b border-gray-200 pb-4 cursor-pointer hover:bg-gray-50 p-4 -m-4 rounded transition-colors" onclick="window.location.href='/article/\${article.slug}'">
-                            <h3 class="text-lg font-semibold mb-2 text-gray-900 hover:text-blue-600 transition-colors">
+                        <article class="bg-white border border-gray-200 rounded-lg p-5 cursor-pointer hover:shadow-lg hover:border-blue-400 transition-all" onclick="window.location.href='/article/\${article.slug}'">
+                            <h3 class="text-lg font-semibold mb-2 text-gray-900 hover:text-blue-600 transition-colors line-clamp-2">
                                 \${article.title}
                             </h3>
-                            <p class="text-gray-400 text-sm mb-2">\${article.content.substring(0, 150)}...</p>
-                            <div class="text-xs text-gray-500">
-                                <span class="mr-4">
+                            <p class="text-gray-500 text-sm mb-3 line-clamp-3">\${article.content.substring(0, 120)}...</p>
+                            <div class="text-xs text-gray-400 flex flex-wrap gap-3">
+                                <span>
                                     <i class="fas fa-user mr-1"></i> \${article.author_name}
                                 </span>
-                                <span class="mr-4">
+                                <span>
                                     <i class="fas fa-calendar mr-1"></i> \${new Date(article.created_at).toLocaleDateString('ko-KR')}
                                 </span>
                                 <span>
@@ -104,7 +118,7 @@ const categoryPageTemplate = (categoryName: string, categorySlug: string, subCat
                         </article>
                     \`).join('');
                 } else {
-                    articlesList.innerHTML = '<p class="text-center text-gray-400 py-8">등록된 기사가 없습니다.</p>';
+                    articlesList.innerHTML = '<p class="col-span-full text-center text-gray-400 py-8">등록된 기사가 없습니다.</p>';
                 }
             } catch (error) {
                 console.error('Failed to load articles:', error);
@@ -145,14 +159,11 @@ pagesRouter.get('/newspaper', (c) => {
 // 캠퍼스 routes
 pagesRouter.get('/campus', (c) => {
   return c.html(categoryPageTemplate('캠퍼스', 'campus', [
-    { name: '대학소식', slug: 'university-news' },
-    { name: '지우전(지금 우리 전공은)', slug: 'our-major-now' },
-    { name: '동아리', slug: 'clubs' },
-    { name: '학생활동', slug: 'student-activities' },
     { name: '캠퍼스 라이프', slug: 'campus-life' },
-    { name: '장학·복지·지원', slug: 'scholarship-welfare' },
-    { name: 'X-파일', slug: 'x-file' },
-    { name: '졸업생 인터뷰', slug: 'alumni-interview' }
+    { name: '총학생회', slug: 'student-council-general' },
+    { name: '학과학생회', slug: 'department-council' },
+    { name: '동아리·서클', slug: 'club-circle' },
+    { name: '학사일정', slug: 'academic-schedule' }
   ]));
 });
 
@@ -179,11 +190,9 @@ pagesRouter.get('/special-report', (c) => {
 // 제주소식 routes
 pagesRouter.get('/jeju-news', (c) => {
   return c.html(categoryPageTemplate('제주소식', 'jeju-news', [
-    { name: '제주이슈', slug: 'jeju-issue' },
-    { name: '문화탐방', slug: 'culture-exploration' },
-    { name: '환경과 자연', slug: 'environment-nature' },
-    { name: '청년 창업', slug: 'youth-startup' },
-    { name: '제주전통마을', slug: 'jeju-traditional-village' }
+    { name: '제주소식', slug: 'jeju-news-main' },
+    { name: '제주 문화·예술', slug: 'jeju-culture-art' },
+    { name: '관광·맛집', slug: 'jeju-tour-food' }
   ]));
 });
 
@@ -191,17 +200,15 @@ pagesRouter.get('/jeju-news', (c) => {
 pagesRouter.get('/opinion', (c) => {
   return c.html(categoryPageTemplate('오피니언', 'opinion', [
     { name: '사설·칼럼', slug: 'editorial-column' },
-    { name: '교수 칼럼', slug: 'professor-column' },
-    { name: '독자 의견·제안', slug: 'reader-opinion' },
-    { name: '익명 목소리', slug: 'anonymous-voice' },
-    { name: '함께 읽는 책·영화 추천', slug: 'book-movie-recommendation' }
+    { name: '기고', slug: 'contribution' },
+    { name: '학생의 시선', slug: 'student-perspective' }
   ]));
 });
 
 // 에세이 routes
 pagesRouter.get('/essay', (c) => {
   return c.html(categoryPageTemplate('에세이', 'essay', [
-    { name: '제주에서 보내는 시간', slug: 'time-in-jeju' },
+    { name: '제주에서보내는시간', slug: 'time-in-jeju' },
     { name: '꿈과 희망', slug: 'dreams-hopes' },
     { name: '여행과 탐방', slug: 'travel-exploration' },
     { name: '문학과 예술', slug: 'literature-art' },
@@ -234,9 +241,9 @@ const subCategoryPageTemplate = (categoryName: string, categorySlug: string) => 
             
             <div class="mt-8">
                 <h2 class="text-xl font-semibold mb-4 text-gray-900">최신 기사</h2>
-                <div id="articlesList" class="space-y-4">
+                <div id="articlesList" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <!-- Articles will be loaded here -->
-                    <div class="text-center py-8 text-gray-400">
+                    <div class="col-span-full text-center py-8 text-gray-400">
                         <i class="fas fa-spinner fa-spin text-3xl mb-4"></i>
                         <p>기사를 불러오는 중...</p>
                     </div>
@@ -266,16 +273,16 @@ const subCategoryPageTemplate = (categoryName: string, categorySlug: string) => 
                 
                 if (response.data.articles && response.data.articles.length > 0) {
                     articlesList.innerHTML = response.data.articles.map(article => \`
-                        <article class="border-b border-gray-200 pb-4 cursor-pointer hover:bg-gray-50 p-4 -m-4 rounded transition-colors" onclick="window.location.href='/article/\${article.slug}'">
-                            <h3 class="text-lg font-semibold mb-2 text-gray-900 hover:text-blue-600 transition-colors">
+                        <article class="bg-white border border-gray-200 rounded-lg p-5 cursor-pointer hover:shadow-lg hover:border-blue-400 transition-all" onclick="window.location.href='/article/\${article.slug}'">
+                            <h3 class="text-lg font-semibold mb-2 text-gray-900 hover:text-blue-600 transition-colors line-clamp-2">
                                 \${article.title}
                             </h3>
-                            <p class="text-gray-400 text-sm mb-2">\${article.content.substring(0, 150)}...</p>
-                            <div class="text-xs text-gray-500">
-                                <span class="mr-4">
+                            <p class="text-gray-500 text-sm mb-3 line-clamp-3">\${article.content.substring(0, 120)}...</p>
+                            <div class="text-xs text-gray-400 flex flex-wrap gap-3">
+                                <span>
                                     <i class="fas fa-user mr-1"></i> \${article.author_name}
                                 </span>
-                                <span class="mr-4">
+                                <span>
                                     <i class="fas fa-calendar mr-1"></i> \${new Date(article.created_at).toLocaleDateString('ko-KR')}
                                 </span>
                                 <span>
@@ -285,7 +292,7 @@ const subCategoryPageTemplate = (categoryName: string, categorySlug: string) => 
                         </article>
                     \`).join('');
                 } else {
-                    articlesList.innerHTML = '<p class="text-center text-gray-400 py-8">등록된 기사가 없습니다.</p>';
+                    articlesList.innerHTML = '<p class="col-span-full text-center text-gray-400 py-8">등록된 기사가 없습니다.</p>';
                 }
             } catch (error) {
                 console.error('Failed to load articles:', error);

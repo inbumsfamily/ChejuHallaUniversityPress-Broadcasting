@@ -215,6 +215,16 @@ a:hover {
   -webkit-text-stroke: 2px var(--text-primary);
 }
 
+/* Prevent outline style in article titles */
+.article-title .text-outline,
+article .text-outline,
+.article-card .text-outline,
+h3 .text-outline,
+h4 .text-outline {
+  color: inherit !important;
+  -webkit-text-stroke: none !important;
+}
+
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
