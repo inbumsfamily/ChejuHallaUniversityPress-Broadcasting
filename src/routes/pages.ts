@@ -829,9 +829,9 @@ pagesRouter.get('/article/:slug', async (c) => {
                       </div>
                       
                       <div class="mt-8 flex justify-between items-center">
-                          <a href="/${article.category_slug}" class="inline-block text-blue-600 hover:text-blue-800 font-semibold">
+                          <a href="${article.parent_category === 'broadcast' ? '/broadcast' : article.parent_category === 'press' ? '/press' : `/${article.category_slug}`}" class="inline-block text-blue-600 hover:text-blue-800 font-semibold">
                               <i class="fas fa-arrow-left mr-2"></i>
-                              ${article.category_name} 카테고리로 돌아가기
+                              ${article.parent_category === 'broadcast' ? 'BROADCAST' : article.parent_category === 'press' ? 'PRESS' : article.category_name} 메인으로 돌아가기
                           </a>
                           <a href="/articles" class="inline-block text-white px-6 py-3 rounded-lg transition-colors" style="background-color: #1e40af;" onmouseover="this.style.backgroundColor='#1e3a8a'" onmouseout="this.style.backgroundColor='#1e40af'">
                               <i class="fas fa-newspaper mr-2"></i>

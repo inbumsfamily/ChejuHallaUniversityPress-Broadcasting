@@ -101,10 +101,14 @@ const broadcastPageTemplate = (categoryName: string, categorySlug: string, subCa
             </div>
         </div>
             
-        <div class="mt-8">
+        <div class="mt-8 flex gap-4">
             <a href="/" class="inline-block text-white px-6 py-2 rounded-lg transition-colors" style="background-color: #1e40af;" onmouseover="this.style.backgroundColor='#1e3a8a'" onmouseout="this.style.backgroundColor='#1e40af'">
                 <i class="fas fa-home mr-2"></i>
                 메인으로 돌아가기
+            </a>
+            <a href="/broadcast" class="inline-block text-white px-6 py-2 rounded-lg transition-colors" style="background-color: #22c55e;" onmouseover="this.style.backgroundColor='#16a34a'" onmouseout="this.style.backgroundColor='#22c55e'">
+                <i class="fas fa-list mr-2"></i>
+                전체 기사 보기
             </a>
         </div>
     </div>
