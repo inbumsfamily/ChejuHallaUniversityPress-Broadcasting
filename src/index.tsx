@@ -430,39 +430,49 @@ app.get('/', (c) => {
                     </div>
                 </section>
 
-                <!-- Container for sections -->
-                <div class="container mx-auto px-4">
-                <!-- 신문사 섹션 -->
-                <section id="newspaper" class="mt-16 mb-16 p-6 rounded-lg" style="background: #1e40af; border: 1px solid #1e3a8a;">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-5xl font-black text-white uppercase tracking-tight">
-                            신문사
-                        </h3>
-                        <a href="/newspaper" class="text-white hover:text-blue-200 transition-colors font-semibold">더보기 →</a>
-                    </div>
-                    <div id="newspaperArticles" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- 신문 기사가 여기에 로드됩니다 -->
-                    </div>
-                </section>
+                <!-- 신문사 & 방송국 통합 섹션 -->
+                <div class="py-16" style="background: #1e40af;">
+                    <div class="container mx-auto px-4">
+                        <!-- 한라춘추 섹션 -->
+                        <section id="newspaper" class="mb-16">
+                            <div class="flex justify-between items-center mb-6">
+                                <div>
+                                    <h3 class="text-4xl lg:text-5xl font-black text-white uppercase tracking-tight">
+                                        한라춘추
+                                    </h3>
+                                    <p class="text-lg text-blue-200 mt-1">Cheju Halla University Journal</p>
+                                </div>
+                                <a href="/newspaper" class="text-white hover:text-blue-200 transition-colors font-semibold">더보기 →</a>
+                            </div>
+                            <div id="newspaperArticles" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <!-- 신문 기사가 여기에 로드됩니다 -->
+                            </div>
+                        </section>
 
-                <!-- 방송국 섹션 -->
-                <section id="broadcast" class="mb-16 p-6 rounded-lg" style="background: #1e40af; border: 1px solid #1e3a8a;">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-5xl font-black text-white uppercase tracking-tight">
-                            방송국
-                        </h3>
-                        <a href="/broadcast" class="text-white hover:text-blue-200 transition-colors font-semibold">더보기 →</a>
+                        <!-- CHEBS 섹션 -->
+                        <section id="broadcast">
+                            <div class="flex justify-between items-center mb-6">
+                                <div>
+                                    <h3 class="text-4xl lg:text-5xl font-black text-white uppercase tracking-tight">
+                                        CHEBS
+                                    </h3>
+                                    <p class="text-lg text-blue-200 mt-1">Cheju Halla Educational Broadcasting Station</p>
+                                </div>
+                                <a href="/broadcast" class="text-white hover:text-blue-200 transition-colors font-semibold">더보기 →</a>
+                            </div>
+                            <div id="broadcastArticles" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <!-- 방송 콘텐츠가 여기에 로드됩니다 -->
+                                <div class="col-span-3 text-center py-12">
+                                    <p class="text-white text-lg">방송 콘텐츠를 불러오는 중...</p>
+                                </div>
+                            </div>
+                        </section>
                     </div>
-                    <div id="broadcastArticles" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <!-- 방송 콘텐츠가 여기에 로드됩니다 -->
-                        <div class="col-span-3 text-center py-12">
-                            <p class="text-white text-lg">방송 콘텐츠를 불러오는 중...</p>
-                        </div>
-                    </div>
-                </section>
+                </div>
 
                 <!-- 기획보도 섹션 -->
                 <section id="special" class="py-24 bg-gray-50">
+                    <div class="container mx-auto px-4">
                     <div class="section-header mb-12">
                         <span class="section-number" style="color: #1e40af;">03</span>
                         <h2 class="text-6xl lg:text-8xl font-black text-gray-900 uppercase leading-none">
@@ -512,10 +522,12 @@ app.get('/', (c) => {
                             </div>
                         </div>
                     </div>
+                    </div>
                 </section>
 
                 <!-- 쇼츠 섹션 -->
                 <section id="shorts" class="py-24 bg-white">
+                    <div class="container mx-auto px-4">
                     <div class="mb-12">
                         <span class="text-sm font-bold" style="color: #1e40af;">04</span>
                         <h2 class="text-6xl lg:text-8xl font-black text-gray-900 uppercase leading-none">
@@ -592,8 +604,8 @@ app.get('/', (c) => {
                             </div>
                         </div>
                     </div>
-                </section>
-                </div><!-- End container for other sections -->
+                    </div>
+                </section><!-- End container for other sections -->
             </main>
 
             <!-- Footer -->
