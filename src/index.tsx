@@ -283,18 +283,13 @@ app.get('/', (c) => {
             <!-- Main Content -->
             <main class="relative z-10">
                 <!-- CHU MEDIA EXCLUSIVE 섹션 (MOVED TO TOP) -->
-                <section id="exclusive" class="py-24 bg-gray-50">
+                <section id="exclusive" class="py-16 bg-gray-50">
                     <div class="container mx-auto px-4">
                         <div class="mb-12">
                             <h2 class="text-6xl lg:text-8xl font-black text-gray-900 uppercase leading-none mb-2">
                                 CHU MEDIA <span style="color: #1e40af;">EXCLUSIVE</span>
                             </h2>
                             <p class="text-gray-600 text-lg">Discover exclusive interviews with Cheju Halla University members, Real stories from students, professors, and staff.</p>
-                            <div class="flex items-center gap-4 mt-4">
-                                <button class="text-gray-900 font-bold uppercase tracking-wider text-sm hover:text-blue-600 transition-colors">
-                                    VIEW MORE
-                                </button>
-                            </div>
                         </div>
                         
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -314,9 +309,7 @@ app.get('/', (c) => {
                                         <span class="text-xs text-blue-500 font-bold uppercase">대학생활 소개</span>
                                         <h3 class="text-gray-900 font-bold text-lg mt-2 mb-3">Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster)</h3>
                                         <p class="text-gray-400 text-sm line-clamp-2">Discover exclusive interviews with Cheju Halla University members. Real stories from students, professors, and staff.</p>
-                                        <div class="flex items-center text-xs text-gray-500 mt-3">
-                                            <span>VIEW MORE</span>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -350,14 +343,14 @@ app.get('/', (c) => {
                 </section>
 
                 <!-- 캠퍼스 라이프 섹션 (MOVED TO TOP) -->
-                <section id="campus" class="py-24 bg-white">
+                <section id="campus" class="py-16 bg-white">
                     <div class="container mx-auto px-4">
-                        <div class="section-header mb-12">
-                            <span class="section-number" style="color: #1e40af;">02</span>
-                            <h2 class="text-6xl lg:text-8xl font-black text-gray-900 uppercase leading-none">
+                        <div class="mb-12">
+                            <h2 class="text-6xl lg:text-8xl font-black text-gray-900 uppercase leading-none mb-2">
                                 CAMPUS<br>
-                                <span class="text-outline" style="color: transparent; -webkit-text-stroke: 2px white;">LIFE</span>
+                                <span class="text-outline" style="color: transparent; -webkit-text-stroke: 2px #1e40af;">LIFE</span>
                             </h2>
+                            <p class="text-gray-600 text-lg">Student activities, campus events, and university life at Cheju Halla University</p>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
                             <div class="bg-white border border-gray-300 p-6 hover:border-gray-500 transition-all duration-300 shadow-sm hover:shadow-md">
@@ -471,14 +464,14 @@ app.get('/', (c) => {
                 </div>
 
                 <!-- 기획보도 섹션 -->
-                <section id="special" class="py-24 bg-gray-50">
+                <section id="special" class="py-16 bg-gray-50">
                     <div class="container mx-auto px-4">
-                    <div class="section-header mb-12">
-                        <span class="section-number" style="color: #1e40af;">03</span>
-                        <h2 class="text-6xl lg:text-8xl font-black text-gray-900 uppercase leading-none">
+                    <div class="mb-12">
+                        <h2 class="text-6xl lg:text-8xl font-black text-gray-900 uppercase leading-none mb-2">
                             SPECIAL<br>
                             <span class="text-outline" style="color: transparent; -webkit-text-stroke: 2px #1e40af;">REPORT</span>
                         </h2>
+                        <p class="text-gray-600 text-lg">In-depth coverage and investigative journalism on campus issues and social topics</p>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
                         <!-- 기획보도 대형 카드 -->
@@ -526,14 +519,14 @@ app.get('/', (c) => {
                 </section>
 
                 <!-- 쇼츠 섹션 -->
-                <section id="shorts" class="py-24 bg-white">
+                <section id="shorts" class="py-16 bg-white">
                     <div class="container mx-auto px-4">
                     <div class="mb-12">
-                        <span class="text-sm font-bold" style="color: #1e40af;">04</span>
-                        <h2 class="text-6xl lg:text-8xl font-black text-gray-900 uppercase leading-none">
+                        <h2 class="text-6xl lg:text-8xl font-black text-gray-900 uppercase leading-none mb-2">
                             QUICK<br>
                             <span class="text-outline" style="color: transparent; -webkit-text-stroke: 2px #1e40af;">SHORTS</span>
                         </h2>
+                        <p class="text-gray-600 text-lg">Short-form video content featuring campus life, student tips, and trending topics</p>
                     </div>
                     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
                         <!-- 쇼츠 비디오 카드 (세로형) -->
