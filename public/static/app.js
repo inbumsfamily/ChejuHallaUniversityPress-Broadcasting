@@ -23,42 +23,52 @@ axios.interceptors.request.use(
 // Load newspaper articles
 async function loadNewspaperArticles() {
   try {
-    const response = await axios.get(`${API_BASE}/articles?category=newspaper&limit=6`);
+    const response = await axios.get(`${API_BASE}/articles?category=press&limit=6`);
     const newspaperSection = document.getElementById('newspaperArticles');
     
     if (response.data.articles && response.data.articles.length > 0) {
       newspaperSection.innerHTML = response.data.articles.map((article, index) => `
-        <article class="bg-white/10 border border-white/20 overflow-hidden hover:border-white/40 transition-all duration-300 cursor-pointer group backdrop-blur-sm hover:bg-white/20 rounded-lg" onclick="window.location.href='/article/${article.slug}'">
-          <div class="relative overflow-hidden h-48">
-            ${article.featured_image_url ? `
-              <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
-            ` : `
-              <img src="https://picsum.photos/400/300?random=${index + 100 + Date.now()}" alt="${article.title}" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
-            `}
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
-          </div>
-          <div class="p-6">
-            <span class="text-xs font-bold uppercase tracking-widest text-blue-200">${article.category_name || 'NEWS'}</span>
-            <h3 class="text-xl font-bold mt-3 mb-2 line-clamp-2 text-white transition-colors hover:text-blue-200">
-              ${article.title}
-            </h3>
-            <div class="flex items-center text-xs text-white/70 uppercase tracking-wider">
-              <span class="mr-4">${article.author_name}</span>
-              <span>${article.view_count} VIEWS</span>
+        <a href="/article/${article.slug}" class="block">
+          <article class="bg-white/10 border border-white/20 overflow-hidden hover:border-white/40 transition-all duration-300 cursor-pointer group backdrop-blur-sm hover:bg-white/20 rounded-lg h-full">
+            <div class="relative overflow-hidden h-48">
+              ${article.featured_image_url ? `
+                <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
+              ` : `
+                <img src="https://picsum.photos/400/300?random=${index + 100 + Date.now()}" alt="${article.title}" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
+              `}
+              <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
             </div>
-            <p class="text-white/80 mt-3 line-clamp-3 text-sm leading-relaxed">${stripHtml(article.content)}</p>
-          </div>
-        </article>
+            <div class="p-6">
+              <span class="text-xs font-bold uppercase tracking-widest text-blue-200">${article.category_name || 'PRESS'}</span>
+              <h3 class="text-xl font-bold mt-3 mb-2 line-clamp-2 text-white transition-colors group-hover:text-blue-200">
+                ${article.title}
+              </h3>
+              <div class="flex items-center text-xs text-white/70 uppercase tracking-wider">
+                <span class="mr-4">${article.author_name || '기자'}</span>
+                <span>${article.view_count || 0} VIEWS</span>
+              </div>
+              <p class="text-white/80 mt-3 line-clamp-3 text-sm leading-relaxed">${stripHtml(article.content)}</p>
+            </div>
+          </article>
+        </a>
       `).join('');
     } else {
       newspaperSection.innerHTML = `
         <div class="col-span-3 text-center py-12">
-          <p class="text-white text-lg">아직 등록된 기사가 없습니다.</p>
+          <p class="text-white text-lg">기사를 불러오는 중...</p>
         </div>
       `;
     }
   } catch (error) {
     console.error('Failed to load newspaper articles:', error);
+    const newspaperSection = document.getElementById('newspaperArticles');
+    if (newspaperSection) {
+      newspaperSection.innerHTML = `
+        <div class="col-span-3 text-center py-12">
+          <p class="text-white text-lg">기사를 불러오는 중 오류가 발생했습니다.</p>
+        </div>
+      `;
+    }
   }
 }
 
@@ -355,44 +365,43 @@ async function loadBroadcastContent() {
     
     if (response.data.articles && response.data.articles.length > 0) {
       broadcastSection.innerHTML = response.data.articles.map(article => `
-        <article class="bg-white/10 backdrop-blur rounded-lg overflow-hidden hover:bg-white/20 transition-all cursor-pointer border border-white/20" onclick="window.location.href='/article/${article.slug}'">
-          ${article.youtube_embed_id ? `
-            <div class="aspect-video bg-black relative" onclick="event.stopPropagation()">
-              <iframe 
-                width="100%" 
-                height="100%" 
-                src="https://www.youtube.com/embed/${article.youtube_embed_id}" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen
-              ></iframe>
-            </div>
-          ` : article.featured_image_url ? `
-            <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-48 object-cover">
-          ` : `
-            <div class="aspect-video bg-gray-300 relative">
-              <div class="absolute inset-0 flex items-center justify-center">
-                <i class="fas fa-play-circle text-white text-4xl"></i>
+        <a href="/article/${article.slug}" class="block">
+          <article class="bg-white/10 backdrop-blur rounded-lg overflow-hidden hover:bg-white/20 transition-all cursor-pointer border border-white/20 h-full">
+            ${article.youtube_embed_id ? `
+              <div class="aspect-video bg-black relative" onclick="event.preventDefault(); event.stopPropagation(); window.open('https://www.youtube.com/watch?v=${article.youtube_embed_id}', '_blank')">
+                <iframe 
+                  width="100%" 
+                  height="100%" 
+                  src="https://www.youtube.com/embed/${article.youtube_embed_id}" 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowfullscreen
+                ></iframe>
               </div>
+            ` : article.featured_image_url ? `
+              <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-48 object-cover">
+            ` : `
+              <div class="aspect-video bg-gray-300 relative">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <i class="fas fa-play-circle text-white text-4xl"></i>
+                </div>
+              </div>
+            `}
+            <div class="p-4">
+              <span class="text-xs text-blue-200 font-semibold">${article.category_name || '방송국'}</span>
+              <h3 class="text-lg font-bold mt-2 mb-2 line-clamp-2 text-white group-hover:text-blue-200">
+                ${article.title}
+              </h3>
+              <div class="flex items-center text-sm text-white/70">
+                <i class="fas fa-user mr-1"></i>
+                <span class="mr-3">${article.author_name || '방송부'}</span>
+                <i class="fas fa-eye mr-1"></i>
+                <span>${article.view_count || 0}</span>
+              </div>
+              <p class="text-white/80 mt-2 line-clamp-3">${stripHtml(article.content)}</p>
             </div>
-          `}
-          <div class="p-4">
-            <span class="text-xs text-blue-200 font-semibold">${article.category_name || '방송국'}</span>
-            <h3 class="text-lg font-bold mt-2 mb-2 line-clamp-2 text-white hover:text-blue-200">
-              ${article.title}
-            </h3>
-            <div class="flex items-center text-sm text-white/70">
-              <i class="fas fa-user mr-1"></i>
-              <span class="mr-3">${article.author_name}</span>
-              <i class="fas fa-eye mr-1"></i>
-              <span>${article.view_count}</span>
-            </div>
-            <p class="text-white/80 mt-2 line-clamp-3">${stripHtml(article.content)}</p>
-            <button class="text-blue-200 hover:text-white mt-3 inline-block font-semibold" onclick="event.stopPropagation(); window.location.href='/article/${article.slug}'">
-              자세히 보기 →
-            </button>
-          </div>
-        </article>
+          </article>
+        </a>
       `).join('');
     } else {
       broadcastSection.innerHTML = `

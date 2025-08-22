@@ -10,6 +10,7 @@ import commentsRouter from './routes/comments';
 import calendarRouter from './routes/calendar';
 import pagesRouter from './routes/pages';
 import broadcastRouter from './routes/broadcast-page';
+import subCategoriesRouter from './routes/subcategories';
 import { HeaderComponent } from './components/header';
 import { Footer } from './components/footer';
 import type { CloudflareBindings } from './types';
@@ -34,6 +35,7 @@ app.route('/api/calendar', calendarRouter);
 // Page Routes
 app.route('/', pagesRouter);
 app.route('/', broadcastRouter);
+app.route('/', subCategoriesRouter);
 
 // Health check
 app.get('/api/health', (c) => {
@@ -443,7 +445,7 @@ app.get('/', (c) => {
                                     </h3>
                                     <p class="text-lg text-blue-200 mt-1">Cheju Halla University Journal</p>
                                 </div>
-                                <a href="/newspaper" class="text-white hover:text-blue-200 transition-colors font-semibold">더보기 →</a>
+                                <a href="/press" class="text-white hover:text-blue-200 transition-colors font-semibold">더보기 →</a>
                             </div>
                             <div id="newspaperArticles" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <!-- 신문 기사가 여기에 로드됩니다 -->

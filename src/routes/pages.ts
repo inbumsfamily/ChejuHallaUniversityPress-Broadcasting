@@ -52,7 +52,7 @@ const categoryPageTemplate = (categoryName: string, categorySlug: string, subCat
                 <span class="w-1 h-8 bg-blue-600 mr-3"></span>
                 ${categoryName} 메뉴
             </h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 ${subCategories.length <= 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-5'} gap-4">
+            <div class="grid grid-cols-2 md:grid-cols-3 ${subCategories.length === 6 ? 'lg:grid-cols-6' : subCategories.length <= 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-5'} gap-4">
                 ${subCategories.map((sub, index) => `
                     <a href="/${sub.slug}" class="card-hover bg-white rounded-lg p-5 block shadow-sm border border-gray-100">
                         <div class="flex items-center justify-center mb-4">
@@ -141,24 +141,24 @@ const categoryPageTemplate = (categoryName: string, categorySlug: string, subCat
 // 방송국 routes
 pagesRouter.get('/broadcast', (c) => {
   return c.html(categoryPageTemplate('방송국', 'broadcast', [
-    { name: '방송국소개', slug: 'broadcast-intro' },
-    { name: '한라뉴스', slug: 'halla-news' },
-    { name: '한라인터뷰', slug: 'halla-interview' },
-    { name: '전공특집', slug: 'major-special' },
-    { name: '캠퍼스투어', slug: 'campus-tour' },
-    { name: '문화·예술(방송)', slug: 'culture-art-broadcast' },
-    { name: '라디오·팟캐스트', slug: 'radio-podcast' },
-    { name: '방송국 활동기', slug: 'broadcast-activities' }
+    { name: '방송국소개', slug: 'broadcast/방송국소개' },
+    { name: '연혁·편성안내', slug: 'broadcast/연혁·편성안내' },
+    { name: '조직도·만드는 사람들', slug: 'broadcast/조직도·만드는 사람들' },
+    { name: 'PD모집·공지', slug: 'broadcast/PD모집·공지' },
+    { name: 'VOD·아카이브', slug: 'broadcast/VOD·아카이브' },
+    { name: '방송국 활동기', slug: 'broadcast/방송국 활동기' }
   ]));
 });
 
 // 신문사 routes
-pagesRouter.get('/newspaper', (c) => {
-  return c.html(categoryPageTemplate('신문사', 'newspaper', [
-    { name: '신문사소개', slug: 'newspaper-intro' },
-    { name: '현장취재', slug: 'field-coverage' },
-    { name: '캠퍼스 리포트', slug: 'campus-report' },
-    { name: '신문사 활동기', slug: 'newspaper-activities' }
+pagesRouter.get('/press', (c) => {
+  return c.html(categoryPageTemplate('신문사', 'press', [
+    { name: '신문사소개', slug: 'press/신문사소개' },
+    { name: '연혁·발행안내', slug: 'press/연혁·발행안내' },
+    { name: '조직도·만드는 사람들', slug: 'press/조직도·만드는 사람들' },
+    { name: '기자모집·공지', slug: 'press/기자모집·공지' },
+    { name: 'PDF·지난호 아카이브', slug: 'press/PDF·지난호 아카이브' },
+    { name: '신문사 활동기', slug: 'press/신문사 활동기' }
   ]));
 });
 
@@ -259,7 +259,7 @@ const subCategoryPageTemplate = (categoryName: string, categorySlug: string, par
                     <span class="w-1 h-8 bg-blue-600 mr-3"></span>
                     ${parentCategory.name} 메뉴
                 </h2>
-                <div class="grid grid-cols-2 md:grid-cols-3 ${parentCategory.subCategories.length <= 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-5'} gap-4 mb-8">
+                <div class="grid grid-cols-2 md:grid-cols-3 ${parentCategory.subCategories.length === 6 ? 'lg:grid-cols-6' : parentCategory.subCategories.length <= 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-5'} gap-4 mb-8">
                     ${parentCategory.subCategories.map((sub, index) => `
                         <a href="/${sub.slug}" class="card-hover bg-white rounded-lg p-5 block shadow-sm border ${sub.slug === categorySlug ? 'border-blue-500 bg-blue-50' : 'border-gray-100'}">
                             <div class="flex items-center justify-center mb-4">
@@ -357,24 +357,24 @@ const categoryStructure = {
     name: '방송국',
     slug: 'broadcast',
     subCategories: [
-      { slug: 'broadcast-intro', name: '방송국소개' },
-      { slug: 'halla-news', name: '한라뉴스' },
-      { slug: 'halla-interview', name: '한라인터뷰' },
-      { slug: 'major-special', name: '전공특집' },
-      { slug: 'campus-tour', name: '캠퍼스투어' },
-      { slug: 'culture-art-broadcast', name: '문화·예술(방송)' },
-      { slug: 'radio-podcast', name: '라디오·팟캐스트' },
-      { slug: 'broadcast-activities', name: '방송국 활동기' }
+      { slug: 'broadcast/방송국소개', name: '방송국소개' },
+      { slug: 'broadcast/연혁·편성안내', name: '연혁·편성안내' },
+      { slug: 'broadcast/조직도·만드는 사람들', name: '조직도·만드는 사람들' },
+      { slug: 'broadcast/PD모집·공지', name: 'PD모집·공지' },
+      { slug: 'broadcast/VOD·아카이브', name: 'VOD·아카이브' },
+      { slug: 'broadcast/방송국 활동기', name: '방송국 활동기' }
     ]
   },
-  newspaper: {
+  press: {
     name: '신문사',
-    slug: 'newspaper',
+    slug: 'press',
     subCategories: [
-      { slug: 'newspaper-intro', name: '신문사소개' },
-      { slug: 'field-coverage', name: '현장취재' },
-      { slug: 'campus-report', name: '캠퍼스 리포트' },
-      { slug: 'newspaper-activities', name: '신문사 활동기' }
+      { slug: 'press/신문사소개', name: '신문사소개' },
+      { slug: 'press/연혁·발행안내', name: '연혁·발행안내' },
+      { slug: 'press/조직도·만드는 사람들', name: '조직도·만드는 사람들' },
+      { slug: 'press/기자모집·공지', name: '기자모집·공지' },
+      { slug: 'press/PDF·지난호 아카이브', name: 'PDF·지난호 아카이브' },
+      { slug: 'press/신문사 활동기', name: '신문사 활동기' }
     ]
   },
   campus: {
@@ -529,8 +529,8 @@ pagesRouter.get('/article/:slug', async (c) => {
         c.name as category_name,
         c.slug as category_slug
       FROM articles a
-      JOIN users u ON a.author_id = u.user_id
-      JOIN categories c ON a.category_id = c.category_id
+      LEFT JOIN users u ON a.author_id = u.user_id
+      LEFT JOIN categories c ON a.category_id = c.category_id
       WHERE a.slug = ?
     `).bind(slug).first();
     
@@ -569,6 +569,21 @@ pagesRouter.get('/article/:slug', async (c) => {
     await db.prepare(
       'UPDATE articles SET view_count = view_count + 1 WHERE slug = ?'
     ).bind(slug).run();
+    
+    // Get related articles from same category
+    const relatedArticles = await db.prepare(`
+      SELECT 
+        a.*,
+        u.nickname as author_name,
+        c.name as category_name,
+        c.slug as category_slug
+      FROM articles a
+      LEFT JOIN users u ON a.author_id = u.user_id
+      LEFT JOIN categories c ON a.category_id = c.category_id
+      WHERE a.category_id = ? AND a.article_id != ?
+      ORDER BY a.created_at DESC
+      LIMIT 6
+    `).bind(article.category_id, article.article_id).all();
     
     // Define category structure for menu display
     const categoryStructure = {
@@ -707,7 +722,7 @@ pagesRouter.get('/article/:slug', async (c) => {
                           <span class="w-1 h-8 bg-blue-600 mr-3"></span>
                           ${parentCategory.name} 메뉴
                       </h2>
-                      <div class="grid grid-cols-2 md:grid-cols-3 ${parentCategory.subCategories.length <= 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-5'} gap-4 mb-8">
+                      <div class="grid grid-cols-2 md:grid-cols-3 ${parentCategory.subCategories.length === 6 ? 'lg:grid-cols-6' : parentCategory.subCategories.length <= 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-5'} gap-4 mb-8">
                           ${parentCategory.subCategories.map((sub, index) => `
                               <a href="/${sub.slug}" class="card-hover bg-white rounded-lg p-5 block shadow-sm border ${sub.slug === article.category_slug ? 'border-blue-500 bg-blue-50' : 'border-gray-100'}">
                                   <div class="flex items-center justify-center mb-4">
@@ -765,38 +780,55 @@ pagesRouter.get('/article/:slug', async (c) => {
                   <div class="prose prose-lg max-w-none mb-8 text-gray-700 leading-relaxed" style="-webkit-text-stroke: none !important; -webkit-text-fill-color: #374151 !important;">
                       ${article.content.replace(/\n/g, '<br>')}
                   </div>
-                  
-                  <div class="border-t border-gray-200 pt-4 mt-8">
-                      <a href="/${article.category_slug}" class="inline-block bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 mr-2 transition-colors">
-                          <i class="fas fa-list mr-2"></i>
-                          목록으로
-                      </a>
-                      <a href="/" class="inline-block text-white px-4 py-2 rounded-lg transition-colors" style="background-color: #1e40af;" onmouseover="this.style.backgroundColor='#1e3a8a'" onmouseout="this.style.backgroundColor='#1e40af'">
-                          <i class="fas fa-home mr-2"></i>
-                          메인으로
-                      </a>
-                      </div>
                   </article>
                   
                   <!-- Related Articles Section -->
                   <div class="mt-12 bg-white border border-gray-200 rounded-lg p-8 shadow-sm">
                       <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                           <span class="w-1 h-8 bg-blue-600 mr-3"></span>
-                          다른 기사 보기
+                          같은 카테고리 다른 기사
                       </h2>
                       
-                      <div id="relatedArticles" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                          <!-- Related articles will be loaded here -->
-                          <div class="col-span-full text-center py-8 text-gray-400">
-                              <i class="fas fa-spinner fa-spin text-3xl mb-4"></i>
-                              <p>관련 기사를 불러오는 중...</p>
-                          </div>
+                      <div id="relatedArticles" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                          ${relatedArticles.results && relatedArticles.results.length > 0 ? relatedArticles.results.map(relArticle => `
+                              <article class="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
+                                  ${relArticle.featured_image_url ? `
+                                      <img src="${relArticle.featured_image_url}" alt="${relArticle.title}" 
+                                           class="w-full h-32 object-cover rounded mb-3">
+                                  ` : `
+                                      <div class="w-full h-32 bg-gradient-to-br from-gray-200 to-gray-300 rounded mb-3 flex items-center justify-center">
+                                          <i class="fas fa-newspaper text-gray-400 text-3xl"></i>
+                                      </div>
+                                  `}
+                                  <h3 class="font-bold text-gray-900 mb-2 line-clamp-2 hover:text-blue-600">
+                                      <a href="/article/${relArticle.slug}">
+                                          ${relArticle.title}
+                                      </a>
+                                  </h3>
+                                  <p class="text-sm text-gray-600 line-clamp-2 mb-2">
+                                      ${relArticle.content ? relArticle.content.substring(0, 100) + '...' : ''}
+                                  </p>
+                                  <div class="flex justify-between items-center text-xs text-gray-500">
+                                      <span>${relArticle.author_name || '편집부'}</span>
+                                      <span><i class="fas fa-eye mr-1"></i>${relArticle.view_count || 0}</span>
+                                  </div>
+                              </article>
+                          `).join('') : `
+                              <div class="col-span-full text-center py-8 text-gray-400">
+                                  <i class="fas fa-inbox text-6xl mb-4"></i>
+                                  <p>같은 카테고리의 다른 기사가 없습니다.</p>
+                              </div>
+                          `}
                       </div>
                       
-                      <div class="mt-8 text-center">
-                          <a href="/${article.category_slug}" class="inline-block text-white px-6 py-3 rounded-lg transition-colors" style="background-color: #1e40af;" onmouseover="this.style.backgroundColor='#1e3a8a'" onmouseout="this.style.backgroundColor='#1e40af'">
+                      <div class="mt-8 flex justify-between items-center">
+                          <a href="/${article.category_slug}" class="inline-block text-blue-600 hover:text-blue-800 font-semibold">
+                              <i class="fas fa-arrow-left mr-2"></i>
+                              ${article.category_name} 카테고리로 돌아가기
+                          </a>
+                          <a href="/articles" class="inline-block text-white px-6 py-3 rounded-lg transition-colors" style="background-color: #1e40af;" onmouseover="this.style.backgroundColor='#1e3a8a'" onmouseout="this.style.backgroundColor='#1e40af'">
                               <i class="fas fa-newspaper mr-2"></i>
-                              ${article.category_name} 전체 기사 보기
+                              전체 기사 보기
                           </a>
                       </div>
                   </div>
@@ -847,36 +879,15 @@ pagesRouter.get('/article/:slug', async (c) => {
               }
           });
           
-          // Load related articles immediately
+          // Clean up any remaining outline font issues
           (function() {
-              // Use sample data for related articles
-              const sampleArticles = [
-                  {
-                      slug: 'sample-article-1',
-                      title: '한라대학교 새 학기 시작, 학생들의 포부와 계획',
-                      category_name: '${article.category_name}',
-                      author_name: '김기자',
-                      view_count: 234,
-                      content: '새 학기가 시작되면서 학생들이 다양한 계획을 세우고 있다. 학업과 취업 준비, 동아리 활동 등...',
-                      created_at: '2025-08-20'
-                  },
-                  {
-                      slug: 'sample-article-2',
-                      title: '캠퍼스 내 새로운 편의시설 오픈 예정',
-                      category_name: '${article.category_name}',
-                      author_name: '박기자',
-                      view_count: 189,
-                      content: '학생들의 편의를 위한 새로운 시설이 다음 달 오픈 예정이다. 카페테리아와 휴게공간이...',
-                      created_at: '2025-08-19'
-                  },
-                  {
-                      slug: 'sample-article-3',
-                      title: '제주한라대학교 방송국, 새로운 프로그램 준비',
-                      category_name: '${article.category_name}',
-                      author_name: '이기자',
-                      view_count: 156,
-                      content: 'CHEBS에서 새로운 교양 프로그램을 준비 중이다. 학생들의 참여를 기다리고...',
-                      created_at: '2025-08-18'
+              const cleanupInterval = setInterval(function() {
+                  const elements = document.querySelectorAll('*');
+                  elements.forEach(function(el) {
+                      if (el.style.webkitTextStroke || el.style.webkitTextStrokeWidth) {
+                          el.style.webkitTextStroke = 'none';
+                          el.style.webkitTextStrokeWidth = '0';
+                      }
                   },
                   {
                       slug: 'sample-article-4',
@@ -947,6 +958,182 @@ pagesRouter.get('/article/:slug', async (c) => {
       </body>
       </html>
     `, 500);
+  }
+});
+
+// All articles page
+pagesRouter.get('/articles', async (c) => {
+  const page = parseInt(c.req.query('page') || '1');
+  const limit = 12;
+  const offset = (page - 1) * limit;
+  
+  try {
+    // Get total count
+    const countResult = await c.env.DB.prepare(`
+      SELECT COUNT(*) as total FROM articles
+    `).first();
+    
+    const totalArticles = countResult?.total || 0;
+    const totalPages = Math.ceil(totalArticles / limit);
+    
+    // Get articles with pagination
+    const articles = await c.env.DB.prepare(`
+      SELECT 
+        a.*,
+        u.nickname as author_name,
+        c.name as category_name,
+        c.slug as category_slug,
+        c.parent_category
+      FROM articles a
+      LEFT JOIN users u ON a.author_id = u.user_id
+      LEFT JOIN categories c ON a.category_id = c.category_id
+      ORDER BY a.created_at DESC
+      LIMIT ? OFFSET ?
+    `).bind(limit, offset).all();
+    
+    return c.html(`
+      <!DOCTYPE html>
+      <html lang="ko">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>전체 기사 - 제주한라대학교 신문방송사</title>
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+          <script src="https://cdn.tailwindcss.com"></script>
+          <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+          <link href="/static/styles.css" rel="stylesheet">
+          <style>
+              body {
+                  font-family: 'Noto Sans KR', sans-serif;
+              }
+          </style>
+      </head>
+      <body class="min-h-screen bg-gray-50 text-gray-900">
+          <div id="app">
+              ${HeaderComponent()}
+              
+              <div class="container mx-auto px-4 py-8 max-w-7xl">
+                  <!-- Page Header -->
+                  <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl p-8 mb-8 shadow-lg">
+                      <h1 class="text-4xl font-bold text-white mb-2">전체 기사</h1>
+                      <p class="text-white/80">
+                          총 ${totalArticles}개의 기사 | 페이지 ${page} / ${totalPages}
+                      </p>
+                  </div>
+                  
+                  <!-- Articles Grid -->
+                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                      ${articles.results && articles.results.length > 0 ? articles.results.map(article => `
+                          <article class="bg-white rounded-lg shadow hover:shadow-lg transition-all duration-300">
+                              ${article.featured_image_url ? `
+                                  <img src="${article.featured_image_url}" alt="${article.title}" 
+                                       class="w-full h-48 object-cover rounded-t-lg">
+                              ` : article.youtube_embed_id ? `
+                                  <div class="w-full h-48 rounded-t-lg bg-black flex items-center justify-center">
+                                      <i class="fab fa-youtube text-red-600 text-5xl"></i>
+                                  </div>
+                              ` : `
+                                  <div class="w-full h-48 bg-gradient-to-br from-gray-200 to-gray-300 rounded-t-lg flex items-center justify-center">
+                                      <i class="fas fa-newspaper text-gray-400 text-4xl"></i>
+                                  </div>
+                              `}
+                              <div class="p-5">
+                                  <div class="flex items-center gap-2 mb-2">
+                                      <span class="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded">
+                                          ${article.parent_category?.toUpperCase() || 'GENERAL'}
+                                      </span>
+                                      <span class="text-xs text-gray-500">
+                                          ${article.category_name}
+                                      </span>
+                                  </div>
+                                  <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2">
+                                      <a href="/article/${article.slug}" class="hover:text-blue-600">
+                                          ${article.title}
+                                      </a>
+                                  </h3>
+                                  <p class="text-gray-600 text-sm mb-3 line-clamp-3">
+                                      ${article.content?.substring(0, 150)}...
+                                  </p>
+                                  <div class="flex justify-between items-center text-xs text-gray-500">
+                                      <span>${article.author_name || '편집부'}</span>
+                                      <div class="flex items-center gap-3">
+                                          <span><i class="fas fa-eye mr-1"></i>${article.view_count || 0}</span>
+                                          <span>${new Date(article.created_at).toLocaleDateString('ko-KR')}</span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </article>
+                      `).join('') : `
+                          <div class="col-span-full text-center py-12">
+                              <i class="fas fa-inbox text-gray-300 text-6xl mb-4"></i>
+                              <p class="text-gray-500 text-lg">기사가 없습니다.</p>
+                          </div>
+                      `}
+                  </div>
+                  
+                  <!-- Pagination -->
+                  ${totalPages > 1 ? `
+                      <div class="flex justify-center items-center gap-2">
+                          ${page > 1 ? `
+                              <a href="/articles?page=${page - 1}" 
+                                 class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
+                                  <i class="fas fa-chevron-left"></i>
+                              </a>
+                          ` : `
+                              <span class="px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg text-gray-400 cursor-not-allowed">
+                                  <i class="fas fa-chevron-left"></i>
+                              </span>
+                          `}
+                          
+                          ${Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                              const pageNum = i + 1;
+                              return pageNum === page ? `
+                                  <span class="px-4 py-2 bg-blue-600 text-white rounded-lg">
+                                      ${pageNum}
+                                  </span>
+                              ` : `
+                                  <a href="/articles?page=${pageNum}" 
+                                     class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
+                                      ${pageNum}
+                                  </a>
+                              `;
+                          }).join('')}
+                          
+                          ${totalPages > 5 ? `
+                              <span class="px-2 text-gray-500">...</span>
+                              <a href="/articles?page=${totalPages}" 
+                                 class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
+                                  ${totalPages}
+                              </a>
+                          ` : ''}
+                          
+                          ${page < totalPages ? `
+                              <a href="/articles?page=${page + 1}" 
+                                 class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
+                                  <i class="fas fa-chevron-right"></i>
+                              </a>
+                          ` : `
+                              <span class="px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg text-gray-400 cursor-not-allowed">
+                                  <i class="fas fa-chevron-right"></i>
+                              </span>
+                          `}
+                      </div>
+                  ` : ''}
+              </div>
+              
+              ${Footer()}
+          </div>
+          
+          <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
+          <script src="/static/app.js"></script>
+      </body>
+      </html>
+    `);
+  } catch (error) {
+    console.error('Error loading articles:', error);
+    return c.html('<div>Error loading articles</div>', 500);
   }
 });
 

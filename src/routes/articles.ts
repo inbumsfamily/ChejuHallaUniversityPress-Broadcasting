@@ -27,8 +27,6 @@ articlesRouter.get('/', async (c) => {
     const page = parseInt(c.req.query('page') || '1');
     const limit = parseInt(c.req.query('limit') || '12');
     const category = c.req.query('category');
-    const status = c.req.query('status') || 'published';
-    const articleType = c.req.query('type');
     
     const offset = (page - 1) * limit;
     
@@ -46,38 +44,27 @@ articlesRouter.get('/', async (c) => {
     
     const params: any[] = [];
     
-    if (status !== 'all') {
-      query += ' AND a.status = ?';
-      params.push(status);
-    }
-    
     if (category) {
       // Check if it's a parent category
-      const parentCategories = ['broadcast', 'newspaper', 'campus', 'shorts', 'special-report', 'jeju-news', 'opinion', 'essay'];
+      const parentCategories = ['broadcast', 'press', 'campus', 'shorts', 'special-report', 'jeju-news', 'opinion', 'essay'];
       
       if (parentCategories.includes(category)) {
         // Get all subcategories for this parent category
-        query += ` AND c.category_id IN (
-          SELECT category_id FROM categories 
-          WHERE parent_category_id = (SELECT category_id FROM categories WHERE slug = ?)
-        )`;
+        query += ` AND c.parent_category = ?`;
       } else {
         query += ' AND c.slug = ?';
       }
       params.push(category);
     }
-    
-    if (articleType) {
-      query += ' AND a.article_type = ?';
-      params.push(articleType);
-    }
+
     
     // Get total count
     const countQuery = query.replace(
       'SELECT a.*, u.nickname as author_name, c.name as category_name, c.slug as category_slug',
       'SELECT COUNT(*) as total'
     );
-    const countResult = await db.prepare(countQuery).bind(...params).first() as { total: number };
+    const countResult = await db.prepare(countQuery).bind(...params).first();
+    const total = countResult?.total || 0;
     
     // Get articles
     query += ' ORDER BY a.created_at DESC LIMIT ? OFFSET ?';
@@ -86,12 +73,12 @@ articlesRouter.get('/', async (c) => {
     const { results } = await db.prepare(query).bind(...params).all();
     
     return c.json({
-      articles: results,
+      articles: results || [],
       pagination: {
         page,
         limit,
-        total: countResult.total,
-        totalPages: Math.ceil(countResult.total / limit)
+        total: total,
+        totalPages: Math.ceil(total / limit)
       }
     });
     

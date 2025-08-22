@@ -51,22 +51,28 @@ export const Footer = () => {
                     BROADCAST
                   </a>
                   <ul class="ml-5 mt-0.5 space-y-0">
-                    <li><a href="/halla-news" class="text-xs text-blue-200 hover:text-white transition-colors">한라뉴스</a></li>
-                    <li><a href="/halla-interview" class="text-xs text-blue-200 hover:text-white transition-colors">한라인터뷰</a></li>
-                    <li><a href="/major-special" class="text-xs text-blue-200 hover:text-white transition-colors">전공특집</a></li>
-                    <li><a href="/radio-podcast" class="text-xs text-blue-200 hover:text-white transition-colors">라디오·팟캐스트</a></li>
+                    <li><a href="/broadcast/방송국소개" class="text-xs text-blue-200 hover:text-white transition-colors">방송국소개</a></li>
+                    <li><a href="/broadcast/연혁·편성안내" class="text-xs text-blue-200 hover:text-white transition-colors">연혁·편성안내</a></li>
+                    <li><a href="/broadcast/조직도·만드는 사람들" class="text-xs text-blue-200 hover:text-white transition-colors">조직도</a></li>
+                    <li><a href="/broadcast/PD모집·공지" class="text-xs text-blue-200 hover:text-white transition-colors">PD모집</a></li>
+                    <li><a href="/broadcast/VOD·아카이브" class="text-xs text-blue-200 hover:text-white transition-colors">VOD</a></li>
+                    <li><a href="/broadcast/방송국 활동기" class="text-xs text-blue-200 hover:text-white transition-colors">활동기</a></li>
                   </ul>
                 </div>
                 
-                <!-- NEWS -->
+                <!-- PRESS -->
                 <div>
-                  <a href="/newspaper" class="text-sm font-semibold text-white hover:text-blue-200 transition-colors duration-300 flex items-center group">
+                  <a href="/press" class="text-sm font-semibold text-white hover:text-blue-200 transition-colors duration-300 flex items-center group">
                     <span class="inline-block w-1.5 h-1.5 bg-white mr-2 group-hover:w-2 transition-all duration-300"></span>
-                    NEWS
+                    PRESS
                   </a>
                   <ul class="ml-5 mt-0.5 space-y-0">
-                    <li><a href="/field-coverage" class="text-xs text-blue-200 hover:text-white transition-colors">현장취재</a></li>
-                    <li><a href="/campus-report" class="text-xs text-blue-200 hover:text-white transition-colors">캠퍼스 리포트</a></li>
+                    <li><a href="/press/신문사소개" class="text-xs text-blue-200 hover:text-white transition-colors">신문사소개</a></li>
+                    <li><a href="/press/연혁·발행안내" class="text-xs text-blue-200 hover:text-white transition-colors">연혁·발행안내</a></li>
+                    <li><a href="/press/조직도·만드는 사람들" class="text-xs text-blue-200 hover:text-white transition-colors">조직도</a></li>
+                    <li><a href="/press/기자모집·공지" class="text-xs text-blue-200 hover:text-white transition-colors">기자모집</a></li>
+                    <li><a href="/press/PDF·지난호 아카이브" class="text-xs text-blue-200 hover:text-white transition-colors">PDF</a></li>
+                    <li><a href="/press/신문사 활동기" class="text-xs text-blue-200 hover:text-white transition-colors">활동기</a></li>
                   </ul>
                 </div>
               </div>
@@ -149,7 +155,7 @@ export const Footer = () => {
                     <li><a href="/professor-column" class="text-xs text-blue-200 hover:text-white transition-colors">교수칼럼</a></li>
                     <li><a href="/reader-contribution" class="text-xs text-blue-200 hover:text-white transition-colors">독자기고</a></li>
                     <li><a href="/anonymous-voice" class="text-xs text-blue-200 hover:text-white transition-colors">익명의 목소리</a></li>
-                    <li><a href="/book-movie-recommendation" class="text-xs text-blue-200 hover:text-white transition-colors">함께 읽는 책·영화 추천</a></li>
+                    <li><a href="/book-movie-recommendation" class="text-xs text-blue-200 hover:text-white transition-colors">함께읽는책·영화추천</a></li>
                   </ul>
                 </div>
                 

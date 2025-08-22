@@ -1,31 +1,75 @@
--- Insert test users with proper password hashes (bcrypt hash for "password123")
--- The hash below is for "password123"
-INSERT OR IGNORE INTO users (email, nickname, password_hash, role_id) VALUES 
-  ('admin@chu.ac.kr', '관리자', '$2b$10$g9o2J9LE8J5DYWSeFHmovuOcq730yTNrVnWAdQbH6GMdVrF/UV4l2', 1),
-  ('editor@chu.ac.kr', '편집기자', '$2b$10$g9o2J9LE8J5DYWSeFHmovuOcq730yTNrVnWAdQbH6GMdVrF/UV4l2', 2),
-  ('pd@chu.ac.kr', '방송PD', '$2b$10$g9o2J9LE8J5DYWSeFHmovuOcq730yTNrVnWAdQbH6GMdVrF/UV4l2', 3),
-  ('premium@chu.ac.kr', '프리미엄회원', '$2b$10$g9o2J9LE8J5DYWSeFHmovuOcq730yTNrVnWAdQbH6GMdVrF/UV4l2', 4),
-  ('user@chu.ac.kr', '일반회원', '$2b$10$g9o2J9LE8J5DYWSeFHmovuOcq730yTNrVnWAdQbH6GMdVrF/UV4l2', 5);
+-- Insert test users
+INSERT OR IGNORE INTO users (email, password, nickname, role) VALUES 
+  ('editor@chu.ac.kr', 'password123', '편집장', 'editor'),
+  ('reporter1@chu.ac.kr', 'password123', '김기자', 'reporter'),
+  ('reporter2@chu.ac.kr', 'password123', '이기자', 'reporter'),
+  ('reporter3@chu.ac.kr', 'password123', '박기자', 'reporter'),
+  ('admin@chu.ac.kr', 'password123', '관리자', 'admin');
 
--- Insert sample articles
-INSERT OR IGNORE INTO articles (title, slug, content, author_id, category_id, status, article_type, published_at, view_count) VALUES
-  ('2025학년도 신입생 오리엔테이션 성황리 개최', '2025-orientation', '제주한라대학교가 2025학년도 신입생 오리엔테이션을 성황리에 개최했습니다. 이번 행사에는 약 1,500명의 신입생이 참여했으며...', 1, 2, 'published', 'normal', datetime('now'), 1234),
-  ('도서관 리모델링 완료, 학습 환경 대폭 개선', 'library-remodeling', '중앙도서관의 리모델링 공사가 완료되어 학생들에게 더 나은 학습 환경을 제공하게 되었습니다...', 2, 2, 'published', 'normal', datetime('now'), 892),
-  ('취업률 85% 달성, 역대 최고 기록', 'employment-rate-2025', '제주한라대학교가 2024년 졸업생 취업률 85%를 달성하며 역대 최고 기록을 세웠습니다...', 2, 3, 'published', 'normal', datetime('now'), 2156),
-  ('캠퍼스 봄 축제 하이라이트', 'spring-festival-2025', '화창한 봄날에 펼쳐진 캠퍼스 축제의 하이라이트를 영상으로 담았습니다.', 3, 1, 'published', 'shorts', datetime('now'), 5200),
-  ('학생회장 인터뷰: 새로운 비전과 계획', 'student-president-interview', '새로 선출된 학생회장과의 심층 인터뷰를 통해 앞으로의 계획을 들어봤습니다...', 3, 1, 'published', 'normal', datetime('now'), 1523);
+-- Insert categories for PRESS
+INSERT OR IGNORE INTO categories (name, slug, parent_category) VALUES 
+  ('신문사소개', 'press/신문사소개', 'press'),
+  ('연혁·발행안내', 'press/연혁·발행안내', 'press'),
+  ('조직도·만드는 사람들', 'press/조직도·만드는 사람들', 'press'),
+  ('기자모집·공지', 'press/기자모집·공지', 'press'),
+  ('PDF·지난호 아카이브', 'press/PDF·지난호 아카이브', 'press'),
+  ('신문사 활동기', 'press/신문사 활동기', 'press'),
+  -- BROADCAST categories
+  ('방송국소개', 'broadcast/방송국소개', 'broadcast'),
+  ('연혁·편성안내', 'broadcast/연혁·편성안내', 'broadcast'),
+  ('조직도·만드는 사람들', 'broadcast/조직도·만드는 사람들', 'broadcast'),
+  ('PD모집·공지', 'broadcast/PD모집·공지', 'broadcast'),
+  ('VOD·아카이브', 'broadcast/VOD·아카이브', 'broadcast'),
+  ('방송국 활동기', 'broadcast/방송국 활동기', 'broadcast');
 
--- Insert sample calendar events
-INSERT OR IGNORE INTO academic_calendar_events (title, description, event_date_start, event_date_end, source) VALUES
-  ('2학기 수강신청', '2025학년도 2학기 수강신청 기간입니다.', '2025-08-20', '2025-08-23', 'manual'),
-  ('개강', '2025학년도 2학기 개강일', '2025-09-02', '2025-09-02', 'manual'),
-  ('중간고사', '2025학년도 2학기 중간고사 기간', '2025-10-20', '2025-10-26', 'manual'),
-  ('대학 축제', '제주한라대학교 가을 축제', '2025-10-15', '2025-10-17', 'manual'),
-  ('기말고사', '2025학년도 2학기 기말고사 기간', '2025-12-15', '2025-12-21', 'manual');
-
--- Insert sample comments
-INSERT OR IGNORE INTO comments (article_id, user_id, content, parent_comment_id) VALUES
-  (1, 4, '신입생 여러분 환영합니다! 좋은 대학생활 되세요.', NULL),
-  (1, 5, '정말 유익한 행사였습니다.', NULL),
-  (2, 4, '도서관이 정말 깔끔해졌네요!', NULL),
-  (3, 5, '취업률이 정말 높네요. 자랑스럽습니다.', NULL);
+-- 1. 신문사소개 카테고리 샘플 기사 (10개)
+INSERT OR IGNORE INTO articles (title, slug, content, category_id, author_id, view_count, created_at) VALUES 
+  ('제주한라대학교 신문사, 대학 언론의 중심이 되다', 
+   'press-intro-1', 
+   '제주한라대학교 신문사는 1979년 창간 이래로 45년의 역사를 자랑하는 대학 언론 기관입니다. 우리 신문사는 학내 주요 이슈를 다루며 학생들의 목소리를 대변하는 역할을 충실히 수행하고 있습니다. 매월 발행되는 한라춘추는 대학 구성원들에게 중요한 정보를 제공하고 있으며, 디지털 플랫폼을 통해 더 많은 독자들과 소통하고 있습니다.', 
+   1, 1, 234, datetime('now', '-10 days')),
+   
+  ('한라춘추, 디지털 전환으로 새로운 도약 준비', 
+   'press-intro-2', 
+   '한라춘추가 종이신문에서 디지털 플랫폼으로의 전환을 본격화하고 있습니다. 모바일 웹사이트 구축과 SNS 채널 활성화를 통해 더 많은 학생들과 실시간으로 소통할 수 있는 기반을 마련했습니다. 특히 유튜브 채널을 통한 영상 뉴스 제공으로 콘텐츠의 다양성을 확보하고 있습니다.', 
+   1, 2, 189, datetime('now', '-9 days')),
+   
+  ('우리가 추구하는 대학 언론의 가치', 
+   'press-intro-3', 
+   '제주한라대학교 신문사는 진실, 공정, 독립이라는 세 가지 핵심 가치를 바탕으로 운영되고 있습니다. 학생 기자들은 철저한 사실 확인과 균형 잡힌 보도를 위해 노력하며, 대학 행정으로부터 독립된 편집권을 보장받고 있습니다. 이러한 원칙들이 신뢰받는 대학 언론을 만드는 기초가 되고 있습니다.', 
+   1, 3, 156, datetime('now', '-8 days')),
+   
+  ('신문사 편집실, 창의적인 콘텐츠 생산의 요람', 
+   'press-intro-4', 
+   '본관 3층에 위치한 신문사 편집실은 최신 편집 장비와 회의실을 갖춘 창의적 공간입니다. 이곳에서 학생 기자들은 매주 편집회의를 통해 기사 아이템을 선정하고, 취재 계획을 수립합니다. 또한 선배 기자들의 멘토링이 이루어지는 교육의 장이기도 합니다.', 
+   1, 4, 145, datetime('now', '-7 days')),
+   
+  ('한라춘추 독자위원회 발족, 독자와의 소통 강화', 
+   'press-intro-5', 
+   '제주한라대학교 신문사가 독자위원회를 발족하여 독자들과의 소통을 강화하고 있습니다. 각 학과 대표 학생들로 구성된 독자위원회는 분기별로 모여 신문 편집 방향과 개선사항을 논의합니다. 독자들의 의견이 직접 반영되는 참여형 언론을 만들어가고 있습니다.', 
+   1, 5, 167, datetime('now', '-6 days')),
+   
+  ('대학 언론상 수상, 우수성 인정받아', 
+   'press-intro-6', 
+   '한라춘추가 전국대학신문기자연합 주최 대학언론상에서 우수상을 수상했습니다. 심사위원들은 지역 현안에 대한 심층 보도와 학생 권익 증진을 위한 노력을 높이 평가했습니다. 이번 수상은 우리 신문사의 저널리즘 역량이 전국적으로 인정받았다는 의미가 있습니다.', 
+   1, 1, 198, datetime('now', '-5 days')),
+   
+  ('신문사 OB 네트워크 구축, 선후배 연결고리 강화', 
+   'press-intro-7', 
+   '제주한라대학교 신문사 출신 졸업생들의 네트워크가 활발히 운영되고 있습니다. 언론계, 공공기관, 기업 등 다양한 분야에서 활동하는 선배들이 후배들의 진로 상담과 취업 멘토링을 제공하고 있습니다. 매년 홈커밍데이를 통해 선후배가 만나는 자리도 마련하고 있습니다.', 
+   1, 2, 134, datetime('now', '-4 days')),
+   
+  ('탐사보도팀 신설, 심층 저널리즘 강화', 
+   'press-intro-8', 
+   '한라춘추가 탐사보도팀을 신설하여 심층 저널리즘을 강화하고 있습니다. 학내 주요 이슈부터 지역사회 문제까지 장기간 취재를 통한 깊이 있는 보도를 목표로 합니다. 첫 프로젝트로 대학생 주거 문제를 다룬 연속 기획이 큰 반향을 일으켰습니다.', 
+   1, 3, 176, datetime('now', '-3 days')),
+   
+  ('신문사 SNS 팔로워 1만명 돌파', 
+   'press-intro-9', 
+   '제주한라대학교 신문사의 공식 SNS 계정 팔로워가 1만명을 돌파했습니다. 인스타그램, 페이스북, 유튜브 등 다양한 플랫폼을 통해 실시간 뉴스와 카드뉴스, 영상 콘텐츠를 제공한 결과입니다. 특히 MZ세대 맞춤형 콘텐츠가 큰 인기를 얻고 있습니다.', 
+   1, 4, 212, datetime('now', '-2 days')),
+   
+  ('신문사 비전 2030 발표, 미래 청사진 제시', 
+   'press-intro-10', 
+   '제주한라대학교 신문사가 향후 5년간의 발전 계획인 비전 2030을 발표했습니다. AI 저널리즘 도입, 멀티미디어 콘텐츠 강화, 글로벌 대학 언론과의 교류 확대 등이 주요 내용입니다. 변화하는 미디어 환경에 능동적으로 대응하며 대학 언론의 새로운 모델을 만들어가겠다는 포부를 밝혔습니다.', 
+   1, 5, 245, datetime('now', '-1 days'));

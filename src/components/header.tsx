@@ -20,27 +20,27 @@ export const HeaderComponent = () => {
                             BROADCAST
                         </a>
                         <div class="absolute top-full left-0 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #1e40af; margin-top: -1px;">
-                            <a href="/broadcast-intro" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">방송국소개</a>
-                            <a href="/halla-news" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">한라뉴스</a>
-                            <a href="/halla-interview" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">한라인터뷰</a>
-                            <a href="/major-special" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">전공특집</a>
-                            <a href="/campus-tour" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">캠퍼스투어</a>
-                            <a href="/culture-art-broadcast" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">문화·예술(방송)</a>
-                            <a href="/radio-podcast" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">라디오·팟캐스트</a>
-                            <a href="/broadcast-activities" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">방송국 활동기</a>
+                            <a href="/broadcast/방송국소개" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">방송국소개</a>
+                            <a href="/broadcast/연혁·편성안내" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">연혁·편성안내</a>
+                            <a href="/broadcast/조직도·만드는 사람들" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">조직도·만드는 사람들</a>
+                            <a href="/broadcast/PD모집·공지" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">PD모집·공지</a>
+                            <a href="/broadcast/VOD·아카이브" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">VOD·아카이브</a>
+                            <a href="/broadcast/방송국 활동기" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">방송국 활동기</a>
                         </div>
                     </div>
                     
                     <!-- 신문사 드롭다운 -->
                     <div class="relative group">
-                        <a href="/newspaper" class="nav-link text-white hover:text-blue-200 font-bold">
-                            NEWS
+                        <a href="/press" class="nav-link text-white hover:text-blue-200 font-bold">
+                            PRESS
                         </a>
-                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #1e40af; margin-top: -1px;">
-                            <a href="/newspaper-intro" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">신문사소개</a>
-                            <a href="/field-coverage" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">현장취재</a>
-                            <a href="/campus-report" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">캠퍼스 리포트</a>
-                            <a href="/newspaper-activities" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">신문사 활동기</a>
+                        <div class="absolute top-full left-0 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #1e40af; margin-top: -1px;">
+                            <a href="/press/신문사소개" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">신문사소개</a>
+                            <a href="/press/연혁·발행안내" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">연혁·발행안내</a>
+                            <a href="/press/조직도·만드는 사람들" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">조직도·만드는 사람들</a>
+                            <a href="/press/기자모집·공지" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">기자모집·공지</a>
+                            <a href="/press/PDF·지난호 아카이브" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">PDF·지난호 아카이브</a>
+                            <a href="/press/신문사 활동기" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">신문사 활동기</a>
                         </div>
                     </div>
                     
@@ -213,23 +213,23 @@ export const HeaderComponent = () => {
                     <div>
                         <div class="font-semibold text-gray-700 py-2">방송국</div>
                         <div class="pl-4 space-y-1">
-                            <a href="/broadcast-intro" class="block py-1 text-gray-600">방송국소개</a>
-                            <a href="/halla-news" class="block py-1 text-gray-600">한라뉴스</a>
-                            <a href="/halla-interview" class="block py-1 text-gray-600">한라인터뷰</a>
-                            <a href="/major-special" class="block py-1 text-gray-600">전공특집</a>
-                            <a href="/campus-tour" class="block py-1 text-gray-600">캠퍼스투어</a>
-                            <a href="/culture-art-broadcast" class="block py-1 text-gray-600">문화·예술(방송)</a>
-                            <a href="/radio-podcast" class="block py-1 text-gray-600">라디오·팟캐스트</a>
-                            <a href="/broadcast-activities" class="block py-1 text-gray-600">방송국 활동기</a>
+                            <a href="/broadcast/방송국소개" class="block py-1 text-gray-600">방송국소개</a>
+                            <a href="/broadcast/연혁·편성안내" class="block py-1 text-gray-600">연혁·편성안내</a>
+                            <a href="/broadcast/조직도·만드는 사람들" class="block py-1 text-gray-600">조직도·만드는 사람들</a>
+                            <a href="/broadcast/PD모집·공지" class="block py-1 text-gray-600">PD모집·공지</a>
+                            <a href="/broadcast/VOD·아카이브" class="block py-1 text-gray-600">VOD·아카이브</a>
+                            <a href="/broadcast/방송국 활동기" class="block py-1 text-gray-600">방송국 활동기</a>
                         </div>
                     </div>
                     <div>
                         <div class="font-semibold text-gray-700 py-2">신문사</div>
                         <div class="pl-4 space-y-1">
-                            <a href="/newspaper-intro" class="block py-1 text-gray-600">신문사소개</a>
-                            <a href="/field-coverage" class="block py-1 text-gray-600">현장취재</a>
-                            <a href="/campus-report" class="block py-1 text-gray-600">캠퍼스 리포트</a>
-                            <a href="/newspaper-activities" class="block py-1 text-gray-600">신문사 활동기</a>
+                            <a href="/press/신문사소개" class="block py-1 text-gray-600">신문사소개</a>
+                            <a href="/press/연혁·발행안내" class="block py-1 text-gray-600">연혁·발행안내</a>
+                            <a href="/press/조직도·만드는 사람들" class="block py-1 text-gray-600">조직도·만드는 사람들</a>
+                            <a href="/press/기자모집·공지" class="block py-1 text-gray-600">기자모집·공지</a>
+                            <a href="/press/PDF·지난호 아카이브" class="block py-1 text-gray-600">PDF·지난호 아카이브</a>
+                            <a href="/press/신문사 활동기" class="block py-1 text-gray-600">신문사 활동기</a>
                         </div>
                     </div>
                     <div>
