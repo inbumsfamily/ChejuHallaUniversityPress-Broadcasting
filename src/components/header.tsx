@@ -1,13 +1,13 @@
 export const HeaderComponent = () => {
   return `
     <!-- Fixed Header - Bold Modern Design -->
-    <header class="sticky top-0 z-50 nav-modern" style="background: rgba(0, 0, 0, 0.98); border-bottom: 1px solid #222;">
+    <header class="sticky top-0 z-50 nav-modern" style="background: #1e40af; border-bottom: 1px solid #1e3a8a;">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex items-center">
                     <a href="/" class="flex items-center">
-                        <span class="text-2xl font-black text-gray-900 uppercase tracking-wider">CHU MEDIA</span>
+                        <span class="text-2xl font-black text-white uppercase tracking-wider">CHU MEDIA</span>
                     </a>
                 </div>
                 
@@ -15,10 +15,10 @@ export const HeaderComponent = () => {
                 <nav class="hidden lg:flex items-center space-x-1">
                     <!-- 방송국 드롭다운 -->
                     <div class="relative group">
-                        <a href="/broadcast" class="nav-link text-gray-900 hover:text-blue-600" style="--hover-color: #1e40af;">
+                        <a href="/broadcast" class="nav-link text-white hover:text-blue-200">
                             BROADCAST
                         </a>
-                        <div class="absolute top-full left-0 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #e5e7eb; margin-top: -1px;">
+                        <div class="absolute top-full left-0 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #1e40af; margin-top: -1px;">
                             <a href="/broadcast-intro" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">방송국소개</a>
                             <a href="/halla-news" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">한라뉴스</a>
                             <a href="/halla-interview" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">한라인터뷰</a>
@@ -32,10 +32,10 @@ export const HeaderComponent = () => {
                     
                     <!-- 신문사 드롭다운 -->
                     <div class="relative group">
-                        <a href="/newspaper" class="nav-link text-gray-900 hover:text-blue-600" style="--hover-color: #1e40af;">
+                        <a href="/newspaper" class="nav-link text-white hover:text-blue-200">
                             NEWS
                         </a>
-                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #e5e7eb; margin-top: -1px;">
+                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #1e40af; margin-top: -1px;">
                             <a href="/newspaper-intro" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">신문사소개</a>
                             <a href="/field-coverage" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">현장취재</a>
                             <a href="/campus-report" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">캠퍼스 리포트</a>
@@ -45,10 +45,10 @@ export const HeaderComponent = () => {
                     
                     <!-- 캠퍼스 드롭다운 -->
                     <div class="relative group">
-                        <a href="/campus" class="nav-link text-gray-900 hover:text-blue-600" style="--hover-color: #1e40af;">
+                        <a href="/campus" class="nav-link text-white hover:text-blue-200">
                             CAMPUS
                         </a>
-                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #e5e7eb; margin-top: -1px;">
+                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #1e40af; margin-top: -1px;">
                             <a href="/campus-life" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">캠퍼스 라이프</a>
                             <a href="/student-council-general" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">총학생회</a>
                             <a href="/department-council" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">학과학생회</a>
@@ -59,10 +59,10 @@ export const HeaderComponent = () => {
                     
                     <!-- 쇼츠 드롭다운 -->
                     <div class="relative group">
-                        <a href="/shorts" class="nav-link text-gray-900 hover:text-blue-600" style="--hover-color: #1e40af;">
+                        <a href="/shorts" class="nav-link text-white hover:text-blue-200">
                             SHORTS
                         </a>
-                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #e5e7eb; margin-top: -1px;">
+                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #1e40af; margin-top: -1px;">
                             <a href="/one-cut-news" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">한컷 뉴스</a>
                             <a href="/issue-briefing" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">이슈 브리핑</a>
                             <a href="/anonymous-news" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">익명소식</a>
@@ -72,10 +72,10 @@ export const HeaderComponent = () => {
                     
                     <!-- 기획보도 드롭다운 -->
                     <div class="relative group">
-                        <a href="/special-report" class="nav-link text-gray-900 hover:text-blue-600" style="--hover-color: #1e40af;">
+                        <a href="/special-report" class="nav-link text-white hover:text-blue-200">
                             SPECIAL
                         </a>
-                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #e5e7eb; margin-top: -1px;">
+                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #1e40af; margin-top: -1px;">
                             <a href="/career-employment" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">진로·취업</a>
                             <a href="/youth-region" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">청년·지역</a>
                             <a href="/welfare-rights" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">복지·권익</a>
@@ -85,10 +85,10 @@ export const HeaderComponent = () => {
                     
                     <!-- 제주소식 드롭다운 -->
                     <div class="relative group">
-                        <a href="/jeju-news" class="nav-link text-gray-900 hover:text-blue-600" style="--hover-color: #1e40af;">
+                        <a href="/jeju-news" class="nav-link text-white hover:text-blue-200">
                             JEJU
                         </a>
-                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #e5e7eb; margin-top: -1px;">
+                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #1e40af; margin-top: -1px;">
                             <a href="/jeju-news-main" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">제주소식</a>
                             <a href="/jeju-culture-art" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">제주 문화·예술</a>
                             <a href="/jeju-tour-food" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">관광·맛집</a>
@@ -97,10 +97,10 @@ export const HeaderComponent = () => {
                     
                     <!-- 오피니언 드롭다운 -->
                     <div class="relative group">
-                        <a href="/opinion" class="nav-link text-gray-900 hover:text-blue-600" style="--hover-color: #1e40af;">
+                        <a href="/opinion" class="nav-link text-white hover:text-blue-200">
                             OPINION
                         </a>
-                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #e5e7eb; margin-top: -1px;">
+                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #1e40af; margin-top: -1px;">
                             <a href="/editorial-column" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">사설·칼럼</a>
                             <a href="/contribution" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">기고</a>
                             <a href="/student-perspective" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">학생의 시선</a>
@@ -109,10 +109,10 @@ export const HeaderComponent = () => {
                     
                     <!-- 에세이 드롭다운 -->
                     <div class="relative group">
-                        <a href="/essay" class="nav-link text-gray-900 hover:text-blue-600" style="--hover-color: #1e40af;">
+                        <a href="/essay" class="nav-link text-white hover:text-blue-200">
                             ESSAY
                         </a>
-                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #e5e7eb; margin-top: -1px;">
+                        <div class="absolute top-full left-0 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #1e40af; margin-top: -1px;">
                             <a href="/time-in-jeju" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">제주에서 보내는 시간</a>
                             <a href="/dreams-hopes" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">꿈과 희망</a>
                             <a href="/travel-exploration" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">여행과 탐방</a>
@@ -133,7 +133,7 @@ export const HeaderComponent = () => {
                     </button>
                     
                     <!-- Login/User Icon -->
-                    <button onclick="toggleLoginModal()" class="flex items-center gap-1 p-2 text-gray-600 hover:text-blue-600">
+                    <button onclick="toggleLoginModal()" class="flex items-center gap-1 p-2 text-white hover:text-blue-200">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                         </svg>
@@ -141,7 +141,7 @@ export const HeaderComponent = () => {
                     </button>
                     
                     <!-- Mobile menu button -->
-                    <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-gray-600 hover:text-blue-600">
+                    <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-white hover:text-blue-200">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>

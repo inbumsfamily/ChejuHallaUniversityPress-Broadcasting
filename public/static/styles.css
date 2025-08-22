@@ -260,8 +260,8 @@ a:hover {
 
 /* Navigation Styles */
 .nav-modern {
-  border-bottom: 1px solid var(--border-color);
-  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid #1e3a8a;
+  background: #1e40af;
   backdrop-filter: blur(10px);
 }
 
@@ -281,7 +281,7 @@ a:hover {
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--accent-primary);
+  background: white;
   transition: width 0.3s ease;
 }
 
