@@ -9,7 +9,7 @@ export const Footer = () => {
           <div class="lg:col-span-2">
             <h2 class="text-4xl lg:text-5xl font-black mb-6 leading-tight">
               CHEJU HALLA UNIVERSITY<br>
-              <span class="text-outline" style="color: transparent; -webkit-text-stroke: 2px white;">PRESS & BROADCASTING</span>
+              <span style="-webkit-text-stroke: none !important;">PRESS & BROADCASTING</span>
             </h2>
             <p class="text-xl text-blue-100 mb-3 leading-relaxed">
               제주한라대학교 CHEBS와 한라춘추
@@ -39,7 +39,7 @@ export const Footer = () => {
           <div class="lg:col-span-2">
             <h3 class="text-3xl font-bold mb-6 uppercase">
               Quick<br>
-              <span class="text-outline" style="color: transparent; -webkit-text-stroke: 1px white;">Links</span>
+              <span style="-webkit-text-stroke: none !important;">Links</span>
             </h3>
             <div class="grid grid-cols-4 gap-4">
               <!-- 첫 번째 열 -->
@@ -80,10 +80,14 @@ export const Footer = () => {
                     CAMPUS
                   </a>
                   <ul class="ml-5 mt-0.5 space-y-0">
+                    <li><a href="/university-news" class="text-xs text-blue-200 hover:text-white transition-colors">대학소식</a></li>
+                    <li><a href="/our-major-now" class="text-xs text-blue-200 hover:text-white transition-colors">지우전</a></li>
+                    <li><a href="/clubs" class="text-xs text-blue-200 hover:text-white transition-colors">동아리</a></li>
+                    <li><a href="/student-activities" class="text-xs text-blue-200 hover:text-white transition-colors">학생활동</a></li>
                     <li><a href="/campus-life" class="text-xs text-blue-200 hover:text-white transition-colors">캠퍼스 라이프</a></li>
-                    <li><a href="/student-council-general" class="text-xs text-blue-200 hover:text-white transition-colors">총학생회</a></li>
-                    <li><a href="/club-circle" class="text-xs text-blue-200 hover:text-white transition-colors">동아리·서클</a></li>
-                    <li><a href="/academic-schedule" class="text-xs text-blue-200 hover:text-white transition-colors">학사일정</a></li>
+                    <li><a href="/scholarship-welfare" class="text-xs text-blue-200 hover:text-white transition-colors">장학·복지·지원</a></li>
+                    <li><a href="/x-file" class="text-xs text-blue-200 hover:text-white transition-colors">X-파일</a></li>
+                    <li><a href="/alumni-interview" class="text-xs text-blue-200 hover:text-white transition-colors">졸업생 인터뷰</a></li>
                   </ul>
                 </div>
                 
@@ -142,8 +146,10 @@ export const Footer = () => {
                   </a>
                   <ul class="ml-5 mt-0.5 space-y-0">
                     <li><a href="/editorial-column" class="text-xs text-blue-200 hover:text-white transition-colors">사설·칼럼</a></li>
-                    <li><a href="/contribution" class="text-xs text-blue-200 hover:text-white transition-colors">기고</a></li>
-                    <li><a href="/student-perspective" class="text-xs text-blue-200 hover:text-white transition-colors">학생의 시선</a></li>
+                    <li><a href="/professor-column" class="text-xs text-blue-200 hover:text-white transition-colors">교수칼럼</a></li>
+                    <li><a href="/reader-contribution" class="text-xs text-blue-200 hover:text-white transition-colors">독자기고</a></li>
+                    <li><a href="/anonymous-voice" class="text-xs text-blue-200 hover:text-white transition-colors">익명의 목소리</a></li>
+                    <li><a href="/book-movie-recommendation" class="text-xs text-blue-200 hover:text-white transition-colors">함께 읽는 책·영화 추천</a></li>
                   </ul>
                 </div>
                 
@@ -168,7 +174,7 @@ export const Footer = () => {
           <div>
             <h3 class="text-3xl font-bold mb-8 uppercase">
               Contact<br>
-              <span class="text-outline" style="color: transparent; -webkit-text-stroke: 1px white;">Info</span>
+              <span style="-webkit-text-stroke: none !important;">Info</span>
             </h3>
             <div class="space-y-6">
               <div>
@@ -202,7 +208,7 @@ export const Footer = () => {
           <div class="flex flex-col lg:flex-row justify-between items-center gap-6">
             <div class="text-center lg:text-left">
               <p class="text-2xl font-bold">
-                © 2024 <span class="text-outline" style="color: transparent; -webkit-text-stroke: 1px white;">JHU</span> MEDIA
+                © 2024 <span style="-webkit-text-stroke: none !important;">JHU</span> MEDIA
               </p>
             </div>
             

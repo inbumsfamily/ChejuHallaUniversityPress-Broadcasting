@@ -14,10 +14,16 @@ broadcastRouter.get('/broadcast', (c) => {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>방송국 - 제주한라대학교 신문방송사</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
     <link href="/static/styles.css" rel="stylesheet">
     <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
         .video-card:hover .play-button {
             transform: scale(1.1);
         }
@@ -170,7 +176,7 @@ broadcastRouter.get('/broadcast', (c) => {
         
         <!-- Latest Videos Section -->
         <div class="mt-8">
-            <h2 class="text-2xl font-bold mb-6 text-white">최신 방송 콘텐츠</h2>
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">최신 방송 콘텐츠</h2>
             <div id="broadcastArticles" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Videos will be loaded here dynamically -->
                 <div class="col-span-3 text-center py-12">

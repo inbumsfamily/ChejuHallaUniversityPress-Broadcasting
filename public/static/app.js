@@ -5,6 +5,8 @@ const API_BASE = '/api';
 let authToken = localStorage.getItem('authToken');
 let currentUser = null;
 
+
+
 // Axios interceptor to add auth token
 axios.interceptors.request.use(
   config => {

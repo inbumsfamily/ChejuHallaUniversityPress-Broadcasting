@@ -31,7 +31,7 @@ body {
   min-height: 100vh;
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Malgun Gothic", Arial, sans-serif;
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -210,20 +210,13 @@ a:hover {
   line-height: 0.85;
 }
 
-.text-outline {
-  color: transparent;
-  -webkit-text-stroke: 2px var(--text-primary);
-}
 
-/* Prevent outline style in article titles */
-.article-title .text-outline,
-article .text-outline,
-.article-card .text-outline,
-h3 .text-outline,
-h4 .text-outline {
-  color: inherit !important;
-  -webkit-text-stroke: none !important;
-}
+
+
+
+
+
+
 
 .line-clamp-2 {
   display: -webkit-box;
@@ -277,7 +270,7 @@ h4 .text-outline {
 
 .nav-link {
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   padding: 0.5rem 1rem;
@@ -499,3 +492,4 @@ input:focus, textarea:focus, select:focus {
     transform: translateY(0);
   }
 }
+

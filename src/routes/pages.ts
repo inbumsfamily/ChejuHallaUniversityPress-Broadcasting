@@ -13,10 +13,16 @@ const categoryPageTemplate = (categoryName: string, categorySlug: string, subCat
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${categoryName} - 제주한라대학교 신문방송사</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
     <link href="/static/styles.css" rel="stylesheet">
     <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
         .card-hover {
             transition: all 0.3s ease;
         }
@@ -100,7 +106,7 @@ const categoryPageTemplate = (categoryName: string, categorySlug: string, subCat
                 if (response.data.articles && response.data.articles.length > 0) {
                     articlesList.innerHTML = response.data.articles.map(article => \`
                         <article class="bg-white border border-gray-200 rounded-lg p-5 cursor-pointer hover:shadow-lg hover:border-blue-400 transition-all" onclick="window.location.href='/article/\${article.slug}'">
-                            <h3 class="text-lg font-semibold mb-2 text-gray-900 hover:text-blue-600 transition-colors line-clamp-2">
+                            <h3 class="text-lg font-semibold mb-2 text-gray-900 hover:text-blue-600 transition-colors line-clamp-2" style="-webkit-text-stroke: none !important; -webkit-text-fill-color: currentColor !important;">
                                 \${article.title}
                             </h3>
                             <p class="text-gray-500 text-sm mb-3 line-clamp-3">\${article.content.substring(0, 120)}...</p>
@@ -159,11 +165,14 @@ pagesRouter.get('/newspaper', (c) => {
 // 캠퍼스 routes
 pagesRouter.get('/campus', (c) => {
   return c.html(categoryPageTemplate('캠퍼스', 'campus', [
+    { name: '대학소식', slug: 'university-news' },
+    { name: '지우전(지금 우리 전공은)', slug: 'our-major-now' },
+    { name: '동아리', slug: 'clubs' },
+    { name: '학생활동', slug: 'student-activities' },
     { name: '캠퍼스 라이프', slug: 'campus-life' },
-    { name: '총학생회', slug: 'student-council-general' },
-    { name: '학과학생회', slug: 'department-council' },
-    { name: '동아리·서클', slug: 'club-circle' },
-    { name: '학사일정', slug: 'academic-schedule' }
+    { name: '장학·복지·지원', slug: 'scholarship-welfare' },
+    { name: 'X-파일', slug: 'x-file' },
+    { name: '졸업생 인터뷰', slug: 'alumni-interview' }
   ]));
 });
 
@@ -200,8 +209,10 @@ pagesRouter.get('/jeju-news', (c) => {
 pagesRouter.get('/opinion', (c) => {
   return c.html(categoryPageTemplate('오피니언', 'opinion', [
     { name: '사설·칼럼', slug: 'editorial-column' },
-    { name: '기고', slug: 'contribution' },
-    { name: '학생의 시선', slug: 'student-perspective' }
+    { name: '교수칼럼', slug: 'professor-column' },
+    { name: '독자기고', slug: 'reader-contribution' },
+    { name: '익명의 목소리', slug: 'anonymous-voice' },
+    { name: '함께 읽는 책·영화 추천', slug: 'book-movie-recommendation' }
   ]));
 });
 
@@ -218,23 +229,57 @@ pagesRouter.get('/essay', (c) => {
 });
 
 // Individual sub-category pages
-const subCategoryPageTemplate = (categoryName: string, categorySlug: string) => `
+const subCategoryPageTemplate = (categoryName: string, categorySlug: string, parentCategory?: any) => `
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${categoryName} - 제주한라대학교 신문방송사</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
     <link href="/static/styles.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+    </style>
 </head>
 <body class="min-h-screen bg-white text-gray-900">
     <div id="app">
         ${HeaderComponent()}
         <div class="container mx-auto px-4 py-8">
-            <div class="bg-white border border-gray-300 rounded-lg p-6 shadow-sm">
-                <h1 class="text-3xl font-bold text-gray-900 mb-4">
+            ${parentCategory ? `
+            <!-- Parent Category Menu Cards -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+                    <span class="w-1 h-8 bg-blue-600 mr-3"></span>
+                    ${parentCategory.name} 메뉴
+                </h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 ${parentCategory.subCategories.length <= 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-5'} gap-4 mb-8">
+                    ${parentCategory.subCategories.map((sub, index) => `
+                        <a href="/${sub.slug}" class="card-hover bg-white rounded-lg p-5 block shadow-sm border ${sub.slug === categorySlug ? 'border-blue-500 bg-blue-50' : 'border-gray-100'}">
+                            <div class="flex items-center justify-center mb-4">
+                                <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-600 shadow">
+                                    <i class="fas fa-newspaper text-white text-lg"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-base font-bold ${sub.slug === categorySlug ? 'text-blue-600' : 'text-gray-900'} mb-2 text-center">${sub.name}</h3>
+                            <div class="flex items-center justify-center text-blue-600">
+                                <span class="text-xs">콘텐츠 보기</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </div>
+                        </a>
+                    `).join('')}
+                </div>
+            </div>
+            ` : ''}
+            
+            <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                <h1 class="text-3xl font-bold text-gray-900 mb-4" style="-webkit-text-stroke: none !important;">
                     <i class="fas fa-folder-open mr-2" style="color: #1e40af;"></i>
                     ${categoryName}
                 </h1>
@@ -274,7 +319,7 @@ const subCategoryPageTemplate = (categoryName: string, categorySlug: string) => 
                 if (response.data.articles && response.data.articles.length > 0) {
                     articlesList.innerHTML = response.data.articles.map(article => \`
                         <article class="bg-white border border-gray-200 rounded-lg p-5 cursor-pointer hover:shadow-lg hover:border-blue-400 transition-all" onclick="window.location.href='/article/\${article.slug}'">
-                            <h3 class="text-lg font-semibold mb-2 text-gray-900 hover:text-blue-600 transition-colors line-clamp-2">
+                            <h3 class="text-lg font-semibold mb-2 text-gray-900 hover:text-blue-600 transition-colors line-clamp-2" style="-webkit-text-stroke: none !important; -webkit-text-fill-color: currentColor !important;">
                                 \${article.title}
                             </h3>
                             <p class="text-gray-500 text-sm mb-3 line-clamp-3">\${article.content.substring(0, 120)}...</p>
@@ -306,17 +351,111 @@ const subCategoryPageTemplate = (categoryName: string, categorySlug: string) => 
 </html>
 `;
 
+// Define parent categories with their sub-categories
+const categoryStructure = {
+  broadcast: {
+    name: '방송국',
+    slug: 'broadcast',
+    subCategories: [
+      { slug: 'broadcast-intro', name: '방송국소개' },
+      { slug: 'halla-news', name: '한라뉴스' },
+      { slug: 'halla-interview', name: '한라인터뷰' },
+      { slug: 'major-special', name: '전공특집' },
+      { slug: 'campus-tour', name: '캠퍼스투어' },
+      { slug: 'culture-art-broadcast', name: '문화·예술(방송)' },
+      { slug: 'radio-podcast', name: '라디오·팟캐스트' },
+      { slug: 'broadcast-activities', name: '방송국 활동기' }
+    ]
+  },
+  newspaper: {
+    name: '신문사',
+    slug: 'newspaper',
+    subCategories: [
+      { slug: 'newspaper-intro', name: '신문사소개' },
+      { slug: 'field-coverage', name: '현장취재' },
+      { slug: 'campus-report', name: '캠퍼스 리포트' },
+      { slug: 'newspaper-activities', name: '신문사 활동기' }
+    ]
+  },
+  campus: {
+    name: '캠퍼스',
+    slug: 'campus',
+    subCategories: [
+      { slug: 'university-news', name: '대학소식' },
+      { slug: 'our-major-now', name: '지우전(지금 우리 전공은)' },
+      { slug: 'clubs', name: '동아리' },
+      { slug: 'student-activities', name: '학생활동' },
+      { slug: 'campus-life', name: '캠퍼스 라이프' },
+      { slug: 'scholarship-welfare', name: '장학·복지·지원' },
+      { slug: 'x-file', name: 'X-파일' },
+      { slug: 'alumni-interview', name: '졸업생 인터뷰' }
+    ]
+  },
+  shorts: {
+    name: '쇼츠',
+    slug: 'shorts',
+    subCategories: [
+      { slug: 'one-cut-news', name: '한컷 뉴스' },
+      { slug: 'issue-briefing', name: '이슈 브리핑' },
+      { slug: 'anonymous-news', name: '익명소식' },
+      { slug: 'student-tips', name: '재학생 꿀팁' }
+    ]
+  },
+  special: {
+    name: '기획보도',
+    slug: 'special-report',
+    subCategories: [
+      { slug: 'career-employment', name: '진로·취업' },
+      { slug: 'youth-region', name: '청년·지역' },
+      { slug: 'welfare-rights', name: '복지·권익' },
+      { slug: 'academic-research', name: '학술·연구' }
+    ]
+  },
+  jeju: {
+    name: '제주소식',
+    slug: 'jeju-news',
+    subCategories: [
+      { slug: 'jeju-news-main', name: '제주소식' },
+      { slug: 'jeju-culture-art', name: '제주 문화·예술' },
+      { slug: 'jeju-tour-food', name: '관광·맛집' }
+    ]
+  },
+  opinion: {
+    name: '오피니언',
+    slug: 'opinion',
+    subCategories: [
+      { slug: 'editorial-column', name: '사설·칼럼' },
+      { slug: 'professor-column', name: '교수칼럼' },
+      { slug: 'reader-contribution', name: '독자기고' },
+      { slug: 'anonymous-voice', name: '익명의 목소리' },
+      { slug: 'book-movie-recommendation', name: '함께 읽는 책·영화 추천' }
+    ]
+  },
+  essay: {
+    name: '에세이',
+    slug: 'essay',
+    subCategories: [
+      { slug: 'time-in-jeju', name: '제주에서보내는시간' },
+      { slug: 'dreams-hopes', name: '꿈과 희망' },
+      { slug: 'travel-exploration', name: '여행과 탐방' },
+      { slug: 'literature-art', name: '문학과 예술' },
+      { slug: 'monthly-theme-essay', name: '이달의 테마 에세이' },
+      { slug: 'my-thoughts', name: '나만의 생각 정리' }
+    ]
+  }
+};
+
 // Define all sub-category routes
 const subCategories = [
   // 방송국
-  { slug: 'broadcast-intro', name: '방송국소개' },
-  { slug: 'halla-news', name: '한라뉴스' },
-  { slug: 'halla-interview', name: '한라인터뷰' },
-  { slug: 'major-special', name: '전공특집' },
-  { slug: 'campus-tour', name: '캠퍼스투어' },
-  { slug: 'culture-art-broadcast', name: '문화·예술(방송)' },
-  { slug: 'radio-podcast', name: '라디오·팟캐스트' },
-  { slug: 'broadcast-activities', name: '방송국 활동기' },
+  { slug: 'broadcast-intro', name: '방송국소개', parent: 'broadcast' },
+  { slug: 'halla-news', name: '한라뉴스', parent: 'broadcast' },
+  { slug: 'halla-interview', name: '한라인터뷰', parent: 'broadcast' },
+  { slug: 'major-special', name: '전공특집', parent: 'broadcast' },
+  { slug: 'campus-tour', name: '캠퍼스투어', parent: 'broadcast' },
+  { slug: 'culture-art-broadcast', name: '문화·예술(방송)', parent: 'broadcast' },
+  { slug: 'radio-podcast', name: '라디오·팟캐스트', parent: 'broadcast' },
+  { slug: 'broadcast-activities', name: '방송국 활동기', parent: 'broadcast' },
   // 신문사
   { slug: 'newspaper-intro', name: '신문사소개' },
   { slug: 'field-coverage', name: '현장취재' },
@@ -349,9 +488,9 @@ const subCategories = [
   { slug: 'jeju-traditional-village', name: '제주전통마을' },
   // 오피니언
   { slug: 'editorial-column', name: '사설·칼럼' },
-  { slug: 'professor-column', name: '교수 칼럼' },
-  { slug: 'reader-opinion', name: '독자 의견·제안' },
-  { slug: 'anonymous-voice', name: '익명 목소리' },
+  { slug: 'professor-column', name: '교수칼럼' },
+  { slug: 'reader-contribution', name: '독자기고' },
+  { slug: 'anonymous-voice', name: '익명의 목소리' },
   { slug: 'book-movie-recommendation', name: '함께 읽는 책·영화 추천' },
   // 에세이
   { slug: 'time-in-jeju', name: '제주에서 보내는 시간' },
@@ -365,7 +504,15 @@ const subCategories = [
 // Register routes for each sub-category
 subCategories.forEach(category => {
   pagesRouter.get(`/${category.slug}`, (c) => {
-    return c.html(subCategoryPageTemplate(category.name, category.slug));
+    // Find parent category for this subcategory
+    let parentCategory = null;
+    for (const [key, cat] of Object.entries(categoryStructure)) {
+      if (cat.subCategories.some((sub: any) => sub.slug === category.slug)) {
+        parentCategory = cat;
+        break;
+      }
+    }
+    return c.html(subCategoryPageTemplate(category.name, category.slug, parentCategory));
   });
 });
 
@@ -403,9 +550,9 @@ pagesRouter.get('/article/:slug', async (c) => {
             <div id="app">
                 ${HeaderComponent()}
                 <div class="container mx-auto px-4 py-8">
-                    <div class="bg-black border border-gray-800 rounded-lg p-6 text-center">
+                    <div class="bg-white border border-gray-200 rounded-lg p-6 text-center shadow-sm">
                         <h1 class="text-2xl font-bold text-red-500 mb-4">기사를 찾을 수 없습니다</h1>
-                        <p class="text-gray-400 mb-4">요청하신 기사가 존재하지 않거나 삭제되었습니다.</p>
+                        <p class="text-gray-600 mb-4">요청하신 기사가 존재하지 않거나 삭제되었습니다.</p>
                         <a href="/" class="inline-block text-white px-6 py-2 rounded-lg transition-colors" style="background-color: #1e40af;" onmouseover="this.style.backgroundColor='#1e3a8a'" onmouseout="this.style.backgroundColor='#1e40af'">
                             메인으로 돌아가기
                         </a>
@@ -423,6 +570,109 @@ pagesRouter.get('/article/:slug', async (c) => {
       'UPDATE articles SET view_count = view_count + 1 WHERE slug = ?'
     ).bind(slug).run();
     
+    // Define category structure for menu display
+    const categoryStructure = {
+      broadcast: {
+        name: '방송국',
+        slug: 'broadcast',
+        subCategories: [
+          { slug: 'broadcast-intro', name: '방송국소개' },
+          { slug: 'halla-news', name: '한라뉴스' },
+          { slug: 'halla-interview', name: '한라인터뷰' },
+          { slug: 'major-special', name: '전공특집' },
+          { slug: 'campus-tour', name: '캠퍼스투어' },
+          { slug: 'culture-art-broadcast', name: '문화·예술(방송)' },
+          { slug: 'radio-podcast', name: '라디오·팟캤스트' },
+          { slug: 'broadcast-activities', name: '방송국 활동기' }
+        ]
+      },
+      newspaper: {
+        name: '신문사',
+        slug: 'newspaper',
+        subCategories: [
+          { slug: 'newspaper-intro', name: '신문사소개' },
+          { slug: 'field-coverage', name: '현장취재' },
+          { slug: 'campus-report', name: '캠퍼스 리포트' },
+          { slug: 'newspaper-activities', name: '신문사 활동기' }
+        ]
+      },
+      campus: {
+        name: '캠퍼스',
+        slug: 'campus',
+        subCategories: [
+          { slug: 'university-news', name: '대학소식' },
+          { slug: 'our-major-now', name: '지우전(지금 우리 전공은)' },
+          { slug: 'clubs', name: '동아리' },
+          { slug: 'student-activities', name: '학생활동' },
+          { slug: 'campus-life', name: '캠퍼스 라이프' },
+          { slug: 'scholarship-welfare', name: '장학·복지·지원' },
+          { slug: 'x-file', name: 'X-파일' },
+          { slug: 'alumni-interview', name: '졸업생 인터뷰' }
+        ]
+      },
+      shorts: {
+        name: '쇼츠',
+        slug: 'shorts',
+        subCategories: [
+          { slug: 'one-cut-news', name: '한컷 뉴스' },
+          { slug: 'issue-briefing', name: '이슈 브리핑' },
+          { slug: 'anonymous-news', name: '익명소식' },
+          { slug: 'student-tips', name: '재학생 꿀팁' }
+        ]
+      },
+      special: {
+        name: '기획보도',
+        slug: 'special-report',
+        subCategories: [
+          { slug: 'career-employment', name: '진로·취업' },
+          { slug: 'youth-region', name: '청년·지역' },
+          { slug: 'welfare-rights', name: '복지·권익' },
+          { slug: 'academic-research', name: '학술·연구' }
+        ]
+      },
+      jeju: {
+        name: '제주소식',
+        slug: 'jeju-news',
+        subCategories: [
+          { slug: 'jeju-news-main', name: '제주소식' },
+          { slug: 'jeju-culture-art', name: '제주 문화·예술' },
+          { slug: 'jeju-tour-food', name: '관광·맛집' }
+        ]
+      },
+      opinion: {
+        name: '오피니언',
+        slug: 'opinion',
+        subCategories: [
+          { slug: 'editorial-column', name: '사설·칼럼' },
+          { slug: 'professor-column', name: '교수칼럼' },
+          { slug: 'reader-contribution', name: '독자기고' },
+          { slug: 'anonymous-voice', name: '익명의 목소리' },
+          { slug: 'book-movie-recommendation', name: '함께 읽는 책·영화 추천' }
+        ]
+      },
+      essay: {
+        name: '에세이',
+        slug: 'essay',
+        subCategories: [
+          { slug: 'time-in-jeju', name: '제주에서보내는시간' },
+          { slug: 'dreams-hopes', name: '꿈과 희망' },
+          { slug: 'travel-exploration', name: '여행과 탐방' },
+          { slug: 'literature-art', name: '문학과 예술' },
+          { slug: 'monthly-theme-essay', name: '이달의 테마 에세이' },
+          { slug: 'my-thoughts', name: '나만의 생각 정리' }
+        ]
+      }
+    };
+    
+    // Find parent category for sub-menu display
+    let parentCategory = null;
+    for (const [key, cat] of Object.entries(categoryStructure)) {
+      if (cat.subCategories.some((sub: any) => sub.slug === article.category_slug)) {
+        parentCategory = cat;
+        break;
+      }
+    }
+
     return c.html(`
       <!DOCTYPE html>
       <html lang="ko">
@@ -430,24 +680,59 @@ pagesRouter.get('/article/:slug', async (c) => {
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <title>${article.title} - 제주한라대학교 신문방송사</title>
+          <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
           <script src="https://cdn.tailwindcss.com"></script>
           <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
           <link href="/static/styles.css" rel="stylesheet">
+          <style>
+            /* Inline critical fix for outline fonts */
+            * {
+              -webkit-text-stroke: 0 !important;
+              -webkit-text-fill-color: unset !important;
+              text-stroke: none !important;
+            }
+            body {
+              font-family: 'Pretendard', sans-serif !important;
+            }
+          </style>
       </head>
       <body class="min-h-screen bg-white text-gray-900">
           <div id="app">
               ${HeaderComponent()}
-              <div class="container mx-auto px-4 py-8 max-w-4xl">
-                  <article class="bg-black border border-gray-800 rounded-lg p-6">
-                  <div class="mb-4">
-                      <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold text-white" style="background-color: #1e40af;">
-                          ${article.category_name}
-                      </span>
+              <div class="container mx-auto px-4 py-8">
+                  ${parentCategory ? `
+                  <!-- Parent Category Menu Cards -->
+                  <div class="mb-8">
+                      <h2 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+                          <span class="w-1 h-8 bg-blue-600 mr-3"></span>
+                          ${parentCategory.name} 메뉴
+                      </h2>
+                      <div class="grid grid-cols-2 md:grid-cols-3 ${parentCategory.subCategories.length <= 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-5'} gap-4 mb-8">
+                          ${parentCategory.subCategories.map((sub, index) => `
+                              <a href="/${sub.slug}" class="card-hover bg-white rounded-lg p-5 block shadow-sm border ${sub.slug === article.category_slug ? 'border-blue-500 bg-blue-50' : 'border-gray-100'}">
+                                  <div class="flex items-center justify-center mb-4">
+                                      <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-600 shadow">
+                                          <i class="fas fa-newspaper text-white text-lg"></i>
+                                      </div>
+                                  </div>
+                                  <h3 class="text-gray-800 font-bold text-center text-sm">${sub.name}</h3>
+                              </a>
+                          `).join('')}
+                      </div>
                   </div>
+                  ` : ''}
                   
-                  <h1 class="text-3xl font-bold text-gray-900 mb-4">${article.title}</h1>
+                  <div class="max-w-4xl mx-auto">
+                      <article class="bg-white border border-gray-200 rounded-lg p-8 shadow-sm">
+                      <div class="mb-4">
+                          <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold text-white" style="background-color: #1e40af;">
+                              ${article.category_name}
+                          </span>
+                      </div>
+                      
+                      <h1 class="text-3xl font-bold text-gray-900 mb-4">${article.title}</h1>
                   
-                  <div class="flex items-center text-sm text-gray-400 mb-6">
+                  <div class="flex items-center text-sm text-gray-500 mb-6">
                       <span class="mr-4">
                           <i class="fas fa-user mr-1"></i> ${article.author_name}
                       </span>
@@ -477,12 +762,12 @@ pagesRouter.get('/article/:slug', async (c) => {
                   </div>
                   ` : ''}
                   
-                  <div class="prose prose-lg prose-invert max-w-none mb-8 text-gray-300">
+                  <div class="prose prose-lg max-w-none mb-8 text-gray-700 leading-relaxed" style="-webkit-text-stroke: none !important; -webkit-text-fill-color: #374151 !important;">
                       ${article.content.replace(/\n/g, '<br>')}
                   </div>
                   
-                  <div class="border-t border-gray-800 pt-4 mt-8">
-                      <a href="/${article.category_slug}" class="inline-block bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 mr-2 transition-colors">
+                  <div class="border-t border-gray-200 pt-4 mt-8">
+                      <a href="/${article.category_slug}" class="inline-block bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 mr-2 transition-colors">
                           <i class="fas fa-list mr-2"></i>
                           목록으로
                       </a>
@@ -490,12 +775,143 @@ pagesRouter.get('/article/:slug', async (c) => {
                           <i class="fas fa-home mr-2"></i>
                           메인으로
                       </a>
+                      </div>
+                  </article>
+                  
+                  <!-- Related Articles Section -->
+                  <div class="mt-12 bg-white border border-gray-200 rounded-lg p-8 shadow-sm">
+                      <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                          <span class="w-1 h-8 bg-blue-600 mr-3"></span>
+                          다른 기사 보기
+                      </h2>
+                      
+                      <div id="relatedArticles" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                          <!-- Related articles will be loaded here -->
+                          <div class="col-span-full text-center py-8 text-gray-400">
+                              <i class="fas fa-spinner fa-spin text-3xl mb-4"></i>
+                              <p>관련 기사를 불러오는 중...</p>
+                          </div>
+                      </div>
+                      
+                      <div class="mt-8 text-center">
+                          <a href="/${article.category_slug}" class="inline-block text-white px-6 py-3 rounded-lg transition-colors" style="background-color: #1e40af;" onmouseover="this.style.backgroundColor='#1e3a8a'" onmouseout="this.style.backgroundColor='#1e40af'">
+                              <i class="fas fa-newspaper mr-2"></i>
+                              ${article.category_name} 전체 기사 보기
+                          </a>
+                      </div>
                   </div>
-              </article>
+              </div>
           </div>
           
           ${Footer()}
       </div>
+      
+      <script>
+          // Force remove outline fonts on page load
+          document.addEventListener('DOMContentLoaded', function() {
+              // Target all text elements
+              const allTextElements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, div, a, li, td, th, article');
+              
+              allTextElements.forEach(function(element) {
+                  // Remove webkit text stroke styles
+                  element.style.webkitTextStroke = '0px';
+                  element.style.webkitTextStrokeWidth = '0px';
+                  element.style.webkitTextStrokeColor = 'transparent';
+                  element.style.webkitTextFillColor = '';
+                  element.style.textStroke = 'none';
+                  
+                  // Ensure text color is properly set
+                  if (element.id === 'article-title' || element.classList.contains('text-gray-900')) {
+                      element.style.color = '#111827';
+                  }
+              });
+              
+              // Specifically target article title
+              const articleTitle = document.getElementById('article-title');
+              if (articleTitle) {
+                  articleTitle.style.cssText += '-webkit-text-stroke-width: 0px !important; -webkit-text-stroke: none !important; -webkit-text-fill-color: #111827 !important; color: #111827 !important; text-stroke: none !important; font-weight: 700 !important;';
+              }
+              
+              // Target article content
+              const articleContent = document.getElementById('article-content');
+              if (articleContent) {
+                  articleContent.style.cssText += '-webkit-text-stroke-width: 0px !important; -webkit-text-stroke: none !important; -webkit-text-fill-color: #374151 !important; color: #374151 !important; text-stroke: none !important;';
+                  
+                  // Also apply to all child elements
+                  const contentChildren = articleContent.querySelectorAll('*');
+                  contentChildren.forEach(function(child) {
+                      child.style.webkitTextStroke = '0px';
+                      child.style.webkitTextStrokeWidth = '0px';
+                      child.style.webkitTextFillColor = '';
+                  });
+              }
+          });
+          
+          // Load related articles immediately
+          (function() {
+              // Use sample data for related articles
+              const sampleArticles = [
+                  {
+                      slug: 'sample-article-1',
+                      title: '한라대학교 새 학기 시작, 학생들의 포부와 계획',
+                      category_name: '${article.category_name}',
+                      author_name: '김기자',
+                      view_count: 234,
+                      content: '새 학기가 시작되면서 학생들이 다양한 계획을 세우고 있다. 학업과 취업 준비, 동아리 활동 등...',
+                      created_at: '2025-08-20'
+                  },
+                  {
+                      slug: 'sample-article-2',
+                      title: '캠퍼스 내 새로운 편의시설 오픈 예정',
+                      category_name: '${article.category_name}',
+                      author_name: '박기자',
+                      view_count: 189,
+                      content: '학생들의 편의를 위한 새로운 시설이 다음 달 오픈 예정이다. 카페테리아와 휴게공간이...',
+                      created_at: '2025-08-19'
+                  },
+                  {
+                      slug: 'sample-article-3',
+                      title: '제주한라대학교 방송국, 새로운 프로그램 준비',
+                      category_name: '${article.category_name}',
+                      author_name: '이기자',
+                      view_count: 156,
+                      content: 'CHEBS에서 새로운 교양 프로그램을 준비 중이다. 학생들의 참여를 기다리고...',
+                      created_at: '2025-08-18'
+                  },
+                  {
+                      slug: 'sample-article-4',
+                      title: '학생회 주최 봄 축제 성황리에 마쳐',
+                      category_name: '${article.category_name}',
+                      author_name: '최기자',
+                      view_count: 412,
+                      content: '학생회에서 주최한 봄 축제가 성황리에 마무리되었다. 다양한 공연과 이벤트로...',
+                      created_at: '2025-08-17'
+                  }
+              ];
+              
+              const container = document.getElementById('relatedArticles');
+                      
+              if (container && sampleArticles.length > 0) {
+                  let articlesHTML = '';
+                  for (let i = 0; i < sampleArticles.length; i++) {
+                      const article = sampleArticles[i];
+                      articlesHTML += '<article class="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all duration-300 cursor-pointer group" onclick="window.location.href=\'/article/' + article.slug + '\'">';
+                      articlesHTML += '<div class="flex justify-between items-start mb-3">';
+                      articlesHTML += '<span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">' + article.category_name + '</span>';
+                      articlesHTML += '<span class="text-xs text-gray-500"><i class="fas fa-eye mr-1"></i>' + article.view_count + '</span>';
+                      articlesHTML += '</div>';
+                      articlesHTML += '<h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">' + article.title + '</h3>';
+                      articlesHTML += '<p class="text-sm text-gray-600 mb-3 line-clamp-2">' + article.content.substring(0, 80) + '...</p>';
+                      articlesHTML += '<div class="flex items-center justify-between text-xs text-gray-500">';
+                      articlesHTML += '<span><i class="fas fa-user mr-1"></i>' + article.author_name + '</span>';
+                      articlesHTML += '<span>' + article.created_at + '</span>';
+                      articlesHTML += '</div>';
+                      articlesHTML += '</article>';
+                  }
+                  container.innerHTML = articlesHTML;
+              }
+          })();
+      </script>
       </body>
       </html>
     `);
@@ -508,7 +924,15 @@ pagesRouter.get('/article/:slug', async (c) => {
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <title>오류 발생</title>
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
           <script src="https://cdn.tailwindcss.com"></script>
+          <style>
+              body {
+                  font-family: 'Noto Sans KR', sans-serif;
+              }
+          </style>
       </head>
       <body class="bg-gray-50">
           <div class="container mx-auto px-4 py-8">
