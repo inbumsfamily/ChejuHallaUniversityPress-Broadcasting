@@ -10,6 +10,7 @@ import commentsRouter from './routes/comments';
 import calendarRouter from './routes/calendar';
 import pagesRouter from './routes/pages';
 import broadcastRouter from './routes/broadcast-page';
+import pagesBroadcastRouter from './routes/pages-broadcast';
 import subCategoriesRouter from './routes/subcategories';
 import { HeaderComponent } from './components/header';
 import { Footer } from './components/footer';
@@ -35,6 +36,7 @@ app.route('/api/calendar', calendarRouter);
 // Page Routes
 app.route('/', pagesRouter);
 app.route('/', broadcastRouter);
+app.route('/', pagesBroadcastRouter);
 app.route('/', subCategoriesRouter);
 
 // Health check

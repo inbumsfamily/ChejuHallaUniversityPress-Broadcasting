@@ -71,6 +71,7 @@ const categoryPageTemplate = (categoryName: string, categorySlug: string, subCat
         </div>
         ` : ''}
             
+            <!-- Articles Layout -->
             <div class="mt-8">
                 <h2 class="text-xl font-semibold mb-4 text-gray-900">최신 기사</h2>
                 <div id="articlesList" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -138,27 +139,17 @@ const categoryPageTemplate = (categoryName: string, categorySlug: string, subCat
 </html>
 `;
 
-// 방송국 routes
-pagesRouter.get('/broadcast', (c) => {
-  return c.html(categoryPageTemplate('방송국', 'broadcast', [
-    { name: '방송국소개', slug: 'broadcast/방송국소개' },
-    { name: '연혁·편성안내', slug: 'broadcast/연혁·편성안내' },
-    { name: '조직도·만드는 사람들', slug: 'broadcast/조직도·만드는 사람들' },
-    { name: 'PD모집·공지', slug: 'broadcast/PD모집·공지' },
-    { name: 'VOD·아카이브', slug: 'broadcast/VOD·아카이브' },
-    { name: '방송국 활동기', slug: 'broadcast/방송국 활동기' }
-  ]));
-});
+// 방송국 routes는 pages-broadcast.ts로 이동
 
-// 신문사 routes
+// PRESS main page
 pagesRouter.get('/press', (c) => {
-  return c.html(categoryPageTemplate('신문사', 'press', [
-    { name: '신문사소개', slug: 'press/신문사소개' },
-    { name: '연혁·발행안내', slug: 'press/연혁·발행안내' },
-    { name: '조직도·만드는 사람들', slug: 'press/조직도·만드는 사람들' },
-    { name: '기자모집·공지', slug: 'press/기자모집·공지' },
-    { name: 'PDF·지난호 아카이브', slug: 'press/PDF·지난호 아카이브' },
-    { name: '신문사 활동기', slug: 'press/신문사 활동기' }
+  return c.html(categoryPageTemplate('PRESS', 'press', [
+    { name: '한라춘추', slug: 'halla-essay' },
+    { name: '캠퍼스이슈', slug: 'campus-issues' },
+    { name: '제주뉴스', slug: 'jeju-news' },
+    { name: '오피니언', slug: 'opinion' },
+    { name: '문화', slug: 'culture' },
+    { name: '인물포커스', slug: 'people-focus' }
   ]));
 });
 
@@ -354,27 +345,43 @@ const subCategoryPageTemplate = (categoryName: string, categorySlug: string, par
 // Define parent categories with their sub-categories
 const categoryStructure = {
   broadcast: {
-    name: '방송국',
+    name: 'BROADCAST',
     slug: 'broadcast',
+    subcategories: [
+      { slug: 'introduction', name: '방송국소개' },
+      { slug: 'chebs-news', name: 'CHEBS뉴스' },
+      { slug: 'production', name: '제작프로그램' },
+      { slug: 'press-info', name: '언론정보' },
+      { slug: 'schedule', name: '방송편성표' },
+      { slug: 'awards', name: '수상작·공모전' }
+    ],
     subCategories: [
-      { slug: 'broadcast/방송국소개', name: '방송국소개' },
-      { slug: 'broadcast/연혁·편성안내', name: '연혁·편성안내' },
-      { slug: 'broadcast/조직도·만드는 사람들', name: '조직도·만드는 사람들' },
-      { slug: 'broadcast/PD모집·공지', name: 'PD모집·공지' },
-      { slug: 'broadcast/VOD·아카이브', name: 'VOD·아카이브' },
-      { slug: 'broadcast/방송국 활동기', name: '방송국 활동기' }
+      { slug: 'introduction', name: '방송국소개' },
+      { slug: 'chebs-news', name: 'CHEBS뉴스' },
+      { slug: 'production', name: '제작프로그램' },
+      { slug: 'press-info', name: '언론정보' },
+      { slug: 'schedule', name: '방송편성표' },
+      { slug: 'awards', name: '수상작·공모전' }
     ]
   },
   press: {
-    name: '신문사',
+    name: 'PRESS',
     slug: 'press',
+    subcategories: [
+      { slug: 'halla-essay', name: '한라춘추' },
+      { slug: 'campus-issues', name: '캠퍼스이슈' },
+      { slug: 'jeju-news', name: '제주뉴스' },
+      { slug: 'opinion', name: '오피니언' },
+      { slug: 'culture', name: '문화' },
+      { slug: 'people-focus', name: '인물포커스' }
+    ],
     subCategories: [
-      { slug: 'press/신문사소개', name: '신문사소개' },
-      { slug: 'press/연혁·발행안내', name: '연혁·발행안내' },
-      { slug: 'press/조직도·만드는 사람들', name: '조직도·만드는 사람들' },
-      { slug: 'press/기자모집·공지', name: '기자모집·공지' },
-      { slug: 'press/PDF·지난호 아카이브', name: 'PDF·지난호 아카이브' },
-      { slug: 'press/신문사 활동기', name: '신문사 활동기' }
+      { slug: 'halla-essay', name: '한라춘추' },
+      { slug: 'campus-issues', name: '캠퍼스이슈' },
+      { slug: 'jeju-news', name: '제주뉴스' },
+      { slug: 'opinion', name: '오피니언' },
+      { slug: 'culture', name: '문화' },
+      { slug: 'people-focus', name: '인물포커스' }
     ]
   },
   campus: {
@@ -968,6 +975,10 @@ pagesRouter.get('/articles', async (c) => {
   const offset = (page - 1) * limit;
   
   try {
+    // Get categories for sub-menu
+    const broadcastSubCategories = categoryStructure.broadcast.subcategories;
+    const pressSubCategories = categoryStructure.press.subcategories;
+    
     // Get total count
     const countResult = await c.env.DB.prepare(`
       SELECT COUNT(*) as total FROM articles
@@ -1021,6 +1032,43 @@ pagesRouter.get('/articles', async (c) => {
                       <p class="text-white/80">
                           총 ${totalArticles}개의 기사 | 페이지 ${page} / ${totalPages}
                       </p>
+                  </div>
+                  
+                  <!-- Sub Category Cards -->
+                  <div class="mb-8">
+                      <h2 class="text-2xl font-bold mb-4">BROADCAST</h2>
+                      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+                          ${broadcastSubCategories.map(sub => `
+                              <a href="/${sub.slug}" class="card-hover bg-white rounded-lg p-5 block shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                                  <div class="text-center">
+                                      <i class="${sub.slug === 'introduction' ? 'fas fa-building' : 
+                                                 sub.slug === 'chebs-news' ? 'fas fa-broadcast-tower' : 
+                                                 sub.slug === 'production' ? 'fas fa-video' : 
+                                                 sub.slug === 'press-info' ? 'fas fa-info-circle' : 
+                                                 sub.slug === 'schedule' ? 'fas fa-calendar-alt' : 
+                                                 'fas fa-trophy'} text-3xl text-blue-600 mb-3"></i>
+                                      <h3 class="font-semibold text-gray-800">${sub.name}</h3>
+                                  </div>
+                              </a>
+                          `).join('')}
+                      </div>
+                      
+                      <h2 class="text-2xl font-bold mb-4">PRESS</h2>
+                      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+                          ${pressSubCategories.map(sub => `
+                              <a href="/${sub.slug}" class="card-hover bg-white rounded-lg p-5 block shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                                  <div class="text-center">
+                                      <i class="${sub.slug === 'halla-essay' ? 'fas fa-pen-fancy' : 
+                                                 sub.slug === 'campus-issues' ? 'fas fa-university' : 
+                                                 sub.slug === 'jeju-news' ? 'fas fa-map-marked-alt' : 
+                                                 sub.slug === 'opinion' ? 'fas fa-comment-dots' : 
+                                                 sub.slug === 'culture' ? 'fas fa-palette' : 
+                                                 'fas fa-users'} text-3xl text-green-600 mb-3"></i>
+                                      <h3 class="font-semibold text-gray-800">${sub.name}</h3>
+                                  </div>
+                              </a>
+                          `).join('')}
+                      </div>
                   </div>
                   
                   <!-- Articles Grid -->
