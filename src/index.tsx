@@ -346,9 +346,9 @@ app.get('/', (c) => {
                 <section id="campus" class="py-16 bg-white">
                     <div class="container mx-auto px-4">
                         <div class="mb-12">
-                            <h2 class="text-6xl lg:text-8xl font-black text-gray-900 uppercase leading-none mb-2">
-                                CAMPUS<br>
-                                <span class="text-outline" style="color: transparent; -webkit-text-stroke: 2px #1e40af;">LIFE</span>
+                            <h2 class="text-6xl lg:text-8xl font-black uppercase leading-none mb-2">
+                                <span class="text-gray-900">CAMPUS</span>
+                                <span class="text-outline ml-4" style="color: transparent; -webkit-text-stroke: 2px #1e40af;">LIFE</span>
                             </h2>
                             <p class="text-gray-600 text-lg">Student activities, campus events, and university life at Cheju Halla University</p>
                         </div>
@@ -467,9 +467,9 @@ app.get('/', (c) => {
                 <section id="special" class="py-16 bg-gray-50">
                     <div class="container mx-auto px-4">
                     <div class="mb-12">
-                        <h2 class="text-6xl lg:text-8xl font-black text-gray-900 uppercase leading-none mb-2">
-                            SPECIAL<br>
-                            <span class="text-outline" style="color: transparent; -webkit-text-stroke: 2px #1e40af;">REPORT</span>
+                        <h2 class="text-6xl lg:text-8xl font-black uppercase leading-none mb-2">
+                            <span class="text-gray-900">SPECIAL</span>
+                            <span class="text-outline ml-4" style="color: transparent; -webkit-text-stroke: 2px #1e40af;">REPORT</span>
                         </h2>
                         <p class="text-gray-600 text-lg">In-depth coverage and investigative journalism on campus issues and social topics</p>
                     </div>
@@ -522,9 +522,9 @@ app.get('/', (c) => {
                 <section id="shorts" class="py-16 bg-white">
                     <div class="container mx-auto px-4">
                     <div class="mb-12">
-                        <h2 class="text-6xl lg:text-8xl font-black text-gray-900 uppercase leading-none mb-2">
-                            QUICK<br>
-                            <span class="text-outline" style="color: transparent; -webkit-text-stroke: 2px #1e40af;">SHORTS</span>
+                        <h2 class="text-6xl lg:text-8xl font-black uppercase leading-none mb-2">
+                            <span class="text-gray-900">QUICK</span>
+                            <span class="text-outline ml-4" style="color: transparent; -webkit-text-stroke: 2px #1e40af;">SHORTS</span>
                         </h2>
                         <p class="text-gray-600 text-lg">Short-form video content featuring campus life, student tips, and trending topics</p>
                     </div>
