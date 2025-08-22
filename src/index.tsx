@@ -289,7 +289,7 @@ app.get('/', (c) => {
                             <h2 class="text-6xl lg:text-8xl font-black text-gray-900 uppercase leading-none mb-2">
                                 CHU MEDIA <span style="color: #1e40af;">EXCLUSIVE</span>
                             </h2>
-                            <p class="text-gray-400 text-lg">Discover exclusive interviews with Cheju Halla University members, Real stories from students, professors, and staff.</p>
+                            <p class="text-gray-600 text-lg">Discover exclusive interviews with Cheju Halla University members, Real stories from students, professors, and staff.</p>
                             <div class="flex items-center gap-4 mt-4">
                                 <button class="text-gray-900 font-bold uppercase tracking-wider text-sm hover:text-blue-600 transition-colors">
                                     VIEW MORE
@@ -372,26 +372,26 @@ app.get('/', (c) => {
                                 </div>
                                 <ul class="space-y-2 text-sm">
                                     <li class="flex justify-between">
-                                        <span class="text-gray-300">중간고사</span>
+                                        <span class="text-gray-600">중간고사</span>
                                         <span class="text-gray-500">10.15 - 10.21</span>
                                     </li>
                                     <li class="flex justify-between">
-                                        <span class="text-gray-300">수강신청 정정</span>
+                                        <span class="text-gray-600">수강신청 정정</span>
                                         <span class="text-gray-500">09.05 - 09.07</span>
                                     </li>
                                     <li class="flex justify-between">
-                                        <span class="text-gray-300">축제</span>
+                                        <span class="text-gray-600">축제</span>
                                         <span class="text-gray-500">10.25 - 10.27</span>
                                     </li>
                                 </ul>
                             </div>
-                            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow">
+                            <div class="bg-white border border-gray-300 p-6 hover:border-gray-500 transition-all duration-300 shadow-sm hover:shadow-md">
                                 <div class="flex items-center mb-4">
                                     <div class="bg-green-100 p-3 rounded-full mr-4">
                                         <i class="fas fa-users text-green-600 text-2xl"></i>
                                     </div>
                                     <div>
-                                        <h4 class="font-bold">동아리 소식</h4>
+                                        <h4 class="font-bold text-gray-900">동아리 소식</h4>
                                         <p class="text-sm text-gray-600">신규 모집 중</p>
                                     </div>
                                 </div>
@@ -410,13 +410,13 @@ app.get('/', (c) => {
                                     </li>
                                 </ul>
                             </div>
-                            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow">
+                            <div class="bg-white border border-gray-300 p-6 hover:border-gray-500 transition-all duration-300 shadow-sm hover:shadow-md">
                                 <div class="flex items-center mb-4">
                                     <div class="bg-yellow-100 p-3 rounded-full mr-4">
                                         <i class="fas fa-trophy text-yellow-600 text-2xl"></i>
                                     </div>
                                     <div>
-                                        <h4 class="font-bold">수상 소식</h4>
+                                        <h4 class="font-bold text-gray-900">수상 소식</h4>
                                         <p class="text-sm text-gray-600">우리 대학 성과</p>
                                     </div>
                                 </div>
@@ -433,12 +433,12 @@ app.get('/', (c) => {
                 <!-- Container for sections -->
                 <div class="container mx-auto px-4">
                 <!-- 신문사 섹션 -->
-                <section id="newspaper" class="mt-16 mb-16 p-6 rounded-lg shadow-lg" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); border: 1px solid #1e40af;">
+                <section id="newspaper" class="mt-16 mb-16 p-6 border border-gray-300 bg-white shadow-sm">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-5xl font-black text-gray-900 uppercase tracking-tight">
                             신문사
                         </h3>
-                        <a href="/newspaper" class="text-gray-700 hover:text-gray-900 transition-colors font-semibold">더보기 →</a>
+                        <a href="/newspaper" class="text-gray-700 hover:text-blue-600 transition-colors font-semibold">더보기 →</a>
                     </div>
                     <div id="newspaperArticles" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <!-- 신문 기사가 여기에 로드됩니다 -->
@@ -446,12 +446,12 @@ app.get('/', (c) => {
                 </section>
 
                 <!-- 방송국 섹션 -->
-                <section id="broadcast" class="mb-16 p-6 rounded-lg shadow-lg" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); border: 1px solid #1e40af;">
+                <section id="broadcast" class="mb-16 p-6 border border-gray-300 bg-white shadow-sm">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-5xl font-black text-gray-900 uppercase tracking-tight">
                             방송국
                         </h3>
-                        <a href="/broadcast" class="text-gray-700 hover:text-gray-900 transition-colors font-semibold">더보기 →</a>
+                        <a href="/broadcast" class="text-gray-700 hover:text-blue-600 transition-colors font-semibold">더보기 →</a>
                     </div>
                     <div id="broadcastArticles" class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <!-- 방송 콘텐츠가 여기에 로드됩니다 -->
@@ -486,7 +486,7 @@ app.get('/', (c) => {
                                     <span class="text-xs text-gray-500 uppercase tracking-wider">
                                         EDITORIAL
                                     </span>
-                                    <button class="text-gray-900 hover:text-blue-600 font-bold text-xs uppercase tracking-wider transition-colors border-b border-transparent hover:border-blue-600 pb-1">
+                                    <button class="text-blue-600 hover:text-blue-800 font-bold text-xs uppercase tracking-wider transition-colors border-b border-transparent hover:border-blue-800 pb-1">
                                         READ MORE
                                     </button>
                                 </div>
@@ -516,8 +516,8 @@ app.get('/', (c) => {
 
                 <!-- 쇼츠 섹션 -->
                 <section id="shorts" class="py-24 bg-white">
-                    <div class="section-header mb-12">
-                        <span class="section-number" style="color: #1e40af;">04</span>
+                    <div class="mb-12">
+                        <span class="text-sm font-bold" style="color: #1e40af;">04</span>
                         <h2 class="text-6xl lg:text-8xl font-black text-gray-900 uppercase leading-none">
                             QUICK<br>
                             <span class="text-outline" style="color: transparent; -webkit-text-stroke: 2px #1e40af;">SHORTS</span>
@@ -525,7 +525,7 @@ app.get('/', (c) => {
                     </div>
                     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
                         <!-- 쇼츠 비디오 카드 (세로형) -->
-                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow cursor-pointer">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all cursor-pointer">
                             <div class="aspect-[9/16] bg-gradient-to-b from-pink-400 to-purple-600 relative">
                                 <div class="absolute inset-0 flex items-center justify-center">
                                     <i class="fas fa-play-circle text-white text-3xl"></i>
@@ -536,7 +536,7 @@ app.get('/', (c) => {
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow cursor-pointer">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all cursor-pointer">
                             <div class="aspect-[9/16] bg-gradient-to-b from-blue-400 to-indigo-600 relative">
                                 <div class="absolute inset-0 flex items-center justify-center">
                                     <i class="fas fa-play-circle text-white text-3xl"></i>
@@ -547,7 +547,7 @@ app.get('/', (c) => {
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow cursor-pointer">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all cursor-pointer">
                             <div class="aspect-[9/16] bg-gradient-to-b from-orange-400 to-red-600 relative">
                                 <div class="absolute inset-0 flex items-center justify-center">
                                     <i class="fas fa-play-circle text-white text-3xl"></i>
@@ -558,7 +558,7 @@ app.get('/', (c) => {
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow cursor-pointer">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all cursor-pointer">
                             <div class="aspect-[9/16] bg-gradient-to-b from-green-400 to-teal-600 relative">
                                 <div class="absolute inset-0 flex items-center justify-center">
                                     <i class="fas fa-play-circle text-white text-3xl"></i>
@@ -569,7 +569,7 @@ app.get('/', (c) => {
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow cursor-pointer">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all cursor-pointer">
                             <div class="aspect-[9/16] bg-gradient-to-b from-purple-400 to-pink-600 relative">
                                 <div class="absolute inset-0 flex items-center justify-center">
                                     <i class="fas fa-play-circle text-white text-3xl"></i>
@@ -580,7 +580,7 @@ app.get('/', (c) => {
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow cursor-pointer">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all cursor-pointer">
                             <div class="aspect-[9/16] bg-gradient-to-b from-yellow-400 to-orange-600 relative">
                                 <div class="absolute inset-0 flex items-center justify-center">
                                     <i class="fas fa-play-circle text-white text-3xl"></i>

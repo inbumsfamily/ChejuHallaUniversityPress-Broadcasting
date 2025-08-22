@@ -133,11 +133,11 @@ export const HeaderComponent = () => {
                     </button>
                     
                     <!-- Login/User Icon -->
-                    <button onclick="toggleLoginModal()" class="p-2 text-gray-600 hover:text-blue-600">
+                    <button onclick="toggleLoginModal()" class="flex items-center gap-1 p-2 text-gray-600 hover:text-blue-600">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                         </svg>
-                        <span class="text-xs">로그인</span>
+                        <span class="text-sm font-medium">로그인</span>
                     </button>
                     
                     <!-- Mobile menu button -->
