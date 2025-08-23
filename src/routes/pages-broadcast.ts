@@ -106,31 +106,85 @@ const broadcastPageTemplate = (categoryName: string, categorySlug: string, subCa
         </div>
     </div>
 
-    <div class="container mx-auto px-4 py-8 max-w-7xl -mt-16 relative z-10">
-        
-        <!-- Sub-categories Grid -->
-        <div class="mb-10">
-            <h2 class="text-2xl font-bold mb-8 text-gray-800 flex items-center">
-                <span class="w-1 h-8 bg-blue-600 mr-3"></span>
-                ${categoryName} 메뉴
-            </h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                ${subCategories.map((sub, index) => `
-                    <a href="/${sub.slug}" class="card-hover bg-white rounded-lg p-5 block shadow-sm border border-gray-100">
-                        <div class="flex items-center justify-center mb-4">
-                            <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-600 shadow">
-                                <i class="fas fa-newspaper text-white text-lg"></i>
+    <!-- Full Width Sub-categories Section -->
+    <div class="w-full bg-gradient-to-r from-slate-50 via-blue-50 to-slate-50 py-16 -mt-16 relative z-10">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <!-- Section Title -->
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-black text-gray-800 mb-4">
+                    <i class="fas fa-broadcast-tower text-blue-600 mr-4"></i>
+                    BROADCAST 메뉴
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full mb-4"></div>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">제주한라대학교 방송국의 다양한 콘텐츠를 만나보세요</p>
+            </div>
+            
+            <!-- Responsive Sub-categories Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
+                ${subCategories.map((sub, index) => {
+                    const icons = {
+                        'broadcast-intro': 'fas fa-building',
+                        'broadcast-history': 'fas fa-history', 
+                        'broadcast-organization': 'fas fa-sitemap',
+                        'broadcast-recruit': 'fas fa-user-plus',
+                        'broadcast-vod': 'fas fa-video',
+                        'broadcast-activities': 'fas fa-camera'
+                    };
+                    const colors = [
+                        'from-blue-500 to-blue-600',
+                        'from-purple-500 to-purple-600', 
+                        'from-green-500 to-green-600',
+                        'from-red-500 to-red-600',
+                        'from-yellow-500 to-yellow-600',
+                        'from-pink-500 to-pink-600'
+                    ];
+                    return `
+                    <a href="/${sub.slug}" class="group relative bg-white rounded-2xl p-6 block shadow-lg border border-gray-100 hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+                        <!-- Background Gradient Overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-br ${colors[index]} opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                        
+                        <!-- Content -->
+                        <div class="relative z-10">
+                            <!-- Icon -->
+                            <div class="flex items-center justify-center mb-6">
+                                <div class="w-16 h-16 rounded-2xl flex items-center justify-center bg-gradient-to-br ${colors[index]} shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                    <i class="${icons[sub.slug] || 'fas fa-newspaper'} text-white text-2xl"></i>
+                                </div>
+                            </div>
+                            
+                            <!-- Title -->
+                            <h3 class="text-lg font-bold text-gray-900 mb-3 text-center group-hover:text-blue-600 transition-colors duration-300 leading-tight">
+                                ${sub.name}
+                            </h3>
+                            
+                            <!-- Description -->
+                            <div class="flex items-center justify-center text-gray-500 group-hover:text-blue-500 transition-colors duration-300">
+                                <span class="text-sm font-medium">콘텐츠 보기</span>
+                                <i class="fas fa-arrow-right ml-2 text-sm group-hover:translate-x-1 transition-transform duration-300"></i>
                             </div>
                         </div>
-                        <h3 class="text-base font-bold text-gray-900 mb-2 text-center">${sub.name}</h3>
-                        <div class="flex items-center justify-center text-blue-600">
-                            <span class="text-xs">콘텐츠 보기</span>
-                            <i class="fas fa-arrow-right ml-1 text-xs"></i>
-                        </div>
+                        
+                        <!-- Decorative Corner -->
+                        <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl ${colors[index]} opacity-5 rounded-bl-full"></div>
                     </a>
-                `).join('')}
+                `}).join('')}
+            </div>
+            
+            <!-- Bottom Wave Decoration -->
+            <div class="mt-16 flex justify-center">
+                <div class="flex space-x-2">
+                    <div class="w-3 h-3 bg-blue-400 rounded-full animate-bounce"></div>
+                    <div class="w-3 h-3 bg-purple-400 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                    <div class="w-3 h-3 bg-green-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                    <div class="w-3 h-3 bg-red-400 rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
+                    <div class="w-3 h-3 bg-yellow-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                    <div class="w-3 h-3 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0.5s"></div>
+                </div>
             </div>
         </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
         
         <!-- Featured Content Section -->
         <div class="mt-8">
