@@ -186,16 +186,29 @@ broadcastRouter.get('/broadcast', (c) => {
             
             if (response.data.articles && response.data.articles.length > 0) {
                 container.innerHTML = response.data.articles.map(article => \`
-                    <article class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-all duration-300 cursor-pointer" onclick="window.location.href='/article/\${article.slug}'">
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">\${article.category_name}</span>
-                            <span class="text-xs text-gray-500"><i class="fas fa-eye mr-1"></i>\${article.view_count}</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-blue-600 transition-colors">\${article.title}</h3>
-                        <p class="text-sm text-gray-600 mb-3 line-clamp-2">\${article.content ? article.content.substring(0, 100) + '...' : ''}</p>
-                        <div class="flex items-center justify-between text-xs text-gray-500">
-                            <span><i class="fas fa-user mr-1"></i>\${article.author_name}</span>
-                            <span>\${new Date(article.created_at).toLocaleDateString('ko-KR')}</span>
+                    <article class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer" onclick="window.location.href='/article/\${article.slug}'">
+                        \${article.featured_image_url ? \`
+                            <img src="\${article.featured_image_url}" alt="\${article.title}" class="w-full h-48 object-cover">
+                        \` : article.youtube_embed_id ? \`
+                            <div class="w-full h-48 bg-black flex items-center justify-center">
+                                <i class="fab fa-youtube text-red-600 text-5xl"></i>
+                            </div>
+                        \` : \`
+                            <div class="w-full h-48 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+                                <i class="fas fa-newspaper text-gray-400 text-4xl"></i>
+                            </div>
+                        \`}
+                        <div class="p-4">
+                            <div class="flex justify-between items-start mb-3">
+                                <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">\${article.category_name}</span>
+                                <span class="text-xs text-gray-500"><i class="fas fa-eye mr-1"></i>\${article.view_count}</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-blue-600 transition-colors">\${article.title}</h3>
+                            <p class="text-sm text-gray-600 mb-3 line-clamp-2">\${article.content ? article.content.substring(0, 100) + '...' : ''}</p>
+                            <div class="flex items-center justify-between text-xs text-gray-500">
+                                <span><i class="fas fa-user mr-1"></i>\${article.author_name}</span>
+                                <span>\${new Date(article.created_at).toLocaleDateString('ko-KR')}</span>
+                            </div>
                         </div>
                     </article>
                 \`).join('');
