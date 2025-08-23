@@ -36,35 +36,71 @@ const broadcastPageTemplate = (categoryName: string, categorySlug: string, subCa
     <div id="app">
         ${HeaderComponent()}
 
-    <!-- Full Width BROADCAST Header -->
-    <div class="relative w-full h-72 md:h-96 bg-cover bg-center bg-no-repeat mb-10 overflow-hidden" 
-         style="background-image: linear-gradient(rgba(30, 64, 175, 0.8), rgba(59, 130, 246, 0.8)), url('https://picsum.photos/1920/700?random=broadcast');">
+    <!-- Full Width BROADCAST Header with Enhanced Design -->
+    <div class="relative w-full h-80 md:h-[500px] bg-cover bg-center bg-no-repeat mb-10 overflow-hidden" 
+         style="background-image: linear-gradient(135deg, rgba(30, 64, 175, 0.9) 0%, rgba(59, 130, 246, 0.8) 50%, rgba(99, 102, 241, 0.9) 100%), url('https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+        
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-10 left-10 w-32 h-32 border-2 border-white rounded-full animate-pulse"></div>
+            <div class="absolute top-20 right-20 w-24 h-24 border border-white rounded-full animate-pulse" style="animation-delay: 0.5s"></div>
+            <div class="absolute bottom-32 left-1/4 w-16 h-16 border border-white rounded-full animate-pulse" style="animation-delay: 1s"></div>
+            <div class="absolute bottom-20 right-1/3 w-20 h-20 border-2 border-white rounded-full animate-pulse" style="animation-delay: 1.5s"></div>
+        </div>
+        
+        <!-- Main Content -->
         <div class="absolute inset-0 flex items-center justify-center">
-            <div class="text-center text-white px-4">
-                <div class="mb-6">
-                    <i class="fas fa-broadcast-tower text-5xl md:text-6xl lg:text-7xl drop-shadow-lg animate-pulse"></i>
+            <div class="text-center text-white px-4 max-w-5xl">
+                <!-- Broadcasting Icons Animation -->
+                <div class="mb-8 flex justify-center items-center space-x-8">
+                    <i class="fas fa-radio text-4xl md:text-5xl opacity-60 animate-pulse" style="animation-delay: 0s"></i>
+                    <i class="fas fa-broadcast-tower text-6xl md:text-8xl drop-shadow-2xl animate-bounce"></i>
+                    <i class="fas fa-video text-4xl md:text-5xl opacity-60 animate-pulse" style="animation-delay: 0.3s"></i>
                 </div>
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-4 drop-shadow-lg tracking-wider">
-                    ${categoryName}
+                
+                <!-- Main Title -->
+                <h1 class="text-6xl md:text-8xl lg:text-9xl font-black mb-6 drop-shadow-2xl tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-100">
+                    BROADCAST
                 </h1>
-                <p class="text-xl md:text-2xl lg:text-3xl opacity-90 drop-shadow-md max-w-3xl font-medium">
-                    제주한라대학교 방송국에서 전하는 생생한 소식
+                
+                <!-- Subtitle with Korean -->
+                <div class="mb-4">
+                    <p class="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 drop-shadow-lg">방송국</p>
+                    <div class="w-32 h-1 bg-white mx-auto mb-4 rounded-full"></div>
+                </div>
+                
+                <!-- Description -->
+                <p class="text-lg md:text-2xl lg:text-3xl opacity-95 drop-shadow-md max-w-4xl font-light leading-relaxed">
+                    제주한라대학교 방송국에서 전하는<br class="hidden md:block">
+                    <span class="font-semibold text-yellow-200">생생한 뉴스와 다양한 프로그램</span>
                 </p>
-                <div class="mt-6 flex justify-center space-x-4">
-                    <div class="w-3 h-3 bg-white rounded-full animate-bounce"></div>
-                    <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
-                    <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                
+                <!-- Live Indicator -->
+                <div class="mt-8 flex justify-center items-center space-x-3">
+                    <div class="w-4 h-4 bg-red-500 rounded-full animate-ping"></div>
+                    <span class="text-lg md:text-xl font-semibold">LIVE BROADCASTING</span>
+                    <div class="w-4 h-4 bg-red-500 rounded-full animate-ping"></div>
+                </div>
+                
+                <!-- Animated Dots -->
+                <div class="mt-8 flex justify-center space-x-2">
+                    <div class="w-2 h-2 bg-white rounded-full animate-bounce"></div>
+                    <div class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                    <div class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                    <div class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
+                    <div class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
                 </div>
             </div>
         </div>
-        <!-- Animated waves -->
+        
+        <!-- Enhanced Wave Animation -->
         <div class="absolute bottom-0 left-0 w-full">
-            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="animate-pulse">
-                <path d="M0,64L48,69.3C96,75,192,85,288,85.3C384,85,480,75,576,64C672,53,768,43,864,48C960,53,1056,75,1152,80C1248,85,1344,75,1392,69.3L1440,64L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z" fill="rgba(255,255,255,0.1)"/>
+            <!-- First Wave -->
+            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="animate-pulse opacity-30">
+                <path d="M0,64L48,69.3C96,75,192,85,288,85.3C384,85,480,75,576,64C672,53,768,43,864,48C960,53,1056,75,1152,80C1248,85,1344,75,1392,69.3L1440,64L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z" fill="rgba(255,255,255,0.2)"/>
             </svg>
-        </div>
-        <div class="absolute bottom-0 left-0 w-full">
-            <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Second Wave -->
+            <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="absolute bottom-0">
                 <path d="M0,48L48,53.3C96,59,192,69,288,69.3C384,69,480,59,576,48C672,37,768,27,864,32C960,37,1056,59,1152,64C1248,69,1344,59,1392,53.3L1440,48L1440,100L1392,100C1344,100,1248,100,1152,100C1056,100,960,100,864,100C768,100,672,100,576,100C480,100,384,100,288,100C192,100,96,100,48,100L0,100Z" fill="white"/>
             </svg>
         </div>
