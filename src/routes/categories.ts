@@ -10,33 +10,31 @@ categoriesRouter.get('/', async (c) => {
     
     const { results } = await db.prepare(`
       SELECT * FROM categories 
-      ORDER BY display_order, name
+      ORDER BY parent_category, name
     `).all();
     
-    // Build hierarchy
-    const categories = results as Category[];
-    const categoryMap = new Map<number, Category>();
-    const rootCategories: Category[] = [];
+    // Group categories by parent
+    const categoryGroups: { [key: string]: any[] } = {};
     
-    // First pass: create map
-    categories.forEach(cat => {
-      categoryMap.set(cat.category_id, { ...cat, children: [] });
-    });
-    
-    // Second pass: build hierarchy
-    categories.forEach(cat => {
-      const category = categoryMap.get(cat.category_id)!;
-      if (cat.parent_category_id === null) {
-        rootCategories.push(category);
-      } else {
-        const parent = categoryMap.get(cat.parent_category_id);
-        if (parent) {
-          parent.children!.push(category);
+    if (results) {
+      results.forEach((cat: any) => {
+        const parent = cat.parent_category || 'root';
+        if (!categoryGroups[parent]) {
+          categoryGroups[parent] = [];
         }
-      }
+        categoryGroups[parent].push(cat);
+      });
+    }
+    
+    // Build hierarchical structure
+    const rootCategories = categoryGroups['root'] || [];
+    
+    // Add children to parent categories
+    rootCategories.forEach((parent: any) => {
+      parent.children = categoryGroups[parent.slug] || [];
     });
     
-    return c.json({ categories: rootCategories });
+    return c.json({ categories: results || [] });
     
   } catch (error) {
     console.error('Get categories error:', error);
@@ -61,9 +59,9 @@ categoriesRouter.get('/:slug', async (c) => {
     // Get children categories
     const { results: children } = await db.prepare(`
       SELECT * FROM categories 
-      WHERE parent_category_id = ?
-      ORDER BY display_order, name
-    `).bind((category as Category).category_id).all();
+      WHERE parent_category = ?
+      ORDER BY name
+    `).bind((category as any).slug).all();
     
     return c.json({ 
       category: {

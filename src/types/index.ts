@@ -20,7 +20,7 @@ export interface Category {
   name: string;
   slug: string;
   parent_category_id: number | null;
-  display_order: number;
+  parent_category?: string;
   created_at: string;
   children?: Category[];
 }
