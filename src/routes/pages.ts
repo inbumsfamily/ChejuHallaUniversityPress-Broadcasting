@@ -36,14 +36,25 @@ const categoryPageTemplate = (categoryName: string, categorySlug: string, subCat
     <div id="app">
         ${HeaderComponent()}
 
-    <div class="container mx-auto px-4 py-8 max-w-7xl">
-        <!-- Category Header -->
-        <div class="rounded-xl p-10 mb-10 shadow-lg" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);">
-            <h1 class="text-5xl font-black mb-3 text-white">
-                ${categoryName}
-            </h1>
-            <p class="text-xl text-white/90">${categoryName} 관련 콘텐츠를 확인하세요</p>
+    <!-- Full Width Category Header -->
+    <div class="relative w-full h-64 md:h-80 bg-cover bg-center bg-no-repeat mb-10 overflow-hidden" 
+         style="background-image: linear-gradient(rgba(30, 64, 175, 0.8), rgba(59, 130, 246, 0.8)), url('https://picsum.photos/1920/600?random=${categorySlug}');">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center text-white px-4">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-black mb-4 drop-shadow-lg">
+                    ${categoryName}
+                </h1>
+                <p class="text-lg md:text-xl lg:text-2xl opacity-90 drop-shadow-md max-w-2xl">
+                    ${categoryName} 관련 콘텐츠를 확인하세요
+                </p>
+            </div>
         </div>
+        <!-- Decorative elements -->
+        <div class="absolute top-0 left-0 w-32 h-32 bg-white/10 rounded-full -translate-x-16 -translate-y-16"></div>
+        <div class="absolute bottom-0 right-0 w-48 h-48 bg-white/10 rounded-full translate-x-24 translate-y-24"></div>
+    </div>
+
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
         
         ${subCategories.length > 0 ? `
         <!-- Sub-categories Grid -->
@@ -260,7 +271,30 @@ const subCategoryPageTemplate = (categoryName: string, categorySlug: string, par
 <body class="min-h-screen bg-white text-gray-900">
     <div id="app">
         ${HeaderComponent()}
-        <div class="container mx-auto px-4 py-8">
+        
+        <!-- Full Width Sub-Category Header -->
+        <div class="relative w-full h-48 md:h-64 bg-cover bg-center bg-no-repeat mb-10 overflow-hidden" 
+             style="background-image: linear-gradient(rgba(30, 64, 175, 0.85), rgba(59, 130, 246, 0.85)), url('https://picsum.photos/1920/500?random=${categorySlug}');">
+            <div class="absolute inset-0 flex items-center justify-center">
+                <div class="text-center text-white px-4">
+                    <div class="mb-4">
+                        <i class="fas fa-folder-open text-4xl md:text-5xl drop-shadow-lg"></i>
+                    </div>
+                    <h1 class="text-3xl md:text-5xl lg:text-6xl font-black mb-2 drop-shadow-lg">
+                        ${categoryName}
+                    </h1>
+                    <div class="w-16 h-1 bg-white/80 mx-auto rounded-full"></div>
+                </div>
+            </div>
+            <!-- Decorative wave -->
+            <div class="absolute bottom-0 left-0 w-full">
+                <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0,64L48,69.3C96,75,192,85,288,85.3C384,85,480,75,576,64C672,53,768,43,864,48C960,53,1056,75,1152,80C1248,85,1344,75,1392,69.3L1440,64L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z" fill="white"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 -mt-10 relative z-10">
             ${parentCategory ? `
             <!-- Parent Category Menu Cards -->
             <div class="mb-8">
@@ -288,10 +322,6 @@ const subCategoryPageTemplate = (categoryName: string, categorySlug: string, par
             ` : ''}
             
             <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                <h1 class="text-3xl font-bold text-gray-900 mb-4" style="-webkit-text-stroke: none !important;">
-                    <i class="fas fa-folder-open mr-2" style="color: #1e40af;"></i>
-                    ${categoryName}
-                </h1>
             
             <div class="mt-8">
                 <h2 class="text-xl font-semibold mb-4 text-gray-900">최신 기사</h2>

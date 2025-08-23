@@ -36,14 +36,41 @@ const broadcastPageTemplate = (categoryName: string, categorySlug: string, subCa
     <div id="app">
         ${HeaderComponent()}
 
-    <div class="container mx-auto px-4 py-8 max-w-7xl">
-        <!-- Category Header -->
-        <div class="rounded-xl p-10 mb-10 shadow-lg" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);">
-            <h1 class="text-5xl font-black mb-3 text-white">
-                ${categoryName}
-            </h1>
-            <p class="text-xl text-white/90">${categoryName} 관련 콘텐츠를 확인하세요</p>
+    <!-- Full Width BROADCAST Header -->
+    <div class="relative w-full h-72 md:h-96 bg-cover bg-center bg-no-repeat mb-10 overflow-hidden" 
+         style="background-image: linear-gradient(rgba(30, 64, 175, 0.8), rgba(59, 130, 246, 0.8)), url('https://picsum.photos/1920/700?random=broadcast');">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center text-white px-4">
+                <div class="mb-6">
+                    <i class="fas fa-broadcast-tower text-5xl md:text-6xl lg:text-7xl drop-shadow-lg animate-pulse"></i>
+                </div>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-4 drop-shadow-lg tracking-wider">
+                    ${categoryName}
+                </h1>
+                <p class="text-xl md:text-2xl lg:text-3xl opacity-90 drop-shadow-md max-w-3xl font-medium">
+                    제주한라대학교 방송국에서 전하는 생생한 소식
+                </p>
+                <div class="mt-6 flex justify-center space-x-4">
+                    <div class="w-3 h-3 bg-white rounded-full animate-bounce"></div>
+                    <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                    <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                </div>
+            </div>
         </div>
+        <!-- Animated waves -->
+        <div class="absolute bottom-0 left-0 w-full">
+            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="animate-pulse">
+                <path d="M0,64L48,69.3C96,75,192,85,288,85.3C384,85,480,75,576,64C672,53,768,43,864,48C960,53,1056,75,1152,80C1248,85,1344,75,1392,69.3L1440,64L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z" fill="rgba(255,255,255,0.1)"/>
+            </svg>
+        </div>
+        <div class="absolute bottom-0 left-0 w-full">
+            <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,48L48,53.3C96,59,192,69,288,69.3C384,69,480,59,576,48C672,37,768,27,864,32C960,37,1056,59,1152,64C1248,69,1344,59,1392,53.3L1440,48L1440,100L1392,100C1344,100,1248,100,1152,100C1056,100,960,100,864,100C768,100,672,100,576,100C480,100,384,100,288,100C192,100,96,100,48,100L0,100Z" fill="white"/>
+            </svg>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-8 max-w-7xl -mt-16 relative z-10">
         
         <!-- Sub-categories Grid -->
         <div class="mb-10">
@@ -213,7 +240,7 @@ const broadcastPageTemplate = (categoryName: string, categorySlug: string, subCa
 
 // 방송국 routes
 pagesBroadcastRouter.get('/broadcast', (c) => {
-  return c.html(broadcastPageTemplate('방송국', 'broadcast', [
+  return c.html(broadcastPageTemplate('BROADCAST', 'broadcast', [
     { name: '방송국소개', slug: 'broadcast-intro' },
     { name: '연혁·편성안내', slug: 'broadcast-history' },
     { name: '조직도·만드는 사람들', slug: 'broadcast-organization' },
