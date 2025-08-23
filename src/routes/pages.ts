@@ -106,21 +106,39 @@ const categoryPageTemplate = (categoryName: string, categorySlug: string, subCat
                 
                 if (response.data.articles && response.data.articles.length > 0) {
                     articlesList.innerHTML = response.data.articles.map(article => \`
-                        <article class="bg-white border border-gray-200 rounded-lg p-5 cursor-pointer hover:shadow-lg hover:border-blue-400 transition-all" onclick="window.location.href='/article/\${article.slug}'">
-                            <h3 class="text-lg font-semibold mb-2 text-gray-900 hover:text-blue-600 transition-colors line-clamp-2" style="-webkit-text-stroke: none !important; -webkit-text-fill-color: currentColor !important;">
-                                \${article.title}
-                            </h3>
-                            <p class="text-gray-500 text-sm mb-3 line-clamp-3">\${article.content.substring(0, 120)}...</p>
-                            <div class="text-xs text-gray-400 flex flex-wrap gap-3">
-                                <span>
-                                    <i class="fas fa-user mr-1"></i> \${article.author_name}
-                                </span>
-                                <span>
-                                    <i class="fas fa-calendar mr-1"></i> \${new Date(article.created_at).toLocaleDateString('ko-KR')}
-                                </span>
-                                <span>
-                                    <i class="fas fa-eye mr-1"></i> \${article.view_count}
-                                </span>
+                        <article class="bg-white border border-gray-200 rounded-lg overflow-hidden cursor-pointer hover:shadow-lg hover:border-blue-400 transition-all" onclick="window.location.href='/article/\${article.slug}'">
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0">
+                                    \${article.featured_image_url ? \`
+                                        <img src="\${article.featured_image_url}" alt="\${article.title}" 
+                                             class="w-32 h-32 object-cover">
+                                    \` : article.youtube_embed_id ? \`
+                                        <div class="w-32 h-32 bg-black flex items-center justify-center">
+                                            <i class="fab fa-youtube text-red-600 text-3xl"></i>
+                                        </div>
+                                    \` : \`
+                                        <div class="w-32 h-32 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+                                            <i class="fas fa-newspaper text-gray-400 text-3xl"></i>
+                                        </div>
+                                    \`}
+                                </div>
+                                <div class="flex-1 p-4">
+                                    <h3 class="text-lg font-semibold mb-2 text-gray-900 hover:text-blue-600 transition-colors line-clamp-2" style="-webkit-text-stroke: none !important; -webkit-text-fill-color: currentColor !important;">
+                                        \${article.title}
+                                    </h3>
+                                    <p class="text-gray-500 text-sm mb-3 line-clamp-2">\${article.content.substring(0, 120)}...</p>
+                                    <div class="text-xs text-gray-400 flex flex-wrap gap-3">
+                                        <span>
+                                            <i class="fas fa-user mr-1"></i> \${article.author_name}
+                                        </span>
+                                        <span>
+                                            <i class="fas fa-calendar mr-1"></i> \${new Date(article.created_at).toLocaleDateString('ko-KR')}
+                                        </span>
+                                        <span>
+                                            <i class="fas fa-eye mr-1"></i> \${article.view_count}
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </article>
                     \`).join('');
@@ -309,21 +327,39 @@ const subCategoryPageTemplate = (categoryName: string, categorySlug: string, par
                 
                 if (response.data.articles && response.data.articles.length > 0) {
                     articlesList.innerHTML = response.data.articles.map(article => \`
-                        <article class="bg-white border border-gray-200 rounded-lg p-5 cursor-pointer hover:shadow-lg hover:border-blue-400 transition-all" onclick="window.location.href='/article/\${article.slug}'">
-                            <h3 class="text-lg font-semibold mb-2 text-gray-900 hover:text-blue-600 transition-colors line-clamp-2" style="-webkit-text-stroke: none !important; -webkit-text-fill-color: currentColor !important;">
-                                \${article.title}
-                            </h3>
-                            <p class="text-gray-500 text-sm mb-3 line-clamp-3">\${article.content.substring(0, 120)}...</p>
-                            <div class="text-xs text-gray-400 flex flex-wrap gap-3">
-                                <span>
-                                    <i class="fas fa-user mr-1"></i> \${article.author_name}
-                                </span>
-                                <span>
-                                    <i class="fas fa-calendar mr-1"></i> \${new Date(article.created_at).toLocaleDateString('ko-KR')}
-                                </span>
-                                <span>
-                                    <i class="fas fa-eye mr-1"></i> \${article.view_count}
-                                </span>
+                        <article class="bg-white border border-gray-200 rounded-lg overflow-hidden cursor-pointer hover:shadow-lg hover:border-blue-400 transition-all" onclick="window.location.href='/article/\${article.slug}'">
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0">
+                                    \${article.featured_image_url ? \`
+                                        <img src="\${article.featured_image_url}" alt="\${article.title}" 
+                                             class="w-32 h-32 object-cover">
+                                    \` : article.youtube_embed_id ? \`
+                                        <div class="w-32 h-32 bg-black flex items-center justify-center">
+                                            <i class="fab fa-youtube text-red-600 text-3xl"></i>
+                                        </div>
+                                    \` : \`
+                                        <div class="w-32 h-32 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+                                            <i class="fas fa-newspaper text-gray-400 text-3xl"></i>
+                                        </div>
+                                    \`}
+                                </div>
+                                <div class="flex-1 p-4">
+                                    <h3 class="text-lg font-semibold mb-2 text-gray-900 hover:text-blue-600 transition-colors line-clamp-2" style="-webkit-text-stroke: none !important; -webkit-text-fill-color: currentColor !important;">
+                                        \${article.title}
+                                    </h3>
+                                    <p class="text-gray-500 text-sm mb-3 line-clamp-2">\${article.content.substring(0, 120)}...</p>
+                                    <div class="text-xs text-gray-400 flex flex-wrap gap-3">
+                                        <span>
+                                            <i class="fas fa-user mr-1"></i> \${article.author_name}
+                                        </span>
+                                        <span>
+                                            <i class="fas fa-calendar mr-1"></i> \${new Date(article.created_at).toLocaleDateString('ko-KR')}
+                                        </span>
+                                        <span>
+                                            <i class="fas fa-eye mr-1"></i> \${article.view_count}
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </article>
                     \`).join('');
