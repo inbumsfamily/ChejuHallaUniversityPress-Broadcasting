@@ -162,12 +162,12 @@ const categoryPageTemplate = (categoryName: string, categorySlug: string, subCat
 // PRESS main page
 pagesRouter.get('/press', (c) => {
   return c.html(categoryPageTemplate('PRESS', 'press', [
-    { name: '한라춘추', slug: 'halla-essay' },
-    { name: '캠퍼스이슈', slug: 'campus-issues' },
-    { name: '제주뉴스', slug: 'jeju-news' },
-    { name: '오피니언', slug: 'opinion' },
-    { name: '문화', slug: 'culture' },
-    { name: '인물포커스', slug: 'people-focus' }
+    { name: '신문사소개', slug: 'press-intro' },
+    { name: '연혁·발행안내', slug: 'press-history' },
+    { name: '조직도·만드는 사람들', slug: 'press-organization' },
+    { name: '기자모집·공지', slug: 'press-recruit' },
+    { name: 'PDF·아카이브', slug: 'press-archive' },
+    { name: '신문사 활동기', slug: 'press-activities' }
   ]));
 });
 
@@ -384,40 +384,40 @@ const categoryStructure = {
     name: 'BROADCAST',
     slug: 'broadcast',
     subcategories: [
-      { slug: 'introduction', name: '방송국소개' },
-      { slug: 'chebs-news', name: 'CHEBS뉴스' },
-      { slug: 'production', name: '제작프로그램' },
-      { slug: 'press-info', name: '언론정보' },
-      { slug: 'schedule', name: '방송편성표' },
-      { slug: 'awards', name: '수상작·공모전' }
+      { slug: 'broadcast-intro', name: '방송국소개' },
+      { slug: 'broadcast-history', name: '연혁·편성안내' },
+      { slug: 'broadcast-organization', name: '조직도·만드는 사람들' },
+      { slug: 'broadcast-recruit', name: 'PD모집·공지' },
+      { slug: 'broadcast-vod', name: 'VOD·아카이브' },
+      { slug: 'broadcast-activities', name: '방송국 활동기' }
     ],
     subCategories: [
-      { slug: 'introduction', name: '방송국소개' },
-      { slug: 'chebs-news', name: 'CHEBS뉴스' },
-      { slug: 'production', name: '제작프로그램' },
-      { slug: 'press-info', name: '언론정보' },
-      { slug: 'schedule', name: '방송편성표' },
-      { slug: 'awards', name: '수상작·공모전' }
+      { slug: 'broadcast-intro', name: '방송국소개' },
+      { slug: 'broadcast-history', name: '연혁·편성안내' },
+      { slug: 'broadcast-organization', name: '조직도·만드는 사람들' },
+      { slug: 'broadcast-recruit', name: 'PD모집·공지' },
+      { slug: 'broadcast-vod', name: 'VOD·아카이브' },
+      { slug: 'broadcast-activities', name: '방송국 활동기' }
     ]
   },
   press: {
     name: 'PRESS',
     slug: 'press',
     subcategories: [
-      { slug: 'halla-essay', name: '한라춘추' },
-      { slug: 'campus-issues', name: '캠퍼스이슈' },
-      { slug: 'jeju-news', name: '제주뉴스' },
-      { slug: 'opinion', name: '오피니언' },
-      { slug: 'culture', name: '문화' },
-      { slug: 'people-focus', name: '인물포커스' }
+      { slug: 'press-intro', name: '신문사소개' },
+      { slug: 'press-history', name: '연혁·발행안내' },
+      { slug: 'press-organization', name: '조직도·만드는 사람들' },
+      { slug: 'press-recruit', name: '기자모집·공지' },
+      { slug: 'press-archive', name: 'PDF·아카이브' },
+      { slug: 'press-activities', name: '신문사 활동기' }
     ],
     subCategories: [
-      { slug: 'halla-essay', name: '한라춘추' },
-      { slug: 'campus-issues', name: '캠퍼스이슈' },
-      { slug: 'jeju-news', name: '제주뉴스' },
-      { slug: 'opinion', name: '오피니언' },
-      { slug: 'culture', name: '문화' },
-      { slug: 'people-focus', name: '인물포커스' }
+      { slug: 'press-intro', name: '신문사소개' },
+      { slug: 'press-history', name: '연혁·발행안내' },
+      { slug: 'press-organization', name: '조직도·만드는 사람들' },
+      { slug: 'press-recruit', name: '기자모집·공지' },
+      { slug: 'press-archive', name: 'PDF·아카이브' },
+      { slug: 'press-activities', name: '신문사 활동기' }
     ]
   },
   campus: {
@@ -490,20 +490,20 @@ const categoryStructure = {
 
 // Define all sub-category routes
 const subCategories = [
-  // 방송국
+  // BROADCAST
   { slug: 'broadcast-intro', name: '방송국소개', parent: 'broadcast' },
-  { slug: 'halla-news', name: '한라뉴스', parent: 'broadcast' },
-  { slug: 'halla-interview', name: '한라인터뷰', parent: 'broadcast' },
-  { slug: 'major-special', name: '전공특집', parent: 'broadcast' },
-  { slug: 'campus-tour', name: '캠퍼스투어', parent: 'broadcast' },
-  { slug: 'culture-art-broadcast', name: '문화·예술(방송)', parent: 'broadcast' },
-  { slug: 'radio-podcast', name: '라디오·팟캐스트', parent: 'broadcast' },
+  { slug: 'broadcast-history', name: '연혁·편성안내', parent: 'broadcast' },
+  { slug: 'broadcast-organization', name: '조직도·만드는 사람들', parent: 'broadcast' },
+  { slug: 'broadcast-recruit', name: 'PD모집·공지', parent: 'broadcast' },
+  { slug: 'broadcast-vod', name: 'VOD·아카이브', parent: 'broadcast' },
   { slug: 'broadcast-activities', name: '방송국 활동기', parent: 'broadcast' },
-  // 신문사
-  { slug: 'newspaper-intro', name: '신문사소개' },
-  { slug: 'field-coverage', name: '현장취재' },
-  { slug: 'campus-report', name: '캠퍼스 리포트' },
-  { slug: 'newspaper-activities', name: '신문사 활동기' },
+  // PRESS
+  { slug: 'press-intro', name: '신문사소개', parent: 'press' },
+  { slug: 'press-history', name: '연혁·발행안내', parent: 'press' },
+  { slug: 'press-organization', name: '조직도·만드는 사람들', parent: 'press' },
+  { slug: 'press-recruit', name: '기자모집·공지', parent: 'press' },
+  { slug: 'press-archive', name: 'PDF·아카이브', parent: 'press' },
+  { slug: 'press-activities', name: '신문사 활동기', parent: 'press' },
   // 캠퍼스
   { slug: 'university-news', name: '대학소식' },
   { slug: 'our-major-now', name: '지우전(지금 우리 전공은)' },
@@ -631,27 +631,29 @@ pagesRouter.get('/article/:slug', async (c) => {
     // Define category structure for menu display
     const categoryStructure = {
       broadcast: {
-        name: '방송국',
+        name: 'BROADCAST',
         slug: 'broadcast',
         subCategories: [
           { slug: 'broadcast-intro', name: '방송국소개' },
-          { slug: 'halla-news', name: '한라뉴스' },
-          { slug: 'halla-interview', name: '한라인터뷰' },
-          { slug: 'major-special', name: '전공특집' },
-          { slug: 'campus-tour', name: '캠퍼스투어' },
-          { slug: 'culture-art-broadcast', name: '문화·예술(방송)' },
+          { slug: 'broadcast-history', name: '연혁·편성안내' },
+          { slug: 'broadcast-organization', name: '조직도·만드는 사람들' },
+          { slug: 'broadcast-recruit', name: 'PD모집·공지' },
+          { slug: 'broadcast-vod', name: 'VOD·아카이브' },
+
           { slug: 'radio-podcast', name: '라디오·팟캤스트' },
           { slug: 'broadcast-activities', name: '방송국 활동기' }
         ]
       },
-      newspaper: {
-        name: '신문사',
-        slug: 'newspaper',
+      press: {
+        name: 'PRESS',
+        slug: 'press',
         subCategories: [
-          { slug: 'newspaper-intro', name: '신문사소개' },
-          { slug: 'field-coverage', name: '현장취재' },
-          { slug: 'campus-report', name: '캠퍼스 리포트' },
-          { slug: 'newspaper-activities', name: '신문사 활동기' }
+          { slug: 'press-intro', name: '신문사소개' },
+          { slug: 'press-history', name: '연혁·발행안내' },
+          { slug: 'press-organization', name: '조직도·만드는 사람들' },
+          { slug: 'press-recruit', name: '기자모집·공지' },
+          { slug: 'press-archive', name: 'PDF·아카이브' },
+          { slug: 'press-activities', name: '신문사 활동기' }
         ]
       },
       campus: {
@@ -1077,12 +1079,12 @@ pagesRouter.get('/articles', async (c) => {
                           ${broadcastSubCategories.map(sub => `
                               <a href="/${sub.slug}" class="card-hover bg-white rounded-lg p-5 block shadow-sm border border-gray-100 hover:shadow-md transition-all">
                                   <div class="text-center">
-                                      <i class="${sub.slug === 'introduction' ? 'fas fa-building' : 
-                                                 sub.slug === 'chebs-news' ? 'fas fa-broadcast-tower' : 
-                                                 sub.slug === 'production' ? 'fas fa-video' : 
-                                                 sub.slug === 'press-info' ? 'fas fa-info-circle' : 
-                                                 sub.slug === 'schedule' ? 'fas fa-calendar-alt' : 
-                                                 'fas fa-trophy'} text-3xl text-blue-600 mb-3"></i>
+                                      <i class="${sub.slug === 'broadcast-intro' ? 'fas fa-building' : 
+                                                 sub.slug === 'broadcast-history' ? 'fas fa-history' : 
+                                                 sub.slug === 'broadcast-organization' ? 'fas fa-sitemap' : 
+                                                 sub.slug === 'broadcast-recruit' ? 'fas fa-user-plus' : 
+                                                 sub.slug === 'broadcast-vod' ? 'fas fa-video' : 
+                                                 'fas fa-camera'} text-3xl text-blue-600 mb-3"></i>
                                       <h3 class="font-semibold text-gray-800">${sub.name}</h3>
                                   </div>
                               </a>
@@ -1094,12 +1096,12 @@ pagesRouter.get('/articles', async (c) => {
                           ${pressSubCategories.map(sub => `
                               <a href="/${sub.slug}" class="card-hover bg-white rounded-lg p-5 block shadow-sm border border-gray-100 hover:shadow-md transition-all">
                                   <div class="text-center">
-                                      <i class="${sub.slug === 'halla-essay' ? 'fas fa-pen-fancy' : 
-                                                 sub.slug === 'campus-issues' ? 'fas fa-university' : 
-                                                 sub.slug === 'jeju-news' ? 'fas fa-map-marked-alt' : 
-                                                 sub.slug === 'opinion' ? 'fas fa-comment-dots' : 
-                                                 sub.slug === 'culture' ? 'fas fa-palette' : 
-                                                 'fas fa-users'} text-3xl text-green-600 mb-3"></i>
+                                      <i class="${sub.slug === 'press-intro' ? 'fas fa-newspaper' : 
+                                                 sub.slug === 'press-history' ? 'fas fa-history' : 
+                                                 sub.slug === 'press-organization' ? 'fas fa-sitemap' : 
+                                                 sub.slug === 'press-recruit' ? 'fas fa-user-plus' : 
+                                                 sub.slug === 'press-archive' ? 'fas fa-archive' : 
+                                                 'fas fa-pen'} text-3xl text-green-600 mb-3"></i>
                                       <h3 class="font-semibold text-gray-800">${sub.name}</h3>
                                   </div>
                               </a>
