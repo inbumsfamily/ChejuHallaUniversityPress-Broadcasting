@@ -214,12 +214,12 @@ const broadcastPageTemplate = (categoryName: string, categorySlug: string, subCa
 // 방송국 routes
 pagesBroadcastRouter.get('/broadcast', (c) => {
   return c.html(broadcastPageTemplate('방송국', 'broadcast', [
-    { name: '방송국소개', slug: 'broadcast/방송국소개' },
-    { name: 'CHEBS뉴스', slug: 'broadcast/CHEBS뉴스' },
-    { name: '제작프로그램', slug: 'broadcast/제작프로그램' },
-    { name: '언론정보', slug: 'broadcast/언론정보' },
-    { name: '방송편성표', slug: 'broadcast/방송편성표' },
-    { name: '수상작·공모전', slug: 'broadcast/수상작·공모전' }
+    { name: '방송국소개', slug: 'introduction' },
+    { name: 'CHEBS뉴스', slug: 'chebs-news' },
+    { name: '제작프로그램', slug: 'production' },
+    { name: '언론정보', slug: 'press-info' },
+    { name: '방송편성표', slug: 'schedule' },
+    { name: '수상작·공모전', slug: 'awards' }
   ]));
 });
 

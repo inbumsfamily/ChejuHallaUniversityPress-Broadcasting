@@ -20,12 +20,12 @@ export const HeaderComponent = () => {
                             BROADCAST
                         </a>
                         <div class="absolute top-full left-0 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #1e40af; margin-top: -1px;">
-                            <a href="/broadcast/방송국소개" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">방송국소개</a>
-                            <a href="/broadcast/연혁·편성안내" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">연혁·편성안내</a>
-                            <a href="/broadcast/조직도·만드는 사람들" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">조직도·만드는 사람들</a>
-                            <a href="/broadcast/PD모집·공지" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">PD모집·공지</a>
-                            <a href="/broadcast/VOD·아카이브" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">VOD·아카이브</a>
-                            <a href="/broadcast/방송국 활동기" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">방송국 활동기</a>
+                            <a href="/introduction" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">방송국소개</a>
+                            <a href="/chebs-news" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">CHEBS뉴스</a>
+                            <a href="/production" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">제작프로그램</a>
+                            <a href="/press-info" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">언론정보</a>
+                            <a href="/schedule" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">방송편성표</a>
+                            <a href="/awards" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">수상작·공모전</a>
                         </div>
                     </div>
                     
@@ -35,12 +35,12 @@ export const HeaderComponent = () => {
                             PRESS
                         </a>
                         <div class="absolute top-full left-0 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border: 1px solid #1e40af; margin-top: -1px;">
-                            <a href="/press/신문사소개" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">신문사소개</a>
-                            <a href="/press/연혁·발행안내" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">연혁·발행안내</a>
-                            <a href="/press/조직도·만드는 사람들" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">조직도·만드는 사람들</a>
-                            <a href="/press/기자모집·공지" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">기자모집·공지</a>
-                            <a href="/press/PDF·지난호 아카이브" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">PDF·지난호 아카이브</a>
-                            <a href="/press/신문사 활동기" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">신문사 활동기</a>
+                            <a href="/halla-essay" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">한라춘추</a>
+                            <a href="/campus-issues" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">캠퍼스이슈</a>
+                            <a href="/jeju-news" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">제주뉴스</a>
+                            <a href="/opinion" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">오피니언</a>
+                            <a href="/culture" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">문화</a>
+                            <a href="/people-focus" class="block text-xs text-gray-700 hover:text-blue-600 py-2 px-4 transition-colors">인물포커스</a>
                         </div>
                     </div>
                     
@@ -211,25 +211,25 @@ export const HeaderComponent = () => {
             <div class="p-4">
                 <div class="space-y-2">
                     <div>
-                        <div class="font-semibold text-gray-700 py-2">방송국</div>
+                        <div class="font-semibold text-gray-700 py-2">BROADCAST</div>
                         <div class="pl-4 space-y-1">
-                            <a href="/broadcast/방송국소개" class="block py-1 text-gray-600">방송국소개</a>
-                            <a href="/broadcast/연혁·편성안내" class="block py-1 text-gray-600">연혁·편성안내</a>
-                            <a href="/broadcast/조직도·만드는 사람들" class="block py-1 text-gray-600">조직도·만드는 사람들</a>
-                            <a href="/broadcast/PD모집·공지" class="block py-1 text-gray-600">PD모집·공지</a>
-                            <a href="/broadcast/VOD·아카이브" class="block py-1 text-gray-600">VOD·아카이브</a>
-                            <a href="/broadcast/방송국 활동기" class="block py-1 text-gray-600">방송국 활동기</a>
+                            <a href="/introduction" class="block py-1 text-gray-600">방송국소개</a>
+                            <a href="/chebs-news" class="block py-1 text-gray-600">CHEBS뉴스</a>
+                            <a href="/production" class="block py-1 text-gray-600">제작프로그램</a>
+                            <a href="/press-info" class="block py-1 text-gray-600">언론정보</a>
+                            <a href="/schedule" class="block py-1 text-gray-600">방송편성표</a>
+                            <a href="/awards" class="block py-1 text-gray-600">수상작·공모전</a>
                         </div>
                     </div>
                     <div>
-                        <div class="font-semibold text-gray-700 py-2">신문사</div>
+                        <div class="font-semibold text-gray-700 py-2">PRESS</div>
                         <div class="pl-4 space-y-1">
-                            <a href="/press/신문사소개" class="block py-1 text-gray-600">신문사소개</a>
-                            <a href="/press/연혁·발행안내" class="block py-1 text-gray-600">연혁·발행안내</a>
-                            <a href="/press/조직도·만드는 사람들" class="block py-1 text-gray-600">조직도·만드는 사람들</a>
-                            <a href="/press/기자모집·공지" class="block py-1 text-gray-600">기자모집·공지</a>
-                            <a href="/press/PDF·지난호 아카이브" class="block py-1 text-gray-600">PDF·지난호 아카이브</a>
-                            <a href="/press/신문사 활동기" class="block py-1 text-gray-600">신문사 활동기</a>
+                            <a href="/halla-essay" class="block py-1 text-gray-600">한라춘추</a>
+                            <a href="/campus-issues" class="block py-1 text-gray-600">캠퍼스이슈</a>
+                            <a href="/jeju-news" class="block py-1 text-gray-600">제주뉴스</a>
+                            <a href="/opinion" class="block py-1 text-gray-600">오피니언</a>
+                            <a href="/culture" class="block py-1 text-gray-600">문화</a>
+                            <a href="/people-focus" class="block py-1 text-gray-600">인물포커스</a>
                         </div>
                     </div>
                     <div>
