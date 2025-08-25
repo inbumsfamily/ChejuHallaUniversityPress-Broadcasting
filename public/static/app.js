@@ -31,11 +31,33 @@ async function loadNewspaperArticles() {
         <a href="/article/${article.slug}" class="block">
           <article class="bg-white/10 border border-white/20 overflow-hidden hover:border-white/40 transition-all duration-300 cursor-pointer group backdrop-blur-sm hover:bg-white/20 rounded-lg h-full">
             <div class="relative overflow-hidden h-48">
-              ${article.featured_image_url ? `
-                <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
-              ` : `
-                <img src="https://picsum.photos/400/300?random=${index + 100 + Date.now()}" alt="${article.title}" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
-              `}
+              ${(() => {
+                // YouTube 영상이 있는 경우 YouTube 섬네일 우선 사용
+                if (article.youtube_embed_id) {
+                  const thumbnail = getYouTubeThumbnail(article.youtube_embed_id);
+                  return `
+                    <div class="relative w-full h-full">
+                      <img src="${thumbnail.url}" 
+                           onerror="this.onerror=null; this.src='${thumbnail.fallbackUrl}';" 
+                           alt="${article.title}" 
+                           class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
+                      <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="bg-red-600 hover:bg-red-700 text-white rounded-full w-16 h-16 flex items-center justify-center transition-all transform hover:scale-110">
+                          <i class="fas fa-play text-2xl ml-1"></i>
+                        </div>
+                      </div>
+                    </div>
+                  `;
+                }
+                // 일반 이미지가 있는 경우
+                else if (article.featured_image_url) {
+                  return `<img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">`;
+                }
+                // 이미지가 없는 경우 랜덤 이미지
+                else {
+                  return `<img src="https://picsum.photos/400/300?random=${index + 100 + Date.now()}" alt="${article.title}" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">`;
+                }
+              })()}
               <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
             </div>
             <div class="p-6">
@@ -140,6 +162,26 @@ function formatDate(dateString) {
   
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   return date.toLocaleDateString('ko-KR', options);
+}
+
+// Helper function to get YouTube thumbnail URL
+function getYouTubeThumbnail(videoId, quality = 'maxresdefault') {
+  if (!videoId) return null;
+  
+  // YouTube thumbnail URL patterns
+  // maxresdefault: 1280x720 (highest quality, may not exist for all videos)
+  // sddefault: 640x480 (standard definition)
+  // hqdefault: 480x360 (high quality)
+  // mqdefault: 320x180 (medium quality)
+  // default: 120x90 (default quality)
+  
+  const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/${quality}.jpg`;
+  
+  // Return both the URL and a fallback URL in case maxresdefault doesn't exist
+  return {
+    url: thumbnailUrl,
+    fallbackUrl: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+  };
 }
 
 // Login modal
@@ -442,28 +484,57 @@ async function loadShorts() {
 
 // Load campus life
 async function loadCampusLife() {
+  console.log('🎓 Starting loadCampusLife function...');
   try {
     // Campus 카테고리의 최신 기사들을 가져옵니다
+    console.log('📡 Fetching campus articles from API...');
     const response = await axios.get(`${API_BASE}/articles?category=campus&limit=6`);
     const campusSection = document.getElementById('campusArticles');
+    console.log('📊 Campus API response:', response.data);
     
     if (response.data.articles && response.data.articles.length > 0) {
       campusSection.innerHTML = response.data.articles.map((article, index) => `
         <a href="/article/${article.slug}" class="block">
           <article class="bg-white border border-gray-200 overflow-hidden hover:border-gray-400 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md rounded-lg h-full">
             <div class="relative overflow-hidden h-48">
-              ${article.featured_image_url ? `
-                <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
-              ` : `
-                <div class="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center transition-all duration-500 group-hover:from-blue-200 group-hover:to-blue-300">
-                  <div class="text-center">
-                    <i class="fas fa-graduation-cap text-4xl text-blue-600 mb-2"></i>
-                    <p class="text-blue-600 font-semibold">Campus Life</p>
-                  </div>
-                </div>
-              `}
+              ${(() => {
+                // YouTube 영상이 있는 경우 YouTube 섬네일 우선 사용
+                if (article.youtube_embed_id) {
+                  console.log(`🎥 YouTube article found: ${article.title} - ID: ${article.youtube_embed_id}`);
+                  return `
+                    <div class="relative w-full h-full">
+                      <img src="https://img.youtube.com/vi/${article.youtube_embed_id}/maxresdefault.jpg" 
+                           onerror="console.warn('Max quality failed, trying HQ'); this.src='https://img.youtube.com/vi/${article.youtube_embed_id}/hqdefault.jpg';" 
+                           onload="console.log('✅ YouTube thumbnail loaded for: ${article.title}');"
+                           alt="${article.title}" 
+                           class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
+                      <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="bg-red-600 hover:bg-red-700 text-white rounded-full w-16 h-16 flex items-center justify-center transition-all transform hover:scale-110">
+                          <i class="fas fa-play text-2xl ml-1"></i>
+                        </div>
+                      </div>
+                    </div>
+                  `;
+                }
+                // 일반 이미지가 있는 경우
+                else if (article.featured_image_url) {
+                  return `<img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">`;
+                }
+                // 이미지가 없는 경우 기본 디자인
+                else {
+                  return `
+                    <div class="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center transition-all duration-500 group-hover:from-blue-200 group-hover:to-blue-300">
+                      <div class="text-center">
+                        <i class="fas fa-graduation-cap text-4xl text-blue-600 mb-2"></i>
+                        <p class="text-blue-600 font-semibold">Campus Life</p>
+                      </div>
+                    </div>
+                  `;
+                }
+              })()}
               <div class="absolute top-2 left-2">
-                <span class="bg-blue-600 text-white px-2 py-1 rounded-full text-xs font-bold">
+                <span class="${article.youtube_embed_id ? 'bg-red-600' : 'bg-blue-600'} text-white px-2 py-1 rounded-full text-xs font-bold flex items-center">
+                  ${article.youtube_embed_id ? '<i class="fas fa-play mr-1"></i>' : ''}
                   ${article.category_name || 'CAMPUS'}
                 </span>
               </div>
@@ -508,18 +579,45 @@ async function loadCampusLife() {
           <a href="/article/${article.slug || article.article_id}" class="block">
             <article class="bg-white border border-gray-200 overflow-hidden hover:border-gray-400 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md rounded-lg h-full">
               <div class="relative overflow-hidden h-48">
-                ${article.featured_image_url ? `
-                  <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
-                ` : `
-                  <div class="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center transition-all duration-500 group-hover:from-blue-200 group-hover:to-blue-300">
-                    <div class="text-center">
-                      <i class="fas fa-graduation-cap text-4xl text-blue-600 mb-2"></i>
-                      <p class="text-blue-600 font-semibold">Campus Life</p>
-                    </div>
-                  </div>
-                `}
+                ${(() => {
+                  console.log(`Campus fallback article processing: ${article.title}, YouTube ID: ${article.youtube_embed_id}`);
+                  // YouTube 영상이 있는 경우 YouTube 섬네일 우선 사용
+                  if (article.youtube_embed_id) {
+                    console.log(`🎥 YouTube campus article found: ${article.title} - ID: ${article.youtube_embed_id}`);
+                    return `
+                      <div class="relative w-full h-full">
+                        <img src="https://img.youtube.com/vi/${article.youtube_embed_id}/maxresdefault.jpg" 
+                             onerror="console.warn('Max quality failed for campus, trying HQ'); this.src='https://img.youtube.com/vi/${article.youtube_embed_id}/hqdefault.jpg';" 
+                             onload="console.log('✅ YouTube campus thumbnail loaded for: ${article.title}');"
+                             alt="${article.title}" 
+                             class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <div class="bg-red-600 hover:bg-red-700 text-white rounded-full w-16 h-16 flex items-center justify-center transition-all transform hover:scale-110">
+                            <i class="fas fa-play text-2xl ml-1"></i>
+                          </div>
+                        </div>
+                      </div>
+                    `;
+                  }
+                  // 일반 이미지가 있는 경우
+                  else if (article.featured_image_url) {
+                    return `<img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">`;
+                  }
+                  // 이미지가 없는 경우 기본 디자인
+                  else {
+                    return `
+                      <div class="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center transition-all duration-500 group-hover:from-blue-200 group-hover:to-blue-300">
+                        <div class="text-center">
+                          <i class="fas fa-graduation-cap text-4xl text-blue-600 mb-2"></i>
+                          <p class="text-blue-600 font-semibold">Campus Life</p>
+                        </div>
+                      </div>
+                    `;
+                  }
+                })()}
                 <div class="absolute top-2 left-2">
-                  <span class="bg-blue-600 text-white px-2 py-1 rounded-full text-xs font-bold">
+                  <span class="${article.youtube_embed_id ? 'bg-red-600' : 'bg-blue-600'} text-white px-2 py-1 rounded-full text-xs font-bold flex items-center">
+                    ${article.youtube_embed_id ? '<i class="fas fa-play mr-1"></i>' : ''}
                     ${article.category_name || 'CAMPUS'}
                   </span>
                 </div>
