@@ -133,7 +133,11 @@ function stripHtml(html) {
 }
 
 // Helper function to format date
-function formatDate(date) {
+function formatDate(dateString) {
+  if (!dateString) return '날짜 미상';
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) return '날짜 미상';
+  
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   return date.toLocaleDateString('ko-KR', options);
 }
@@ -438,8 +442,130 @@ async function loadShorts() {
 
 // Load campus life
 async function loadCampusLife() {
-  // This would load campus life content
-  console.log('Loading campus life...');
+  try {
+    // Campus 카테고리의 최신 기사들을 가져옵니다
+    const response = await axios.get(`${API_BASE}/articles?category=campus&limit=6`);
+    const campusSection = document.getElementById('campusArticles');
+    
+    if (response.data.articles && response.data.articles.length > 0) {
+      campusSection.innerHTML = response.data.articles.map((article, index) => `
+        <a href="/article/${article.slug}" class="block">
+          <article class="bg-white border border-gray-200 overflow-hidden hover:border-gray-400 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md rounded-lg h-full">
+            <div class="relative overflow-hidden h-48">
+              ${article.featured_image_url ? `
+                <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
+              ` : `
+                <div class="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center transition-all duration-500 group-hover:from-blue-200 group-hover:to-blue-300">
+                  <div class="text-center">
+                    <i class="fas fa-graduation-cap text-4xl text-blue-600 mb-2"></i>
+                    <p class="text-blue-600 font-semibold">Campus Life</p>
+                  </div>
+                </div>
+              `}
+              <div class="absolute top-2 left-2">
+                <span class="bg-blue-600 text-white px-2 py-1 rounded-full text-xs font-bold">
+                  ${article.category_name || 'CAMPUS'}
+                </span>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="text-lg font-bold mb-2 line-clamp-2 text-gray-900 transition-colors group-hover:text-blue-600">
+                ${article.title}
+              </h3>
+              <p class="text-gray-600 mb-3 line-clamp-3 text-sm leading-relaxed">
+                ${stripHtml(article.content)}
+              </p>
+              <div class="flex items-center justify-between text-xs text-gray-500">
+                <span class="flex items-center">
+                  <i class="fas fa-user mr-1"></i>
+                  ${article.author_name || '기자'}
+                </span>
+                <span class="flex items-center">
+                  <i class="fas fa-calendar mr-1"></i>
+                  ${formatDate(article.created_at)}
+                </span>
+              </div>
+            </div>
+          </article>
+        </a>
+      `).join('');
+    } else {
+      // Campus 카테고리에 기사가 없는 경우 admin-api로 재시도
+      const adminResponse = await axios.get('/api/admin-api/articles');
+      const campusArticles = adminResponse.data.articles?.filter(article => {
+        return article.category_name && (
+          article.category_name.includes('대학소식') || 
+          article.category_name.includes('동아리') || 
+          article.category_name.includes('학생활동') ||
+          article.category_name.includes('캠퍼스 라이프') ||
+          article.category_name.includes('장학') ||
+          article.category_name.includes('졸업생')
+        );
+      }).slice(0, 6);
+      
+      if (campusArticles && campusArticles.length > 0) {
+        campusSection.innerHTML = campusArticles.map((article, index) => `
+          <a href="/article/${article.slug || article.article_id}" class="block">
+            <article class="bg-white border border-gray-200 overflow-hidden hover:border-gray-400 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md rounded-lg h-full">
+              <div class="relative overflow-hidden h-48">
+                ${article.featured_image_url ? `
+                  <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
+                ` : `
+                  <div class="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center transition-all duration-500 group-hover:from-blue-200 group-hover:to-blue-300">
+                    <div class="text-center">
+                      <i class="fas fa-graduation-cap text-4xl text-blue-600 mb-2"></i>
+                      <p class="text-blue-600 font-semibold">Campus Life</p>
+                    </div>
+                  </div>
+                `}
+                <div class="absolute top-2 left-2">
+                  <span class="bg-blue-600 text-white px-2 py-1 rounded-full text-xs font-bold">
+                    ${article.category_name || 'CAMPUS'}
+                  </span>
+                </div>
+              </div>
+              <div class="p-4">
+                <h3 class="text-lg font-bold mb-2 line-clamp-2 text-gray-900 transition-colors group-hover:text-blue-600">
+                  ${article.title}
+                </h3>
+                <p class="text-gray-600 mb-3 line-clamp-3 text-sm leading-relaxed">
+                  ${stripHtml(article.content)}
+                </p>
+                <div class="flex items-center justify-between text-xs text-gray-500">
+                  <span class="flex items-center">
+                    <i class="fas fa-user mr-1"></i>
+                    ${article.author_name || '기자'}
+                  </span>
+                  <span class="flex items-center">
+                    <i class="fas fa-calendar mr-1"></i>
+                    ${formatDate(article.created_at)}
+                  </span>
+                </div>
+              </div>
+            </article>
+          </a>
+        `).join('');
+      } else {
+        campusSection.innerHTML = `
+          <div class="col-span-3 text-center py-12">
+            <i class="fas fa-graduation-cap text-4xl text-gray-400 mb-4"></i>
+            <p class="text-gray-600 text-lg">Campus 소식이 곧 업데이트될 예정입니다.</p>
+          </div>
+        `;
+      }
+    }
+  } catch (error) {
+    console.error('Failed to load campus articles:', error);
+    const campusSection = document.getElementById('campusArticles');
+    if (campusSection) {
+      campusSection.innerHTML = `
+        <div class="col-span-3 text-center py-12">
+          <i class="fas fa-exclamation-triangle text-4xl text-red-400 mb-4"></i>
+          <p class="text-gray-600 text-lg">Campus 소식을 불러오는 중 오류가 발생했습니다.</p>
+        </div>
+      `;
+    }
+  }
 }
 
 // Initialize application

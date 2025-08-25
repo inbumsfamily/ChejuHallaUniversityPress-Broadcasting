@@ -809,72 +809,11 @@ app.get('/', (c) => {
                                 </a>
                             </div>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
-                            <div class="bg-white border border-gray-300 p-6 hover:border-gray-500 transition-all duration-300 shadow-sm hover:shadow-md">
-                                <div class="flex items-center mb-4">
-                                    <div class="bg-blue-100 p-3 rounded-full mr-4">
-                                        <i class="fas fa-calendar-alt text-blue-600 text-2xl"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-gray-900">학사일정">
-                                        <p class="text-sm text-gray-400">이번 달 주요 일정</p>
-                                    </div>
-                                </div>
-                                <ul class="space-y-2 text-sm">
-                                    <li class="flex justify-between">
-                                        <span class="text-gray-600">중간고사</span>
-                                        <span class="text-gray-500">10.15 - 10.21</span>
-                                    </li>
-                                    <li class="flex justify-between">
-                                        <span class="text-gray-600">수강신청 정정</span>
-                                        <span class="text-gray-500">09.05 - 09.07</span>
-                                    </li>
-                                    <li class="flex justify-between">
-                                        <span class="text-gray-600">축제</span>
-                                        <span class="text-gray-500">10.25 - 10.27</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="bg-white border border-gray-300 p-6 hover:border-gray-500 transition-all duration-300 shadow-sm hover:shadow-md">
-                                <div class="flex items-center mb-4">
-                                    <div class="bg-green-100 p-3 rounded-full mr-4">
-                                        <i class="fas fa-users text-green-600 text-2xl"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-gray-900">동아리 소식</h4>
-                                        <p class="text-sm text-gray-600">신규 모집 중</p>
-                                    </div>
-                                </div>
-                                <ul class="space-y-2 text-sm">
-                                    <li class="flex items-center">
-                                        <span class="bg-red-500 text-white px-2 py-1 rounded text-xs mr-2">모집중</span>
-                                        <span>봉사동아리 '나눔'</span>
-                                    </li>
-                                    <li class="flex items-center">
-                                        <span class="bg-red-500 text-white px-2 py-1 rounded text-xs mr-2">모집중</span>
-                                        <span>프로그래밍 동아리</span>
-                                    </li>
-                                    <li class="flex items-center">
-                                        <span class="bg-gray-500 text-white px-2 py-1 rounded text-xs mr-2">마감</span>
-                                        <span>댄스 동아리</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="bg-white border border-gray-300 p-6 hover:border-gray-500 transition-all duration-300 shadow-sm hover:shadow-md">
-                                <div class="flex items-center mb-4">
-                                    <div class="bg-yellow-100 p-3 rounded-full mr-4">
-                                        <i class="fas fa-trophy text-yellow-600 text-2xl"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-gray-900">수상 소식</h4>
-                                        <p class="text-sm text-gray-600">우리 대학 성과</p>
-                                    </div>
-                                </div>
-                                <ul class="space-y-2 text-sm">
-                                    <li>• 전국 대학생 프로그래밍 대회 대상</li>
-                                    <li>• 창업 아이디어 경진대회 우수상</li>
-                                    <li>• 봉사활동 우수대학 선정</li>
-                                </ul>
+                        <div id="campusArticles" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- Campus 카테고리 기사들이 여기에 로드됩니다 -->
+                            <div class="col-span-3 text-center py-12">
+                                <i class="fas fa-spinner fa-spin text-3xl mb-4 text-gray-400"></i>
+                                <p class="text-gray-600 text-lg">Campus 소식을 불러오는 중...</p>
                             </div>
                         </div>
                     </div>
@@ -1267,7 +1206,7 @@ app.get('/', (c) => {
         </div>
         
         <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
-        <script src="/static/app.js"></script>
+        <script src="/static/app.js?v=${Date.now()}"></script>
     </body>
     </html>
   `);
