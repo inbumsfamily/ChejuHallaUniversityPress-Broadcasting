@@ -12,6 +12,7 @@ import pagesRouter from './routes/pages';
 import broadcastRouter from './routes/broadcast-page';
 import pagesBroadcastRouter from './routes/pages-broadcast';
 import subCategoriesRouter from './routes/subcategories';
+// import adminApiRouter from './routes/admin-api';
 import { HeaderComponent } from './components/header';
 import { Footer } from './components/footer';
 import type { CloudflareBindings } from './types';
@@ -21,7 +22,12 @@ const app = new Hono<{ Bindings: CloudflareBindings }>();
 // Middleware
 app.use('*', logger());
 app.use('/api/*', cors());
-app.use('/api/*', authMiddleware);
+// Apply auth middleware to specific routes only
+app.use('/api/articles/*', authMiddleware);
+app.use('/api/categories/*', authMiddleware);
+app.use('/api/comments/*', authMiddleware);
+app.use('/api/calendar/*', authMiddleware);
+// admin-api routes don't need auth middleware
 
 // Serve static files
 app.use('/static/*', serveStatic({ root: './public' }));
@@ -32,12 +38,317 @@ app.route('/api/articles', articlesRouter);
 app.route('/api/categories', categoriesRouter);
 app.route('/api/comments', commentsRouter);
 app.route('/api/calendar', calendarRouter);
+// app.route('/api/admin-api', adminApiRouter);
+
+// Temporary admin API routes for testing
+app.get('/api/admin-api/test', (c) => {
+  return c.json({ message: 'Admin API is working!' });
+});
+
+app.get('/api/admin-api/dashboard-stats', (c) => {
+  // Simplified static response for now
+  return c.json({
+    totalArticles: 24,
+    totalUsers: 5,
+    totalComments: 0,
+    todayVisitors: 1234
+  });
+});
+
+app.get('/api/admin-api/articles', async (c) => {
+  try {
+    const db = c.env.DB;
+    const { results } = await db.prepare(`
+      SELECT 
+        a.article_id,
+        a.title,
+        a.slug,
+        a.content,
+        a.created_at,
+        a.updated_at,
+        c.name as category_name,
+        u.nickname as author_name
+      FROM articles a
+      LEFT JOIN categories c ON a.category_id = c.category_id
+      LEFT JOIN users u ON a.author_id = u.user_id
+      ORDER BY a.created_at DESC
+    `).all();
+    
+    return c.json({ articles: results || [] });
+  } catch (error) {
+    return c.json({ error: 'Database error', details: error.message }, 500);
+  }
+});
+
+app.get('/api/admin-api/users', async (c) => {
+  try {
+    const db = c.env.DB;
+    const { results } = await db.prepare(`
+      SELECT 
+        user_id,
+        email,
+        nickname,
+        created_at
+      FROM users 
+      ORDER BY created_at DESC
+    `).all();
+    
+    return c.json({ users: results || [] });
+  } catch (error) {
+    return c.json({ error: 'Database error', details: error.message }, 500);
+  }
+});
+
+// Banners management API (for demo - using static data)
+app.get('/api/admin-api/banners', (c) => {
+  const banners = [
+    {
+      id: 1,
+      type: 'image',
+      src: '/static/images/banners/banner1.jpg',
+      title: '캘리포니아 폴리테크닉 주립대학교 방문',
+      subtitle: '국제 교류 협력 강화',
+      link: '/article/california-polytechnic-visit',
+      is_active: true,
+      display_order: 1
+    },
+    {
+      id: 2,
+      type: 'image',
+      src: '/static/images/banners/banner2.jpg',
+      title: '제주한라대학교 메인 캠퍼스',
+      subtitle: '빛나는 제주의 교육 중심지',
+      link: '/campus',
+      is_active: true,
+      display_order: 2
+    },
+    {
+      id: 3,
+      type: 'image',
+      src: '/static/images/banners/banner3.jpg',
+      title: '2022 청춘대홍제',
+      subtitle: '빛나는 청춘의 축제',
+      link: '/article/2022-youth-festival',
+      is_active: true,
+      display_order: 3
+    },
+    {
+      id: 4,
+      type: 'image',
+      src: '/static/images/banners/banner4.jpg',
+      title: 'CAPSTONE DESIGN 경진대회 2022',
+      subtitle: 'LINC 3.0 사업 성과 발표',
+      link: '/article/capstone-design-2022',
+      is_active: true,
+      display_order: 4
+    },
+    {
+      id: 5,
+      type: 'youtube',
+      videoId: 'dQw4w9WgXcQ',
+      title: '2025학년도 신입생 환영 영상',
+      subtitle: '제주한라대학교의 새로운 시작',
+      thumbnail: '/static/images/banners/banner1.jpg',
+      is_active: true,
+      display_order: 5
+    }
+  ];
+  
+  return c.json({ banners });
+});
+
+app.post('/api/admin-api/banners', async (c) => {
+  try {
+    const body = await c.req.json();
+    // In real implementation, this would save to database
+    // For demo, we'll just return success with the data
+    return c.json({ 
+      message: 'Banner created successfully',
+      banner: { id: Date.now(), ...body }
+    });
+  } catch (error) {
+    return c.json({ error: 'Failed to create banner', details: error.message }, 500);
+  }
+});
+
+app.put('/api/admin-api/banners/:id', async (c) => {
+  try {
+    const bannerId = c.req.param('id');
+    const body = await c.req.json();
+    // In real implementation, this would update database
+    return c.json({ 
+      message: 'Banner updated successfully',
+      banner: { id: parseInt(bannerId), ...body }
+    });
+  } catch (error) {
+    return c.json({ error: 'Failed to update banner', details: error.message }, 500);
+  }
+});
+
+app.delete('/api/admin-api/banners/:id', async (c) => {
+  try {
+    const bannerId = c.req.param('id');
+    // In real implementation, this would delete from database
+    return c.json({ message: 'Banner deleted successfully' });
+  } catch (error) {
+    return c.json({ error: 'Failed to delete banner', details: error.message }, 500);
+  }
+});
+
+// Categories management API
+app.get('/api/admin-api/categories', async (c) => {
+  try {
+    const db = c.env.DB;
+    const { results } = await db.prepare(`
+      SELECT 
+        category_id,
+        name,
+        slug,
+        parent_category,
+        created_at
+      FROM categories 
+      ORDER BY name
+    `).all();
+    
+    return c.json({ categories: results || [] });
+  } catch (error) {
+    return c.json({ error: 'Database error', details: error.message }, 500);
+  }
+});
+
+app.post('/api/admin-api/categories', async (c) => {
+  try {
+    const body = await c.req.json();
+    const { name, slug, parent_category } = body;
+    
+    if (!name || !slug) {
+      return c.json({ error: 'Name and slug are required' }, 400);
+    }
+    
+    const db = c.env.DB;
+    const result = await db.prepare(`
+      INSERT INTO categories (name, slug, parent_category, created_at)
+      VALUES (?, ?, ?, datetime('now'))
+    `).bind(name, slug, parent_category || null).run();
+    
+    return c.json({ 
+      message: 'Category created successfully',
+      category_id: result.meta.last_row_id 
+    }, 201);
+    
+  } catch (error) {
+    return c.json({ error: 'Failed to create category', details: error.message }, 500);
+  }
+});
+
+app.delete('/api/admin-api/categories/:id', async (c) => {
+  try {
+    const categoryId = c.req.param('id');
+    const db = c.env.DB;
+    
+    // Check if category has associated articles
+    const articlesCount = await db.prepare('SELECT COUNT(*) as count FROM articles WHERE category_id = ?')
+      .bind(categoryId).first();
+    
+    if (articlesCount && articlesCount.count > 0) {
+      return c.json({ error: '이 카테고리에는 연결된 기사가 있어 삭제할 수 없습니다.' }, 400);
+    }
+    
+    await db.prepare('DELETE FROM categories WHERE category_id = ?')
+      .bind(categoryId).run();
+    
+    return c.json({ message: 'Category deleted successfully' });
+    
+  } catch (error) {
+    return c.json({ error: 'Failed to delete category', details: error.message }, 500);
+  }
+});
+
+// Users management CRUD  
+app.post('/api/admin-api/users', async (c) => {
+  try {
+    const body = await c.req.json();
+    const { email, nickname, password } = body;
+    
+    if (!email || !nickname || !password) {
+      return c.json({ error: 'Email, nickname and password are required' }, 400);
+    }
+    
+    const db = c.env.DB;
+    
+    // Check if email already exists
+    const existingUser = await db.prepare('SELECT user_id FROM users WHERE email = ?')
+      .bind(email).first();
+    
+    if (existingUser) {
+      return c.json({ error: '이미 존재하는 이메일입니다.' }, 400);
+    }
+    
+    // For demo purposes, we'll store plain password (in production, hash it)
+    const result = await db.prepare(`
+      INSERT INTO users (email, nickname, password, created_at)
+      VALUES (?, ?, ?, datetime('now'))
+    `).bind(email, nickname, password).run();
+    
+    return c.json({ 
+      message: 'User created successfully',
+      user_id: result.meta.last_row_id 
+    }, 201);
+    
+  } catch (error) {
+    return c.json({ error: 'Failed to create user', details: error.message }, 500);
+  }
+});
+
+app.put('/api/admin-api/users/:id', async (c) => {
+  try {
+    const userId = c.req.param('id');
+    const body = await c.req.json();
+    const { email, nickname } = body;
+    
+    const db = c.env.DB;
+    
+    await db.prepare(`
+      UPDATE users 
+      SET email = ?, nickname = ?
+      WHERE user_id = ?
+    `).bind(email, nickname, userId).run();
+    
+    return c.json({ message: 'User updated successfully' });
+    
+  } catch (error) {
+    return c.json({ error: 'Failed to update user', details: error.message }, 500);
+  }
+});
+
+app.delete('/api/admin-api/users/:id', async (c) => {
+  try {
+    const userId = c.req.param('id');
+    const db = c.env.DB;
+    
+    // Check if user has associated articles
+    const articlesCount = await db.prepare('SELECT COUNT(*) as count FROM articles WHERE author_id = ?')
+      .bind(userId).first();
+    
+    if (articlesCount && articlesCount.count > 0) {
+      return c.json({ error: '이 사용자가 작성한 기사가 있어 삭제할 수 없습니다.' }, 400);
+    }
+    
+    await db.prepare('DELETE FROM users WHERE user_id = ?')
+      .bind(userId).run();
+    
+    return c.json({ message: 'User deleted successfully' });
+    
+  } catch (error) {
+    return c.json({ error: 'Failed to delete user', details: error.message }, 500);
+  }
+});
 
 // Page Routes
 app.route('/', pagesRouter);
 app.route('/', broadcastRouter);
 app.route('/', pagesBroadcastRouter);
-app.route('/', subCategoriesRouter);
+// app.route('/', subCategoriesRouter); // Temporarily disabled due to error
 
 // Health check
 app.get('/api/health', (c) => {
@@ -358,11 +669,18 @@ app.get('/', (c) => {
                 <section id="campus" class="py-16 bg-white">
                     <div class="container mx-auto px-4">
                         <div class="mb-12">
-                            <h2 class="text-6xl lg:text-8xl font-black uppercase leading-none mb-2">
-                                <span class="text-gray-900">CAMPUS</span>
-                                <span class="text-blue-600 ml-4">LIFE</span>
-                            </h2>
-                            <p class="text-gray-600 text-lg">Student activities, campus events, and university life at Cheju Halla University</p>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <h2 class="text-6xl lg:text-8xl font-black uppercase leading-none mb-2">
+                                        <span class="text-gray-900">CAMPUS</span>
+                                        <span class="text-blue-600 ml-4">LIFE</span>
+                                    </h2>
+                                    <p class="text-gray-600 text-lg">Student activities, campus events, and university life at Cheju Halla University</p>
+                                </div>
+                                <a href="/campus" class="text-blue-600 hover:text-blue-800 font-semibold transition-colors flex items-center">
+                                    더보기 <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                            </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
                             <div class="bg-white border border-gray-300 p-6 hover:border-gray-500 transition-all duration-300 shadow-sm hover:shadow-md">
@@ -447,7 +765,7 @@ app.get('/', (c) => {
                                     </h3>
                                     <p class="text-lg text-blue-200 mt-1">Cheju Halla University Journal</p>
                                 </div>
-                                <a href="/press" class="text-white hover:text-blue-200 transition-colors font-semibold">더보기 →</a>
+                                <a href="/press" class="text-white hover:text-blue-200 transition-colors font-semibold flex items-center">더보기 <i class="fas fa-arrow-right ml-2"></i></a>
                             </div>
                             <div id="newspaperArticles" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <!-- 신문 기사가 여기에 로드됩니다 -->
@@ -463,7 +781,7 @@ app.get('/', (c) => {
                                     </h3>
                                     <p class="text-lg text-blue-200 mt-1">Cheju Halla Educational Broadcasting Station</p>
                                 </div>
-                                <a href="/broadcast" class="text-white hover:text-blue-200 transition-colors font-semibold">더보기 →</a>
+                                <a href="/broadcast" class="text-white hover:text-blue-200 transition-colors font-semibold flex items-center">더보기 <i class="fas fa-arrow-right ml-2"></i></a>
                             </div>
                             <div id="broadcastArticles" class="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <!-- 방송 콘텐츠가 여기에 로드됩니다 -->
@@ -479,11 +797,18 @@ app.get('/', (c) => {
                 <section id="special" class="py-16 bg-gray-50">
                     <div class="container mx-auto px-4">
                     <div class="mb-12">
-                        <h2 class="text-6xl lg:text-8xl font-black uppercase leading-none mb-2">
-                            <span class="text-gray-900">SPECIAL</span>
-                            <span class="text-blue-600 ml-4">REPORT</span>
-                        </h2>
-                        <p class="text-gray-600 text-lg">In-depth coverage and investigative journalism on campus issues and social topics</p>
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <h2 class="text-6xl lg:text-8xl font-black uppercase leading-none mb-2">
+                                    <span class="text-gray-900">SPECIAL</span>
+                                    <span class="text-blue-600 ml-4">REPORT</span>
+                                </h2>
+                                <p class="text-gray-600 text-lg">In-depth coverage and investigative journalism on campus issues and social topics</p>
+                            </div>
+                            <a href="/special-report" class="text-blue-600 hover:text-blue-800 font-semibold transition-colors flex items-center">
+                                더보기 <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
                         <!-- 기획보도 대형 카드 -->
@@ -530,15 +855,212 @@ app.get('/', (c) => {
                     </div>
                 </section>
 
+                <!-- OPINION 섹션 -->
+                <section id="opinion" class="py-16 bg-white">
+                    <div class="container mx-auto px-4">
+                        <div class="mb-12">
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <h2 class="text-6xl lg:text-8xl font-black uppercase leading-none mb-2">
+                                        <span class="text-gray-900">OPINION</span>
+                                        <span class="text-blue-600 ml-4">&amp;</span>
+                                        <span class="text-gray-900 ml-2">VIEWS</span>
+                                    </h2>
+                                    <p class="text-gray-600 text-lg">Editorial opinions, columns, and diverse perspectives from our community</p>
+                                </div>
+                                <a href="/opinion" class="text-blue-600 hover:text-blue-800 font-semibold transition-colors flex items-center">
+                                    더보기 <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <!-- 오피니언 콘텐츠 카드들 -->
+                            <div class="bg-white border border-gray-300 overflow-hidden hover:border-gray-500 transition-all duration-300 shadow-sm hover:shadow-md">
+                                <div class="h-48 bg-gradient-to-br from-red-400 to-pink-500 flex items-center justify-center">
+                                    <i class="fas fa-pen-nib text-white text-4xl"></i>
+                                </div>
+                                <div class="p-6">
+                                    <span class="text-xs text-red-600 font-bold uppercase tracking-wider">사설·칼럼</span>
+                                    <h3 class="text-xl font-bold text-gray-800 mt-2 mb-3">대학생의 사회 참여, 어떻게 시작할 것인가</h3>
+                                    <p class="text-gray-600 text-sm line-clamp-3">변화하는 사회 속에서 대학생들의 사회 참여 의식과 그 중요성에 대한 사설</p>
+                                    <button class="text-red-600 hover:text-red-800 font-bold text-sm mt-4 transition-colors">
+                                        자세히 보기 →
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="bg-white border border-gray-300 overflow-hidden hover:border-gray-500 transition-all duration-300 shadow-sm hover:shadow-md">
+                                <div class="h-48 bg-gradient-to-br from-indigo-400 to-blue-500 flex items-center justify-center">
+                                    <i class="fas fa-user-graduate text-white text-4xl"></i>
+                                </div>
+                                <div class="p-6">
+                                    <span class="text-xs text-indigo-600 font-bold uppercase tracking-wider">교수칼럼</span>
+                                    <h3 class="text-xl font-bold text-gray-800 mt-2 mb-3">인공지능 시대, 대학 교육의 방향</h3>
+                                    <p class="text-gray-600 text-sm line-clamp-3">AI가 변화시키는 교육 환경에서 대학이 나아가야 할 방향에 대한 교수님의 시각</p>
+                                    <button class="text-indigo-600 hover:text-indigo-800 font-bold text-sm mt-4 transition-colors">
+                                        자세히 보기 →
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="bg-white border border-gray-300 overflow-hidden hover:border-gray-500 transition-all duration-300 shadow-sm hover:shadow-md">
+                                <div class="h-48 bg-gradient-to-br from-green-400 to-teal-500 flex items-center justify-center">
+                                    <i class="fas fa-comments text-white text-4xl"></i>
+                                </div>
+                                <div class="p-6">
+                                    <span class="text-xs text-green-600 font-bold uppercase tracking-wider">익명의 목소리</span>
+                                    <h3 class="text-xl font-bold text-gray-800 mt-2 mb-3">캐퍼스 내 채식 옵션, 자세히 알아보자</h3>
+                                    <p class="text-gray-600 text-sm line-clamp-3">학생들이 익명으로 전하는 식당 개선 아이디어와 채식 메뉴 확대 요청</p>
+                                    <button class="text-green-600 hover:text-green-800 font-bold text-sm mt-4 transition-colors">
+                                        자세히 보기 →
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- JEJU 섹션 -->
+                <section id="jeju" class="py-16 bg-gray-50">
+                    <div class="container mx-auto px-4">
+                        <div class="mb-12">
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <h2 class="text-6xl lg:text-8xl font-black uppercase leading-none mb-2">
+                                        <span class="text-gray-900">JEJU</span>
+                                        <span class="text-blue-600 ml-4">NEWS</span>
+                                    </h2>
+                                    <p class="text-gray-600 text-lg">Local news, culture, and stories from beautiful Jeju Island</p>
+                                </div>
+                                <a href="/jeju-news" class="text-blue-600 hover:text-blue-800 font-semibold transition-colors flex items-center">
+                                    더보기 <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <!-- 제주 관련 콘텐츠 카드들 -->
+                            <div class="bg-white border border-gray-300 overflow-hidden hover:border-gray-500 transition-all duration-300 shadow-sm hover:shadow-md">
+                                <div class="h-48 bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center">
+                                    <i class="fas fa-mountain text-white text-4xl"></i>
+                                </div>
+                                <div class="p-6">
+                                    <span class="text-xs text-orange-600 font-bold uppercase tracking-wider">제주 이슈</span>
+                                    <h3 class="text-xl font-bold text-gray-800 mt-2 mb-3">제주도 관광정책의 새로운 방향</h3>
+                                    <p class="text-gray-600 text-sm line-clamp-3">코로나19 이후 변화하는 제주 관광 트렌드와 지속가능한 관광정책에 대한 심층 분석</p>
+                                    <button class="text-orange-600 hover:text-orange-800 font-bold text-sm mt-4 transition-colors">
+                                        자세히 보기 →
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="bg-white border border-gray-300 overflow-hidden hover:border-gray-500 transition-all duration-300 shadow-sm hover:shadow-md">
+                                <div class="h-48 bg-gradient-to-br from-green-400 to-teal-500 flex items-center justify-center">
+                                    <i class="fas fa-palette text-white text-4xl"></i>
+                                </div>
+                                <div class="p-6">
+                                    <span class="text-xs text-green-600 font-bold uppercase tracking-wider">문화·예술</span>
+                                    <h3 class="text-xl font-bold text-gray-800 mt-2 mb-3">제주 청년 작가들의 도전</h3>
+                                    <p class="text-gray-600 text-sm line-clamp-3">제주를 기반으로 활동하는 청년 예술가들의 창작 활동과 지역 문화 발전에 기여하는 이야기</p>
+                                    <button class="text-green-600 hover:text-green-800 font-bold text-sm mt-4 transition-colors">
+                                        자세히 보기 →
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="bg-white border border-gray-300 overflow-hidden hover:border-gray-500 transition-all duration-300 shadow-sm hover:shadow-md">
+                                <div class="h-48 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
+                                    <i class="fas fa-utensils text-white text-4xl"></i>
+                                </div>
+                                <div class="p-6">
+                                    <span class="text-xs text-blue-600 font-bold uppercase tracking-wider">맛집·관광</span>
+                                    <h3 class="text-xl font-bold text-gray-800 mt-2 mb-3">제주 로컬 푸드 트렌드</h3>
+                                    <p class="text-gray-600 text-sm line-clamp-3">제주 특산물을 활용한 새로운 요리와 숨겨진 맛집들을 소개하는 미식 탐방</p>
+                                    <button class="text-blue-600 hover:text-blue-800 font-bold text-sm mt-4 transition-colors">
+                                        자세히 보기 →
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ESSAY 섹션 -->
+                <section id="essay" class="py-16 bg-white">
+                    <div class="container mx-auto px-4">
+                        <div class="mb-12">
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <h2 class="text-6xl lg:text-8xl font-black uppercase leading-none mb-2">
+                                        <span class="text-gray-900">ESSAY</span>
+                                    </h2>
+                                    <p class="text-gray-600 text-lg">Personal stories, thoughts, and creative writing from our university community</p>
+                                </div>
+                                <a href="/essay" class="text-blue-600 hover:text-blue-800 font-semibold transition-colors flex items-center">
+                                    더보기 <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="bg-white border border-gray-300 overflow-hidden hover:border-gray-500 transition-all duration-300 shadow-sm hover:shadow-md">
+                                <div class="h-64 bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center relative">
+                                    <div class="absolute inset-0 bg-black/20"></div>
+                                    <div class="relative text-white text-center">
+                                        <i class="fas fa-feather-alt text-5xl mb-4"></i>
+                                        <h4 class="text-2xl font-bold">제주에서 보내는 시간</h4>
+                                    </div>
+                                </div>
+                                <div class="p-6">
+                                    <span class="text-xs text-purple-600 font-bold uppercase tracking-wider">수필</span>
+                                    <h3 class="text-xl font-bold text-gray-800 mt-2 mb-3">한라산에서 바라본 나의 대학생활</h3>
+                                    <p class="text-gray-600 text-sm line-clamp-3">제주한라대학교에서의 4년간의 여정을 한라산 등반에 비유하며 써내려간 한 학생의 성장 이야기</p>
+                                    <div class="flex justify-between items-center mt-4">
+                                        <span class="text-sm text-gray-500">
+                                            <i class="fas fa-user mr-1"></i> 김지우 (경영학과 4학년)
+                                        </span>
+                                        <button class="text-purple-600 hover:text-purple-800 font-bold text-sm transition-colors">
+                                            읽어보기 →
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-white border border-gray-300 overflow-hidden hover:border-gray-500 transition-all duration-300 shadow-sm hover:shadow-md">
+                                <div class="h-64 bg-gradient-to-br from-indigo-400 to-blue-500 flex items-center justify-center relative">
+                                    <div class="absolute inset-0 bg-black/20"></div>
+                                    <div class="relative text-white text-center">
+                                        <i class="fas fa-heart text-5xl mb-4"></i>
+                                        <h4 class="text-2xl font-bold">꿈과 희망</h4>
+                                    </div>
+                                </div>
+                                <div class="p-6">
+                                    <span class="text-xs text-indigo-600 font-bold uppercase tracking-wider">칼럼</span>
+                                    <h3 class="text-xl font-bold text-gray-800 mt-2 mb-3">청춘, 그리고 미래에 대한 단상</h3>
+                                    <p class="text-gray-600 text-sm line-clamp-3">변화하는 시대 속에서 청년들이 꿈꾸는 미래와 그것을 실현하기 위한 노력에 대한 깊이 있는 성찰</p>
+                                    <div class="flex justify-between items-center mt-4">
+                                        <span class="text-sm text-gray-500">
+                                            <i class="fas fa-user mr-1"></i> 박민수 교수 (철학과)
+                                        </span>
+                                        <button class="text-indigo-600 hover:text-indigo-800 font-bold text-sm transition-colors">
+                                            읽어보기 →
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 <!-- 쇼츠 섹션 -->
                 <section id="shorts" class="py-16 bg-white">
                     <div class="container mx-auto px-4">
                     <div class="mb-12">
-                        <h2 class="text-6xl lg:text-8xl font-black uppercase leading-none mb-2">
-                            <span class="text-gray-900">QUICK</span>
-                            <span class="text-blue-600 ml-4">SHORTS</span>
-                        </h2>
-                        <p class="text-gray-600 text-lg">Short-form video content featuring campus life, student tips, and trending topics</p>
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <h2 class="text-6xl lg:text-8xl font-black uppercase leading-none mb-2">
+                                    <span class="text-gray-900">QUICK</span>
+                                    <span class="text-blue-600 ml-4">SHORTS</span>
+                                </h2>
+                                <p class="text-gray-600 text-lg">Short-form video content featuring campus life, student tips, and trending topics</p>
+                            </div>
+                            <a href="/shorts" class="text-blue-600 hover:text-blue-800 font-semibold transition-colors flex items-center">
+                                더보기 <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
                     </div>
                     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
                         <!-- 쇼츠 비디오 카드 (세로형) -->
@@ -656,6 +1178,12 @@ app.get('/admin', (c) => {
                         </a>
                         <a href="#articles" onclick="showSection('articles')" class="block px-4 py-3 hover:bg-gray-700 transition-colors">
                             <i class="fas fa-newspaper mr-3 w-5"></i> 기사 관리
+                        </a>
+                        <a href="#banners" onclick="showSection('banners')" class="block px-4 py-3 hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-images mr-3 w-5"></i> 배너 관리
+                        </a>
+                        <a href="#categories" onclick="showSection('categories')" class="block px-4 py-3 hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-tags mr-3 w-5"></i> 카테고리 관리
                         </a>
                         <a href="#broadcast" onclick="showSection('broadcast')" class="block px-4 py-3 hover:bg-gray-700 transition-colors">
                             <i class="fas fa-video mr-3 w-5"></i> 방송 콘텐츠
