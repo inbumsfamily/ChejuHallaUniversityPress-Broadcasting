@@ -225,10 +225,25 @@ function showNewArticleForm() {
                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">카테고리*</label>
-                            <select name="category_id" required 
+                            <label class="block text-sm font-medium text-gray-700 mb-2">메인 카테고리*</label>
+                            <select name="main_category" id="mainCategorySelect" onchange="loadSubCategories()" required 
                                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">카테고리 선택</option>
+                                <option value="">메인 카테고리 선택</option>
+                                <option value="campus">캠퍼스</option>
+                                <option value="special">특집·기획</option>
+                                <option value="shorts">숏츠</option>
+                                <option value="jeju">제주 소식</option>
+                                <option value="essay">에세이</option>
+                                <option value="opinion">오피니언</option>
+                                <option value="press">신문사</option>
+                                <option value="broadcast">방송국</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">서브 카테고리*</label>
+                            <select name="category_id" id="subCategorySelect" required 
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">먼저 메인 카테고리를 선택하세요</option>
                             </select>
                         </div>
                         <div>
@@ -249,10 +264,24 @@ function showNewArticleForm() {
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">대표 이미지 URL</label>
-                            <input type="url" name="featured_image_url" 
-                                   placeholder="https://example.com/image.jpg"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">대표 이미지</label>
+                            <div class="space-y-2">
+                                <div class="flex items-center space-x-2">
+                                    <input type="file" id="imageUpload" accept="image/*" 
+                                           class="hidden" onchange="handleImageUpload(this)">
+                                    <button type="button" onclick="document.getElementById('imageUpload').click()" 
+                                            class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
+                                        <i class="fas fa-upload mr-2"></i>이미지 업로드
+                                    </button>
+                                    <span id="uploadStatus" class="text-sm text-gray-500"></span>
+                                </div>
+                                <input type="url" name="featured_image_url" id="imageUrlInput"
+                                       placeholder="또는 직접 URL을 입력하세요"
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <div id="imagePreview" class="mt-2" style="display: none;">
+                                    <img id="previewImg" src="" alt="미리보기" class="max-w-xs max-h-48 rounded border">
+                                </div>
+                            </div>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">YouTube 영상 ID</label>
@@ -289,15 +318,68 @@ function showNewArticleForm() {
 async function loadCategoriesForForm() {
     try {
         const response = await axios.get(`${API_BASE}/categories`);
-        const categories = response.data.categories || [];
-        
-        const categorySelect = document.querySelector('select[name="category_id"]');
-        if (categorySelect) {
-            categorySelect.innerHTML = '<option value="">카테고리 선택</option>' +
-                categories.map(cat => `<option value="${cat.category_id}">${cat.name}</option>`).join('');
-        }
+        window.allCategories = response.data.categories || [];
     } catch (error) {
         console.error('Failed to load categories:', error);
+    }
+}
+
+function loadSubCategories() {
+    const mainCategory = document.getElementById('mainCategorySelect').value;
+    const subCategorySelect = document.getElementById('subCategorySelect');
+    
+    if (!mainCategory) {
+        subCategorySelect.innerHTML = '<option value="">먼저 메인 카테고리를 선택하세요</option>';
+        return;
+    }
+    
+    const subCategories = window.allCategories.filter(cat => cat.parent_category === mainCategory);
+    
+    if (subCategories.length === 0) {
+        subCategorySelect.innerHTML = '<option value="">해당 메인 카테고리에 서브 카테고리가 없습니다</option>';
+    } else {
+        subCategorySelect.innerHTML = '<option value="">서브 카테고리 선택</option>' +
+            subCategories.map(cat => `<option value="${cat.category_id}">${cat.name}</option>`).join('');
+    }
+}
+
+async function handleImageUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+    
+    const statusEl = document.getElementById('uploadStatus');
+    const previewEl = document.getElementById('imagePreview');
+    const previewImg = document.getElementById('previewImg');
+    const urlInput = document.getElementById('imageUrlInput');
+    
+    // Show loading status
+    statusEl.textContent = '업로드 중...';
+    statusEl.className = 'text-sm text-blue-500';
+    
+    try {
+        const formData = new FormData();
+        formData.append('image', file);
+        
+        const response = await axios.post(`${API_BASE}/upload-image`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        
+        if (response.data.success) {
+            urlInput.value = response.data.imageUrl;
+            previewImg.src = response.data.imageUrl;
+            previewEl.style.display = 'block';
+            statusEl.textContent = `업로드 완료 (${(file.size / 1024).toFixed(1)}KB)`;
+            statusEl.className = 'text-sm text-green-500';
+        } else {
+            throw new Error(response.data.error || '업로드 실패');
+        }
+    } catch (error) {
+        console.error('Image upload failed:', error);
+        statusEl.textContent = '업로드 실패: ' + (error.response?.data?.error || error.message);
+        statusEl.className = 'text-sm text-red-500';
+        previewEl.style.display = 'none';
     }
 }
 

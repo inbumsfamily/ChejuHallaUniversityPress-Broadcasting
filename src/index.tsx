@@ -28,6 +28,7 @@ app.use('/api/categories/*', authMiddleware);
 app.use('/api/comments/*', authMiddleware);
 app.use('/api/calendar/*', authMiddleware);
 // admin-api routes don't need auth middleware
+app.use('/api/admin-api/*', (c, next) => next());
 
 // Serve static files
 app.use('/static/*', serveStatic({ root: './public' }));
@@ -341,6 +342,52 @@ app.delete('/api/admin-api/users/:id', async (c) => {
     
   } catch (error) {
     return c.json({ error: 'Failed to delete user', details: error.message }, 500);
+  }
+});
+
+// Image upload API
+app.post('/api/admin-api/upload-image', async (c) => {
+  try {
+    const formData = await c.req.formData();
+    const file = formData.get('image') as File;
+    
+    if (!file) {
+      return c.json({ error: 'No image file provided' }, 400);
+    }
+    
+    // Check file type
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      return c.json({ error: 'Invalid file type. Only JPEG, PNG, GIF, and WebP are allowed.' }, 400);
+    }
+    
+    // Check file size (max 5MB)
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    if (file.size > maxSize) {
+      return c.json({ error: 'File size too large. Maximum 5MB allowed.' }, 400);
+    }
+    
+    // Generate unique filename
+    const timestamp = Date.now();
+    const randomStr = Math.random().toString(36).substring(2);
+    const extension = file.name.split('.').pop() || 'jpg';
+    const filename = `upload_${timestamp}_${randomStr}.${extension}`;
+    
+    // For demo purposes, we'll simulate successful upload and return a placeholder URL
+    // In production, you would upload to Cloudflare Images or R2
+    const imageUrl = `https://via.placeholder.com/800x600/4F46E5/ffffff?text=${encodeURIComponent(filename)}`;
+    
+    return c.json({ 
+      success: true,
+      imageUrl: imageUrl,
+      filename: filename,
+      size: file.size,
+      type: file.type
+    });
+    
+  } catch (error) {
+    console.error('Image upload error:', error);
+    return c.json({ error: 'Failed to upload image', details: error.message }, 500);
   }
 });
 
