@@ -423,33 +423,86 @@ async function editArticle(articleId) {
     
     showNewArticleForm();
     
-    // Wait for form to render
-    setTimeout(() => {
+    // Wait for form to render and categories to load
+    setTimeout(async () => {
+        // Fill in basic fields
         document.querySelector('input[name="title"]').value = article.title;
         document.querySelector('textarea[name="content"]').value = article.content;
-        document.querySelector('select[name="category_id"]').value = article.category_id;
         document.querySelector('select[name="author_id"]').value = article.author_id;
         document.querySelector('select[name="is_featured"]').value = article.is_featured;
-        document.querySelector('input[name="featured_image_url"]').value = article.featured_image_url || '';
+        
+        // Handle image URL - check if it's the new structure or old
+        const imageUrlInput = document.querySelector('input[name="featured_image_url"]') || document.getElementById('imageUrlInput');
+        if (imageUrlInput) {
+            imageUrlInput.value = article.featured_image_url || '';
+            
+            // Show image preview if URL exists
+            if (article.featured_image_url) {
+                const previewEl = document.getElementById('imagePreview');
+                const previewImg = document.getElementById('previewImg');
+                if (previewEl && previewImg) {
+                    previewImg.src = article.featured_image_url;
+                    previewEl.style.display = 'block';
+                }
+            }
+        }
+        
         document.querySelector('input[name="youtube_embed_id"]').value = article.youtube_embed_id || '';
         
+        // Handle category selection for main/sub structure
+        if (window.allCategories && article.category_id) {
+            const selectedCategory = window.allCategories.find(cat => cat.category_id === article.category_id);
+            if (selectedCategory && selectedCategory.parent_category) {
+                // Set main category
+                const mainCategorySelect = document.getElementById('mainCategorySelect');
+                if (mainCategorySelect) {
+                    mainCategorySelect.value = selectedCategory.parent_category;
+                    
+                    // Load and set subcategory
+                    loadSubCategories();
+                    setTimeout(() => {
+                        const subCategorySelect = document.getElementById('subCategorySelect');
+                        if (subCategorySelect) {
+                            subCategorySelect.value = article.category_id;
+                        }
+                    }, 50);
+                } else {
+                    // Fallback to old structure
+                    const categorySelect = document.querySelector('select[name="category_id"]');
+                    if (categorySelect) {
+                        categorySelect.value = article.category_id;
+                    }
+                }
+            }
+        }
+        
         // Change form title and submit handler
-        document.querySelector('.bg-white h3').textContent = '기사 수정';
+        const titleEl = document.querySelector('.bg-white h3');
+        if (titleEl) titleEl.textContent = '기사 수정';
+        
         document.getElementById('articleForm').onsubmit = (e) => updateArticle(e, articleId);
-    }, 100);
+    }, 200);
 }
 
 async function updateArticle(event, articleId) {
     event.preventDefault();
     
     const formData = new FormData(event.target);
+    
+    // Get image URL from either old or new structure
+    let imageUrl = formData.get('featured_image_url');
+    const imageUrlInput = document.getElementById('imageUrlInput');
+    if (!imageUrl && imageUrlInput) {
+        imageUrl = imageUrlInput.value;
+    }
+    
     const articleData = {
         title: formData.get('title'),
         content: formData.get('content'),
         category_id: parseInt(formData.get('category_id')),
         author_id: parseInt(formData.get('author_id')),
         is_featured: parseInt(formData.get('is_featured')),
-        featured_image_url: formData.get('featured_image_url') || null,
+        featured_image_url: imageUrl || null,
         youtube_embed_id: formData.get('youtube_embed_id') || null
     };
     
@@ -460,7 +513,8 @@ async function updateArticle(event, articleId) {
         showSuccessMessage('기사가 성공적으로 수정되었습니다.');
     } catch (error) {
         console.error('Failed to update article:', error);
-        showErrorMessage('기사 수정에 실패했습니다.');
+        const message = error.response?.data?.error || '기사 수정에 실패했습니다.';
+        showErrorMessage(message);
     }
 }
 

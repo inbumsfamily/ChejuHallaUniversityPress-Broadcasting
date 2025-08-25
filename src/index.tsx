@@ -65,6 +65,11 @@ app.get('/api/admin-api/articles', async (c) => {
         a.title,
         a.slug,
         a.content,
+        a.category_id,
+        a.author_id,
+        a.is_featured,
+        a.featured_image_url,
+        a.youtube_embed_id,
         a.created_at,
         a.updated_at,
         c.name as category_name,
@@ -78,6 +83,81 @@ app.get('/api/admin-api/articles', async (c) => {
     return c.json({ articles: results || [] });
   } catch (error) {
     return c.json({ error: 'Database error', details: error.message }, 500);
+  }
+});
+
+app.post('/api/admin-api/articles', async (c) => {
+  try {
+    const body = await c.req.json();
+    const { title, content, category_id, author_id, is_featured, featured_image_url, youtube_embed_id, slug } = body;
+    
+    if (!title || !content || !category_id || !author_id) {
+      return c.json({ error: 'Title, content, category_id, and author_id are required' }, 400);
+    }
+    
+    const db = c.env.DB;
+    const result = await db.prepare(`
+      INSERT INTO articles (title, content, category_id, author_id, is_featured, featured_image_url, youtube_embed_id, slug, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
+    `).bind(title, content, category_id, author_id, is_featured || 0, featured_image_url, youtube_embed_id, slug).run();
+    
+    return c.json({ 
+      message: 'Article created successfully',
+      article_id: result.meta.last_row_id 
+    }, 201);
+    
+  } catch (error) {
+    console.error('Article creation error:', error);
+    return c.json({ error: 'Failed to create article', details: error.message }, 500);
+  }
+});
+
+app.put('/api/admin-api/articles/:id', async (c) => {
+  try {
+    const articleId = c.req.param('id');
+    const body = await c.req.json();
+    const { title, content, category_id, author_id, is_featured, featured_image_url, youtube_embed_id } = body;
+    
+    if (!title || !content || !category_id || !author_id) {
+      return c.json({ error: 'Title, content, category_id, and author_id are required' }, 400);
+    }
+    
+    const db = c.env.DB;
+    const result = await db.prepare(`
+      UPDATE articles 
+      SET title = ?, content = ?, category_id = ?, author_id = ?, is_featured = ?, 
+          featured_image_url = ?, youtube_embed_id = ?, updated_at = datetime('now')
+      WHERE article_id = ?
+    `).bind(title, content, category_id, author_id, is_featured || 0, featured_image_url, youtube_embed_id, articleId).run();
+    
+    if (result.changes === 0) {
+      return c.json({ error: 'Article not found' }, 404);
+    }
+    
+    return c.json({ message: 'Article updated successfully' });
+    
+  } catch (error) {
+    console.error('Article update error:', error);
+    return c.json({ error: 'Failed to update article', details: error.message }, 500);
+  }
+});
+
+app.delete('/api/admin-api/articles/:id', async (c) => {
+  try {
+    const articleId = c.req.param('id');
+    const db = c.env.DB;
+    
+    const result = await db.prepare('DELETE FROM articles WHERE article_id = ?').bind(articleId).run();
+    
+    if (result.changes === 0) {
+      return c.json({ error: 'Article not found' }, 404);
+    }
+    
+    return c.json({ message: 'Article deleted successfully' });
+    
+  } catch (error) {
+    console.error('Article deletion error:', error);
+    return c.json({ error: 'Failed to delete article', details: error.message }, 500);
   }
 });
 
