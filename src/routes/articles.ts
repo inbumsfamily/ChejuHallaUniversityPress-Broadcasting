@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import { z } from 'zod';
-import { createSlug, extractYoutubeId } from '../utils/auth';
+import { createArticlePreviewToken, createSlug, extractYoutubeId, verifyArticlePreviewToken } from '../utils/auth';
 import { canManageArticle, canCreateContent } from '../utils/rbac';
 import { requireAuth } from '../middleware/auth';
 import type { CloudflareBindings, Article, JWTPayload } from '../types';
@@ -12,7 +12,7 @@ const createArticleSchema = z.object({
   title: z.string().min(1).max(255),
   content: z.string().min(1),
   category_id: z.number(),
-  status: z.enum(['draft', 'published', 'archived']).optional().default('draft'),
+  status: z.enum(['draft', 'submitted', 'under_review', 'published', 'archived', 'rejected']).optional().default('draft'),
   featured_image_url: z.string().url().optional().nullable(),
   youtube_url: z.string().optional().nullable(),
   article_type: z.enum(['normal', 'shorts']).optional().default('normal')
@@ -27,6 +27,7 @@ articlesRouter.get('/', async (c) => {
     const page = parseInt(c.req.query('page') || '1');
     const limit = parseInt(c.req.query('limit') || '12');
     const category = c.req.query('category');
+    const currentUser = c.get('user') as JWTPayload | null;
     
     const offset = (page - 1) * limit;
     
@@ -55,6 +56,10 @@ articlesRouter.get('/', async (c) => {
         query += ' AND c.slug = ?';
       }
       params.push(category);
+    }
+
+    if (!currentUser || ![1, 2, 3].includes(currentUser.role_id)) {
+      query += ` AND a.status = 'published'`;
     }
 
     
@@ -88,12 +93,45 @@ articlesRouter.get('/', async (c) => {
   }
 });
 
+// Get broadcast videos list (YouTube links)
+articlesRouter.get('/broadcast/videos', async (c) => {
+  try {
+    const db = c.env.DB;
+    const { results } = await db.prepare(`
+      SELECT
+        a.article_id,
+        a.title,
+        a.slug,
+        a.youtube_embed_id,
+        a.featured_image_url,
+        a.created_at,
+        c.slug as category_slug,
+        c.name as category_name
+      FROM articles a
+      JOIN categories c ON a.category_id = c.category_id
+      WHERE c.parent_category = 'broadcast'
+        AND a.youtube_embed_id IS NOT NULL
+        AND a.youtube_embed_id != ''
+        AND a.status = 'published'
+      ORDER BY a.created_at DESC
+      LIMIT 50
+    `).all();
+
+    return c.json({ videos: results || [] });
+  } catch (error) {
+    console.error('Get broadcast videos error:', error);
+    return c.json({ error: 'Internal server error' }, 500);
+  }
+});
+
 // Get single article by slug
 articlesRouter.get('/:slug', async (c) => {
   try {
     const db = c.env.DB;
     const slug = c.req.param('slug');
-    
+    const user = c.get('user') as JWTPayload | null;
+    const previewToken = c.req.query('preview');
+
     const article = await db.prepare(`
       SELECT 
         a.*,
@@ -104,10 +142,22 @@ articlesRouter.get('/:slug', async (c) => {
       JOIN users u ON a.author_id = u.user_id
       JOIN categories c ON a.category_id = c.category_id
       WHERE a.slug = ?
-    `).bind(slug).first();
+    `).bind(slug).first() as (Article & { category_slug: string }) | null;
     
     if (!article) {
       return c.json({ error: 'Article not found' }, 404);
+    }
+
+    const isOperator = !!user && [1, 2, 3].includes(user.role_id);
+    let hasPreviewAccess = false;
+
+    if (previewToken) {
+      const payload = await verifyArticlePreviewToken(previewToken);
+      hasPreviewAccess = !!payload && payload.article_id === article.article_id && payload.slug === article.slug;
+    }
+
+    if (article.status !== 'published' && !isOperator && !hasPreviewAccess) {
+      return c.json({ error: 'Article is not published' }, 403);
     }
     
     // Increment view count
@@ -323,6 +373,140 @@ articlesRouter.delete('/:id', requireAuth, async (c) => {
     
   } catch (error) {
     console.error('Delete article error:', error);
+    return c.json({ error: 'Internal server error' }, 500);
+  }
+});
+
+// Submit draft article for editorial review
+
+// Generate preview link for unpublished article
+articlesRouter.post('/:id/preview-link', requireAuth, async (c) => {
+  try {
+    const user = c.get('user') as JWTPayload;
+    const articleId = parseInt(c.req.param('id'));
+    const db = c.env.DB;
+
+    const article = await db.prepare(
+      `SELECT a.article_id, a.slug, a.author_id, a.status, c.slug as category_slug
+       FROM articles a
+       JOIN categories c ON a.category_id = c.category_id
+       WHERE a.article_id = ?`
+    ).bind(articleId).first() as { article_id: number; slug: string; author_id: number; status: string; category_slug: string } | null;
+
+    if (!article) {
+      return c.json({ error: 'Article not found' }, 404);
+    }
+
+    const canPreview = article.author_id === user.user_id || canManageArticle(user, article.category_slug, 'read');
+    if (!canPreview) {
+      return c.json({ error: 'Insufficient permissions' }, 403);
+    }
+
+    const previewToken = await createArticlePreviewToken(article.article_id, article.slug);
+    const origin = new URL(c.req.url).origin;
+
+    return c.json({
+      preview_url: `${origin}/article/${article.slug}?preview=${previewToken}`,
+      expires_in: '7d'
+    });
+  } catch (error) {
+    console.error('Create preview link error:', error);
+    return c.json({ error: 'Internal server error' }, 500);
+  }
+});
+
+articlesRouter.post('/:id/submit', requireAuth, async (c) => {
+  try {
+    const user = c.get('user') as JWTPayload;
+    const articleId = parseInt(c.req.param('id'));
+    const db = c.env.DB;
+
+    const article = await db.prepare(
+      'SELECT article_id, author_id, status FROM articles WHERE article_id = ?'
+    ).bind(articleId).first() as { article_id: number; author_id: number; status: string } | null;
+
+    if (!article) {
+      return c.json({ error: 'Article not found' }, 404);
+    }
+
+    if (article.author_id !== user.user_id && user.role_id !== 1) {
+      return c.json({ error: 'Only the author can submit this article' }, 403);
+    }
+
+    if (!['draft', 'rejected'].includes(article.status)) {
+      return c.json({ error: 'Only draft/rejected article can be submitted' }, 400);
+    }
+
+    await db.prepare(
+      `UPDATE articles
+       SET status = 'submitted', updated_at = CURRENT_TIMESTAMP
+       WHERE article_id = ?`
+    ).bind(articleId).run();
+
+    return c.json({ message: 'Article submitted for editorial review' });
+  } catch (error) {
+    console.error('Submit article error:', error);
+    return c.json({ error: 'Internal server error' }, 500);
+  }
+});
+
+const reviewSchema = z.object({
+  action: z.enum(['start_review', 'approve', 'reject'])
+});
+
+// Editorial approval workflow
+articlesRouter.post('/:id/review', requireAuth, async (c) => {
+  try {
+    const user = c.get('user') as JWTPayload;
+    if (![1, 2].includes(user.role_id)) {
+      return c.json({ error: 'Only editor-in-chief/admin can review articles' }, 403);
+    }
+
+    const articleId = parseInt(c.req.param('id'));
+    const body = await c.req.json();
+    const validation = reviewSchema.safeParse(body);
+
+    if (!validation.success) {
+      return c.json({ error: 'Invalid input', details: validation.error.flatten() }, 400);
+    }
+
+    const db = c.env.DB;
+    const article = await db.prepare('SELECT article_id, status FROM articles WHERE article_id = ?')
+      .bind(articleId)
+      .first() as { article_id: number; status: string } | null;
+
+    if (!article) {
+      return c.json({ error: 'Article not found' }, 404);
+    }
+
+    const action = validation.data.action;
+
+    if (action === 'start_review' && article.status !== 'submitted') {
+      return c.json({ error: 'Only submitted article can move to review' }, 400);
+    }
+
+    if ((action === 'approve' || action === 'reject') && !['submitted', 'under_review'].includes(article.status)) {
+      return c.json({ error: 'Only submitted/under_review article can be approved or rejected' }, 400);
+    }
+
+    const nextStatus = action === 'start_review'
+      ? 'under_review'
+      : action === 'approve'
+        ? 'published'
+        : 'rejected';
+
+    const publishedAt = nextStatus === 'published' ? new Date().toISOString() : null;
+    await db.prepare(`
+      UPDATE articles
+      SET status = ?,
+          published_at = CASE WHEN ? IS NOT NULL THEN ? ELSE published_at END,
+          updated_at = CURRENT_TIMESTAMP
+      WHERE article_id = ?
+    `).bind(nextStatus, publishedAt, publishedAt, articleId).run();
+
+    return c.json({ message: `Article ${nextStatus} successfully`, status: nextStatus });
+  } catch (error) {
+    console.error('Review article error:', error);
     return c.json({ error: 'Internal server error' }, 500);
   }
 });

@@ -8,6 +8,7 @@ import articlesRouter from './routes/articles';
 import categoriesRouter from './routes/categories';
 import commentsRouter from './routes/comments';
 import calendarRouter from './routes/calendar';
+import adminRouter from './routes/admin';
 import pagesRouter from './routes/pages';
 import broadcastRouter from './routes/broadcast-page';
 import pagesBroadcastRouter from './routes/pages-broadcast';
@@ -32,6 +33,7 @@ app.route('/api/articles', articlesRouter);
 app.route('/api/categories', categoriesRouter);
 app.route('/api/comments', commentsRouter);
 app.route('/api/calendar', calendarRouter);
+app.route('/api/admin', adminRouter);
 
 // Page Routes
 app.route('/', pagesRouter);
@@ -838,6 +840,38 @@ app.get('/admin', (c) => {
                                 </div>
                             </div>
                         </div>
+
+
+                    <!-- Settings Section (Hidden by default) -->
+                    <div id="settingsSection" class="p-8 hidden">
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-xl font-semibold mb-2">메인 메뉴/사이트명 설정</h3>
+                            <p class="text-sm text-gray-500 mb-6">아래 값을 수정하면 헤더의 메인 메뉴 이름/링크/하위 메뉴를 즉시 반영할 수 있습니다.</p>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">로고 짧은 이름</label>
+                                    <input id="siteTitleShortInput" type="text" class="w-full border rounded px-3 py-2" placeholder="CHEPBS" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">로고 긴 설명</label>
+                                    <input id="siteTitleLongInput" type="text" class="w-full border rounded px-3 py-2" placeholder="Cheju Halla Educational Press & Broadcasting Station" />
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium mb-2">메뉴 JSON</label>
+                                <textarea id="menuItemsJsonInput" rows="16" class="w-full border rounded px-3 py-2 font-mono text-sm" placeholder='[{"label":"BROADCAST","href":"/broadcast","children":[{"label":"방송국소개","href":"/broadcast-intro"}]}]'></textarea>
+                                <p class="text-xs text-gray-500 mt-2">형식: [{'{'}"label","href","children":[{'{'}"label","href"{'}'}]{'}'}]</p>
+                            </div>
+
+                            <div class="flex gap-3">
+                                <button onclick="loadSiteSettings()" class="px-4 py-2 border rounded hover:bg-gray-100">불러오기</button>
+                                <button onclick="saveSiteSettings()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">저장</button>
+                            </div>
+                            <p id="siteSettingsStatus" class="mt-3 text-sm"></p>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
