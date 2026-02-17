@@ -1,6 +1,6 @@
 import { SignJWT, jwtVerify } from 'jose';
 import bcrypt from 'bcryptjs';
-import type { JWTPayload } from '../types';
+import type { ArticlePreviewPayload, JWTPayload } from '../types';
 
 const JWT_SECRET = new TextEncoder().encode(
   process.env.JWT_SECRET || 'jeju-halla-news-secret-key-2025'
@@ -56,3 +56,21 @@ export function extractYoutubeId(url: string): string | null {
   
   return null;
 }
+
+export async function createArticlePreviewToken(articleId: number, slug: string): Promise<string> {
+  return await new SignJWT({ article_id: articleId, slug } as any)
+    .setProtectedHeader({ alg: 'HS256' })
+    .setIssuedAt()
+    .setExpirationTime('7d')
+    .sign(JWT_SECRET);
+}
+
+export async function verifyArticlePreviewToken(token: string): Promise<ArticlePreviewPayload | null> {
+  try {
+    const { payload } = await jwtVerify(token, JWT_SECRET);
+    return payload as unknown as ArticlePreviewPayload;
+  } catch (error) {
+    return null;
+  }
+}
+

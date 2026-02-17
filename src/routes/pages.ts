@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import { HeaderComponent } from '../components/header';
 import { Footer } from '../components/footer';
+import { verifyArticlePreviewToken } from '../utils/auth';
 import type { CloudflareBindings } from '../types';
 
 const pagesRouter = new Hono<{ Bindings: CloudflareBindings }>();
@@ -124,9 +125,7 @@ const categoryPageTemplate = (categoryName: string, categorySlug: string, subCat
                                         <img src="\${article.featured_image_url}" alt="\${article.title}" 
                                              class="w-32 h-32 object-cover">
                                     \` : article.youtube_embed_id ? \`
-                                        <div class="w-32 h-32 bg-black flex items-center justify-center">
-                                            <i class="fab fa-youtube text-red-600 text-3xl"></i>
-                                        </div>
+                                        <img src="https://img.youtube.com/vi/${article.youtube_embed_id}/hqdefault.jpg" alt="${article.title}" class="w-32 h-32 object-cover">
                                     \` : \`
                                         <div class="w-32 h-32 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
                                             <i class="fas fa-newspaper text-gray-400 text-3xl"></i>
@@ -364,9 +363,7 @@ const subCategoryPageTemplate = (categoryName: string, categorySlug: string, par
                                         <img src="\${article.featured_image_url}" alt="\${article.title}" 
                                              class="w-32 h-32 object-cover">
                                     \` : article.youtube_embed_id ? \`
-                                        <div class="w-32 h-32 bg-black flex items-center justify-center">
-                                            <i class="fab fa-youtube text-red-600 text-3xl"></i>
-                                        </div>
+                                        <img src="https://img.youtube.com/vi/${article.youtube_embed_id}/hqdefault.jpg" alt="${article.title}" class="w-32 h-32 object-cover">
                                     \` : \`
                                         <div class="w-32 h-32 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
                                             <i class="fas fa-newspaper text-gray-400 text-3xl"></i>
@@ -637,7 +634,18 @@ pagesRouter.get('/article/:slug', async (c) => {
         </html>
       `, 404);
     }
-    
+    const previewToken = c.req.query('preview');
+    if (article.status !== 'published') {
+      if (!previewToken) {
+        return c.html('<h1>미리보기 링크가 필요합니다.</h1>', 403);
+      }
+
+      const payload = await verifyArticlePreviewToken(previewToken);
+      if (!payload || payload.article_id !== article.article_id || payload.slug !== article.slug) {
+        return c.html('<h1>유효하지 않은 미리보기 링크입니다.</h1>', 403);
+      }
+    }
+
     // Increment view count
     await db.prepare(
       'UPDATE articles SET view_count = view_count + 1 WHERE slug = ?'
@@ -1147,9 +1155,7 @@ pagesRouter.get('/articles', async (c) => {
                                   <img src="${article.featured_image_url}" alt="${article.title}" 
                                        class="w-full h-48 object-cover rounded-t-lg">
                               ` : article.youtube_embed_id ? `
-                                  <div class="w-full h-48 rounded-t-lg bg-black flex items-center justify-center">
-                                      <i class="fab fa-youtube text-red-600 text-5xl"></i>
-                                  </div>
+                                  <img src="https://img.youtube.com/vi/${article.youtube_embed_id}/hqdefault.jpg" alt="${article.title}" class="w-full h-48 object-cover rounded-t-lg">
                               ` : `
                                   <div class="w-full h-48 bg-gradient-to-br from-gray-200 to-gray-300 rounded-t-lg flex items-center justify-center">
                                       <i class="fas fa-newspaper text-gray-400 text-4xl"></i>

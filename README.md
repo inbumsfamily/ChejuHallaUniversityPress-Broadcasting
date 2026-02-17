@@ -104,6 +104,38 @@
 - **프로덕션**: https://jeju-halla-media.pages.dev
 - **GitHub**: https://github.com/inbumsfamily/ChejuHallaUniversityPress-Broadcasting
 
+## 빠른 접속/실행 방법
+
+### 1) 배포된 홈페이지 바로 접속
+- **메인 사이트 바로가기**: [https://jeju-halla-media.pages.dev](https://jeju-halla-media.pages.dev)
+- **최신 배포 바로가기**: [https://23698fd0.jeju-halla-media.pages.dev](https://23698fd0.jeju-halla-media.pages.dev)
+- **개발 서버 바로가기**: [https://3000-iplxodv5a27kcnt9garvb-6532622b.e2b.dev](https://3000-iplxodv5a27kcnt9garvb-6532622b.e2b.dev)
+
+### 2) 로컬에서 실행 (개발용)
+```bash
+# 1. 저장소 클론
+git clone https://github.com/inbumsfamily/ChejuHallaUniversityPress-Broadcasting.git
+cd ChejuHallaUniversityPress-Broadcasting
+
+# 2. 의존성 설치
+npm install
+
+# 3. D1 로컬 DB 마이그레이션 + 시드
+npm run db:migrate:local
+npm run db:seed
+
+# 4. 개발 서버 실행
+npm run dev
+```
+
+- 실행 후 브라우저에서 `http://localhost:5173` 접속
+- API 포함 워커 환경으로 확인하려면 `npm run dev:cf` 사용
+
+### 3) 관리자/편집 테스트 로그인
+- 관리자: `admin@chu.ac.kr / password123`
+- 편집기자: `editor@chu.ac.kr / password123`
+- 방송PD: `pd@chu.ac.kr / password123`
+
 ## 최신 디자인 업데이트
 ### 반응형 전폭 배너 시스템
 - 모든 카테고리 페이지에 전폭 배너 적용

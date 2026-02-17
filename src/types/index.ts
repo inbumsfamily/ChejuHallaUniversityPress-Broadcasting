@@ -34,7 +34,7 @@ export interface Article {
   author_name?: string;
   category_id: number;
   category_name?: string;
-  status: 'draft' | 'published' | 'archived';
+  status: 'draft' | 'submitted' | 'under_review' | 'published' | 'archived' | 'rejected';
   featured_image_url: string | null;
   youtube_embed_id: string | null;
   article_type: 'normal' | 'shorts';
@@ -82,6 +82,14 @@ export interface JWTPayload {
   nickname: string;
   role_id: number;
   role_name: string;
+  exp: number;
+  iat: number;
+}
+
+
+export interface ArticlePreviewPayload {
+  article_id: number;
+  slug: string;
   exp: number;
   iat: number;
 }

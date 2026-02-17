@@ -25,7 +25,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   try {
     const response = await axios.get(`${API_BASE}/auth/me`);
-    currentUser = response.data;
+    currentUser = response.data.user || response.data;
     
     // Check if user is admin or editor
     if (currentUser.role_id > 2) {
@@ -70,7 +70,8 @@ function showSection(sectionName) {
   document.querySelectorAll('nav a').forEach(link => {
     link.classList.remove('bg-gray-700');
   });
-  event.target.closest('a').classList.add('bg-gray-700');
+  const activeLink = document.querySelector(`nav a[href="#${sectionName}"]`);
+  if (activeLink) activeLink.classList.add('bg-gray-700');
 
   // Update section title
   const titles = {
@@ -103,6 +104,9 @@ function showSection(sectionName) {
       break;
     case 'comments':
       loadComments();
+      break;
+    case 'settings':
+      loadSiteSettings();
       break;
   }
 }
@@ -407,3 +411,103 @@ function getTimeAgo(date) {
   
   return '방금 전';
 }
+
+
+
+async function loadUsers() {
+  // TODO: users section template will consume this data when UI is expanded
+  try {
+    await axios.get(`${API_BASE}/admin/users`);
+  } catch (error) {
+    console.warn('Users section load skipped:', error?.response?.data || error.message);
+  }
+}
+
+async function loadCalendar() {
+  try {
+    await axios.get(`${API_BASE}/calendar`);
+  } catch (error) {
+    console.warn('Calendar section load skipped:', error?.response?.data || error.message);
+  }
+}
+
+async function loadComments() {
+  // 댓글 API는 article ID 단위 조회라 기본 섹션 진입 시에는 생략
+  return;
+}
+async function loadSiteSettings() {
+  const statusEl = document.getElementById('siteSettingsStatus');
+  if (statusEl) statusEl.textContent = '설정을 불러오는 중...';
+
+  try {
+    const response = await axios.get(`${API_BASE}/admin/site-config`);
+    const config = response.data.config || {};
+
+    const shortInput = document.getElementById('siteTitleShortInput');
+    const longInput = document.getElementById('siteTitleLongInput');
+    const menuInput = document.getElementById('menuItemsJsonInput');
+
+    if (shortInput) shortInput.value = config.site_title_short || '';
+    if (longInput) longInput.value = config.site_title_long || '';
+    if (menuInput) menuInput.value = JSON.stringify(config.menu_items || [], null, 2);
+
+    if (statusEl) {
+      statusEl.textContent = '설정을 불러왔습니다.';
+      statusEl.className = 'mt-3 text-sm text-green-600';
+    }
+  } catch (error) {
+    console.error('Failed to load site settings:', error);
+    if (statusEl) {
+      statusEl.textContent = '설정 불러오기에 실패했습니다.';
+      statusEl.className = 'mt-3 text-sm text-red-600';
+    }
+  }
+}
+
+async function saveSiteSettings() {
+  const statusEl = document.getElementById('siteSettingsStatus');
+  const shortInput = document.getElementById('siteTitleShortInput');
+  const longInput = document.getElementById('siteTitleLongInput');
+  const menuInput = document.getElementById('menuItemsJsonInput');
+
+  if (!shortInput || !longInput || !menuInput) return;
+
+  let menuItems;
+  try {
+    menuItems = JSON.parse(menuInput.value);
+  } catch (e) {
+    if (statusEl) {
+      statusEl.textContent = '메뉴 JSON 형식이 올바르지 않습니다.';
+      statusEl.className = 'mt-3 text-sm text-red-600';
+    }
+    return;
+  }
+
+  if (statusEl) {
+    statusEl.textContent = '저장 중...';
+    statusEl.className = 'mt-3 text-sm text-gray-600';
+  }
+
+  try {
+    await axios.put(`${API_BASE}/admin/site-config`, {
+      config: {
+        site_title_short: shortInput.value.trim(),
+        site_title_long: longInput.value.trim(),
+        menu_items: menuItems
+      }
+    });
+
+    if (statusEl) {
+      statusEl.textContent = '저장되었습니다. 메인 페이지를 새로고침하면 반영됩니다.';
+      statusEl.className = 'mt-3 text-sm text-green-600';
+    }
+  } catch (error) {
+    console.error('Failed to save site settings:', error);
+    const message = error?.response?.data?.error || '설정 저장에 실패했습니다.';
+    if (statusEl) {
+      statusEl.textContent = message;
+      statusEl.className = 'mt-3 text-sm text-red-600';
+    }
+  }
+}
+

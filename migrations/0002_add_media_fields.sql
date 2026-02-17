@@ -1,3 +1,3 @@
--- Add media fields to articles table
-ALTER TABLE articles ADD COLUMN featured_image_url TEXT;
-ALTER TABLE articles ADD COLUMN youtube_embed_id TEXT;
+-- compatibility migration: keep as no-op for older environments where media columns already exist in 0001
+CREATE INDEX IF NOT EXISTS idx_articles_published_at ON articles(published_at);
+CREATE INDEX IF NOT EXISTS idx_articles_youtube_embed_id ON articles(youtube_embed_id);

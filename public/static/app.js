@@ -20,6 +20,14 @@ axios.interceptors.request.use(
 
 // Removed loadLatestArticles function - LATEST ARTICLES section has been deleted
 
+
+function getArticleThumbnail(article, fallbackSeed = 0) {
+  if (article.featured_image_url) return article.featured_image_url;
+  if (article.youtube_embed_id) return `https://img.youtube.com/vi/${article.youtube_embed_id}/hqdefault.jpg`;
+  return `https://picsum.photos/800/500?random=${fallbackSeed || Date.now()}`;
+}
+
+
 // Load newspaper articles
 async function loadNewspaperArticles() {
   try {
@@ -31,11 +39,7 @@ async function loadNewspaperArticles() {
         <a href="/article/${article.slug}" class="block">
           <article class="bg-white/10 border border-white/20 overflow-hidden hover:border-white/40 transition-all duration-300 cursor-pointer group backdrop-blur-sm hover:bg-white/20 rounded-lg h-full">
             <div class="relative overflow-hidden h-48">
-              ${article.featured_image_url ? `
-                <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
-              ` : `
-                <img src="https://picsum.photos/400/300?random=${index + 100 + Date.now()}" alt="${article.title}" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
-              `}
+              <img src="${getArticleThumbnail(article, index + 100)}" alt="${article.title}" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
               <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
             </div>
             <div class="p-6">
@@ -367,26 +371,16 @@ async function loadBroadcastContent() {
       broadcastSection.innerHTML = response.data.articles.map(article => `
         <a href="/article/${article.slug}" class="block">
           <article class="bg-white/10 backdrop-blur rounded-lg overflow-hidden hover:bg-white/20 transition-all cursor-pointer border border-white/20 h-full">
-            ${article.youtube_embed_id ? `
-              <div class="aspect-video bg-black relative" onclick="event.preventDefault(); event.stopPropagation(); window.open('https://www.youtube.com/watch?v=${article.youtube_embed_id}', '_blank')">
-                <iframe 
-                  width="100%" 
-                  height="100%" 
-                  src="https://www.youtube.com/embed/${article.youtube_embed_id}" 
-                  frameborder="0" 
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                  allowfullscreen
-                ></iframe>
-              </div>
-            ` : article.featured_image_url ? `
-              <img src="${article.featured_image_url}" alt="${article.title}" class="w-full h-48 object-cover">
-            ` : `
-              <div class="aspect-video bg-gray-300 relative">
-                <div class="absolute inset-0 flex items-center justify-center">
-                  <i class="fas fa-play-circle text-white text-4xl"></i>
-                </div>
-              </div>
-            `}
+            <div class="aspect-video relative overflow-hidden">
+              <img src="${getArticleThumbnail(article)}" alt="${article.title}" class="w-full h-full object-cover">
+              ${article.youtube_embed_id ? `
+                <button class="absolute inset-0 bg-black/25 flex items-center justify-center" onclick="event.preventDefault(); event.stopPropagation(); window.open('https://www.youtube.com/watch?v=${article.youtube_embed_id}', '_blank')">
+                  <span class="w-16 h-16 rounded-full bg-red-600/90 flex items-center justify-center text-white text-2xl">
+                    <i class="fas fa-play ml-1"></i>
+                  </span>
+                </button>
+              ` : ''}
+            </div>
             <div class="p-4">
               <span class="text-xs text-blue-200 font-semibold">${article.category_name || '방송국'}</span>
               <h3 class="text-lg font-bold mt-2 mb-2 line-clamp-2 text-white group-hover:text-blue-200">

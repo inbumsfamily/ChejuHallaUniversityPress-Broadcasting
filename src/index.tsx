@@ -8,6 +8,7 @@ import articlesRouter from './routes/articles';
 import categoriesRouter from './routes/categories';
 import commentsRouter from './routes/comments';
 import calendarRouter from './routes/calendar';
+import adminRouter from './routes/admin';
 import pagesRouter from './routes/pages';
 import broadcastRouter from './routes/broadcast-page';
 import pagesBroadcastRouter from './routes/pages-broadcast';
@@ -32,6 +33,7 @@ app.route('/api/articles', articlesRouter);
 app.route('/api/categories', categoriesRouter);
 app.route('/api/comments', commentsRouter);
 app.route('/api/calendar', calendarRouter);
+app.route('/api/admin', adminRouter);
 
 // Page Routes
 app.route('/', pagesRouter);
@@ -94,203 +96,7 @@ app.get('/', (c) => {
             </section>
             
             <!-- Slider Script -->
-            <script>
-                // Banner configuration - can be managed by admin later
-                const bannerData = [
-                    {
-                        type: 'image',
-                        src: '/static/images/banners/banner1.jpg',
-                        title: '캘리포니아 폴리테크닉 주립대학교 방문',
-                        subtitle: '국제 교류 협력 강화',
-                        link: '/article/california-polytechnic-visit'
-                    },
-                    {
-                        type: 'image',
-                        src: '/static/images/banners/banner2.jpg',
-                        title: '제주한라대학교 메인 캠퍼스',
-                        subtitle: '빛나는 제주의 교육 중심지',
-                        link: '/campus'
-                    },
-                    {
-                        type: 'image',
-                        src: '/static/images/banners/banner3.jpg',
-                        title: '2022 청춘대홍제',
-                        subtitle: '빛나는 청춘의 축제',
-                        link: '/article/2022-youth-festival'
-                    },
-                    {
-                        type: 'image',
-                        src: '/static/images/banners/banner4.jpg',
-                        title: 'CAPSTONE DESIGN 경진대회 2022',
-                        subtitle: 'LINC 3.0 사업 성과 발표',
-                        link: '/article/capstone-design-2022'
-                    },
-                    {
-                        type: 'image',
-                        src: '/static/images/banners/banner5.jpg',
-                        title: 'JOY현장대 우수기업 방문',
-                        subtitle: '산학협력 프로그램',
-                        link: '/article/joy-company-visit'
-                    },
-                    {
-                        type: 'youtube',
-                        videoId: 'dQw4w9WgXcQ', // 예시 YouTube ID
-                        title: '2025학년도 신입생 환영 영상',
-                        subtitle: '제주한라대학교의 새로운 시작',
-                        thumbnail: '/static/images/banners/banner1.jpg' // YouTube 썸네일 대체
-                    }
-                ];
-                
-                let currentSlide = 0;
-                let slideInterval;
-                
-                // Initialize slider
-                function initSlider() {
-                    const container = document.getElementById('slidesContainer');
-                    const indicators = document.getElementById('slideIndicators');
-                    
-                    // Create slides
-                    container.innerHTML = bannerData.map((banner, index) => {
-                        if (banner.type === 'youtube') {
-                            return \`
-                                <div class="slide absolute inset-0 transition-opacity duration-700 \${index === 0 ? 'opacity-100' : 'opacity-0'}" data-index="\${index}">
-                                    <div class="relative h-full">
-                                        <img src="\${banner.thumbnail}" alt="\${banner.title}" class="w-full h-full object-cover transition-all duration-500 hover-color-image">
-                                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                                            <button onclick="playYouTubeVideo('\${banner.videoId}')" class="bg-red-600 hover:bg-red-700 text-white rounded-full w-20 h-20 flex items-center justify-center transition-all transform hover:scale-110">
-                                                <i class="fas fa-play text-3xl ml-1"></i>
-                                            </button>
-                                        </div>
-                                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-8">
-                                            <h2 class="text-3xl lg:text-4xl font-bold text-white mb-2">\${banner.title}</h2>
-                                            <p class="text-lg text-gray-200">\${banner.subtitle}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            \`;
-                        } else {
-                            return \`
-                                <div class="slide absolute inset-0 transition-opacity duration-700 \${index === 0 ? 'opacity-100' : 'opacity-0'}" data-index="\${index}">
-                                    <a href="\${banner.link || '#'}" class="block relative h-full">
-                                        <img src="\${banner.src}" alt="\${banner.title}" class="w-full h-full object-cover transition-all duration-500 hover-color-image">
-                                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-8">
-                                            <h2 class="text-3xl lg:text-4xl font-bold text-white mb-2">\${banner.title}</h2>
-                                            <p class="text-lg text-gray-200">\${banner.subtitle}</p>
-                                        </div>
-                                    </a>
-                                </div>
-                            \`;
-                        }
-                    }).join('');
-                    
-                    // Create indicators
-                    indicators.innerHTML = bannerData.map((_, index) => \`
-                        <button class="indicator w-3 h-3 rounded-full transition-all \${index === 0 ? 'bg-white w-8' : 'bg-white/50'}" data-index="\${index}" onclick="goToSlide(\${index})"></button>
-                    \`).join('');
-                    
-                    // Start auto-play
-                    startAutoPlay();
-                }
-                
-                // Go to specific slide
-                function goToSlide(index) {
-                    const slides = document.querySelectorAll('.slide');
-                    const indicators = document.querySelectorAll('.indicator');
-                    
-                    // Hide current slide
-                    slides[currentSlide].classList.remove('opacity-100');
-                    slides[currentSlide].classList.add('opacity-0');
-                    indicators[currentSlide].classList.remove('bg-white', 'w-8');
-                    indicators[currentSlide].classList.add('bg-white/50');
-                    
-                    // Show new slide
-                    currentSlide = index;
-                    slides[currentSlide].classList.remove('opacity-0');
-                    slides[currentSlide].classList.add('opacity-100');
-                    indicators[currentSlide].classList.remove('bg-white/50');
-                    indicators[currentSlide].classList.add('bg-white', 'w-8');
-                }
-                
-                // Next slide
-                function nextSlideFunc() {
-                    const nextIndex = (currentSlide + 1) % bannerData.length;
-                    goToSlide(nextIndex);
-                }
-                
-                // Previous slide
-                function prevSlideFunc() {
-                    const prevIndex = (currentSlide - 1 + bannerData.length) % bannerData.length;
-                    goToSlide(prevIndex);
-                }
-                
-                // Auto-play
-                function startAutoPlay() {
-                    stopAutoPlay();
-                    slideInterval = setInterval(nextSlideFunc, 5000); // Change slide every 5 seconds
-                }
-                
-                function stopAutoPlay() {
-                    if (slideInterval) {
-                        clearInterval(slideInterval);
-                    }
-                }
-                
-                // Play YouTube video in modal
-                function playYouTubeVideo(videoId) {
-                    // Create modal
-                    const modal = document.createElement('div');
-                    modal.className = 'fixed inset-0 bg-black/90 flex items-center justify-center z-50';
-                    modal.innerHTML = \`
-                        <div class="relative w-full max-w-4xl mx-4">
-                            <button onclick="this.parentElement.parentElement.remove()" class="absolute -top-12 right-0 text-white text-3xl hover:text-gray-300">
-                                <i class="fas fa-times"></i>
-                            </button>
-                            <div class="relative pb-[56.25%]">
-                                <iframe 
-                                    src="https://www.youtube.com/embed/\${videoId}?autoplay=1" 
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen
-                                    class="absolute inset-0 w-full h-full"
-                                ></iframe>
-                            </div>
-                        </div>
-                    \`;
-                    document.body.appendChild(modal);
-                    
-                    // Stop auto-play when video is playing
-                    stopAutoPlay();
-                    
-                    // Resume auto-play when modal is closed
-                    modal.addEventListener('click', function(e) {
-                        if (e.target === modal) {
-                            modal.remove();
-                            startAutoPlay();
-                        }
-                    });
-                }
-                
-                // Event listeners
-                document.addEventListener('DOMContentLoaded', function() {
-                    initSlider();
-                    
-                    // Navigation buttons
-                    document.getElementById('nextSlide').addEventListener('click', function() {
-                        nextSlideFunc();
-                        startAutoPlay(); // Reset auto-play timer
-                    });
-                    
-                    document.getElementById('prevSlide').addEventListener('click', function() {
-                        prevSlideFunc();
-                        startAutoPlay(); // Reset auto-play timer
-                    });
-                    
-                    // Pause on hover
-                    const slider = document.getElementById('heroSlider');
-                    slider.addEventListener('mouseenter', stopAutoPlay);
-                    slider.addEventListener('mouseleave', startAutoPlay);
-                });
-            </script>
+            <script src="/static/main-slider.js"></script>
 
             <!-- Main Content -->
             <main class="relative z-10">
@@ -838,6 +644,38 @@ app.get('/admin', (c) => {
                                 </div>
                             </div>
                         </div>
+
+
+                    <!-- Settings Section (Hidden by default) -->
+                    <div id="settingsSection" class="p-8 hidden">
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-xl font-semibold mb-2">메인 메뉴/사이트명 설정</h3>
+                            <p class="text-sm text-gray-500 mb-6">아래 값을 수정하면 헤더의 메인 메뉴 이름/링크/하위 메뉴를 즉시 반영할 수 있습니다.</p>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">로고 짧은 이름</label>
+                                    <input id="siteTitleShortInput" type="text" class="w-full border rounded px-3 py-2" placeholder="CHEPBS" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">로고 긴 설명</label>
+                                    <input id="siteTitleLongInput" type="text" class="w-full border rounded px-3 py-2" placeholder="Cheju Halla Educational Press & Broadcasting Station" />
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium mb-2">메뉴 JSON</label>
+                                <textarea id="menuItemsJsonInput" rows="16" class="w-full border rounded px-3 py-2 font-mono text-sm" placeholder='[{"label":"BROADCAST","href":"/broadcast","children":[{"label":"방송국소개","href":"/broadcast-intro"}]}]'></textarea>
+                                <p class="text-xs text-gray-500 mt-2">형식: [{'{'}"label","href","children":[{'{'}"label","href"{'}'}]{'}'}]</p>
+                            </div>
+
+                            <div class="flex gap-3">
+                                <button onclick="loadSiteSettings()" class="px-4 py-2 border rounded hover:bg-gray-100">불러오기</button>
+                                <button onclick="saveSiteSettings()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">저장</button>
+                            </div>
+                            <p id="siteSettingsStatus" class="mt-3 text-sm"></p>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
