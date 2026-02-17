@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import { HeaderComponent } from '../components/header';
 import { Footer } from '../components/footer';
+import { verifyArticlePreviewToken } from '../utils/auth';
 import type { CloudflareBindings } from '../types';
 
 const pagesRouter = new Hono<{ Bindings: CloudflareBindings }>();
@@ -637,7 +638,18 @@ pagesRouter.get('/article/:slug', async (c) => {
         </html>
       `, 404);
     }
-    
+    const previewToken = c.req.query('preview');
+    if (article.status !== 'published') {
+      if (!previewToken) {
+        return c.html('<h1>미리보기 링크가 필요합니다.</h1>', 403);
+      }
+
+      const payload = await verifyArticlePreviewToken(previewToken);
+      if (!payload || payload.article_id !== article.article_id || payload.slug !== article.slug) {
+        return c.html('<h1>유효하지 않은 미리보기 링크입니다.</h1>', 403);
+      }
+    }
+
     // Increment view count
     await db.prepare(
       'UPDATE articles SET view_count = view_count + 1 WHERE slug = ?'
